@@ -79,7 +79,7 @@ public class ProductDao {
 
 
     public void save(Product entity) {
-        sessionFactory.getCurrentSession().persist(entity);
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
 

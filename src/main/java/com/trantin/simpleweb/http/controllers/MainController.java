@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,18 +62,71 @@ public class MainController {
         return "main-page";
     }
 
+    @RequestMapping(value = "/products")
+    public String productsView(Model model) throws UnsupportedEncodingException {
+
+        model.addAttribute("newProduct", new Product());
+        model.addAttribute("newUnit", new Unit());
+        model.addAttribute("newManufacturer", new Manufacturer());
+        model.addAttribute("newClient", new Client());
+        model.addAttribute("newDetails", new Details());
+        model.addAttribute("newOrder", new Order());
+        model.addAttribute("newCategory", new Category());
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+        model.addAttribute("products", productDao.getAll());
+        model.addAttribute("units", unitDao.getAll());
+        model.addAttribute("categories", categoryDao.getAll());
+        model.addAttribute("manufacturers", manufacturerDao.getAll());
+        model.addAttribute("orders", orderDao.getAll());
+        model.addAttribute("clients", clientDao.getAll());
+        model.addAttribute("details", detailsDao.getAll());
+
+        return "products-view";
+    }
+
 
     @RequestMapping(value = "/product")
-    public String saveProduct(Model model){
+    public String productView(Model model){
         Product product = new Product();
 
         model.addAttribute("product", product);
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+        return "product-view";
+    }
+
+    @RequestMapping("/updateProduct")
+    public String productViewById(@RequestParam("productId") int id, Model model){
+        model.addAttribute("product", productDao.getById(id));
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+        return "product-view";
+    }
+
+
+    @RequestMapping("/product/{id}")
+    public String productViewById(Model model, @PathVariable int id){
+        model.addAttribute("product", productDao.getById(id));
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         return "product-view";
     }
 
     @RequestMapping(value = "/saveProduct")
-    public String saveProductOld(@ModelAttribute("newProduct") Product product,
+    public String saveProduct(@ModelAttribute("newProduct") Product product,
                               @RequestParam("unit") int unitId,
                               @RequestParam("category") int categoryId,
                               @RequestParam("manufacturer") int manufacturerId) {
@@ -81,13 +135,11 @@ public class MainController {
         product.setCategory(categoryDao.getById(categoryId));
         product.setManufacturer(manufacturerDao.getById(manufacturerId));
 
-        //product.setName(new String(product.getName().getBytes("ISO-8859-1"), "UTF-8"));
-
         System.out.println(product);
 
         productDao.save(product);
 
-        return "redirect:/test";
+        return "redirect:/products";
     }
 
     @RequestMapping(value = "/saveUnit")
@@ -105,7 +157,7 @@ public class MainController {
 
         manufacturerDao.save(manufacturer);
 
-        return "redirect:/test";
+        return "redirect:/main";
     }
 
     @RequestMapping(value = "/saveCategory")

@@ -22,24 +22,28 @@ public class Product {
     private double cost;
 
     @JoinColumn(name = "unit_id")
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Unit unit;
 
     @JoinColumn(name = "category_id")
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Category category;
 
     @Column(name = "description")
     private String description;
 
     @JoinColumn(name = "details_id")
-    @ManyToOne(cascade = {CascadeType.MERGE},
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.EAGER)
     private Details details;
 
     @JoinColumn(name = "manufacturer_id")
     @ManyToOne
     private Manufacturer manufacturer;
+
+    @Column(name = "article")
+    private String article;
+
 
     public Product() {}
 
@@ -60,11 +64,12 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", number=" + number +
                 ", cost=" + cost +
-                ", unit=" + unit.getName() +
-                ", category=" + category.getName() +
+                ", unit=" + unit +
+                ", category=" + category +
                 ", description='" + description + '\'' +
                 ", details=" + details +
-                ", manufacturer=" + manufacturer.getName() +
+                ", manufacturer=" + manufacturer +
+                ", article='" + article + '\'' +
                 '}';
     }
 
@@ -138,5 +143,13 @@ public class Product {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public void setArticle(String article) {
+        this.article = article;
     }
 }
