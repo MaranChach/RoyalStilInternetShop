@@ -1,6 +1,8 @@
 package com.trantin.simpleweb.http.controllers;
 
+import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Employee;
+import com.trantin.simpleweb.http.entity.Product;
 import com.trantin.simpleweb.http.exceptions.NoSuchEmployeeException;
 import com.trantin.simpleweb.http.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,15 @@ public class RESTController {
     @Autowired
     private EmployeeService employeeService;
 
-    
+    @Autowired
+    private ProductDao productDao;
+
+
+    @GetMapping("/products")
+    public List<Product> getProducts(){
+        return productDao.getAll();
+    }
+
     @GetMapping("/employees")
     public List<Employee> getAllEmlpoyees(){
         List<Employee> list = employeeService.getAllEmployees();

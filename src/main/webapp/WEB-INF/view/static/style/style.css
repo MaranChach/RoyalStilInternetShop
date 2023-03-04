@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: #eeeeee;
+
 }
 
 .text-header{
@@ -26,6 +26,12 @@ body{
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: gray;
+}
+
+.text-main{
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: black;
 }
 
 .text-logo{
@@ -48,6 +54,7 @@ body{
     color: gray;
     flex: 1;
 }
+
 
 .content{
     display: flex;
@@ -111,6 +118,7 @@ body{
 .main-panel{
     float: right;
     width: 82%;
+    background-color: #eeeeee;
 }
 
 .panel{
@@ -371,4 +379,349 @@ body{
 
 .product-nav-block{
     padding: 20px 0 0 20px;
+}
+
+
+
+.shop-main-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.shop-top-bar{
+    height: 50px;
+    width: 1200px;
+    border-bottom: darkgray solid 1px;
+}
+
+.shop-main-bar{
+    height: 100px;
+    display: flex;
+    width: 1200px;
+}
+
+.shop-logo-bar{
+    float: left;
+    height: 100%;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop-search{
+    border: none;
+    border-radius: 3px;
+    background-color: #dddddd;
+    color: grey;
+    height: 50px;
+    width: 100%;
+    margin: 10px;
+    padding: 0 0 0 25px;
+}
+
+.shop-search:hover{
+    box-shadow: 0 0 8px gainsboro;
+}
+
+.shop-search-bar{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop-phone-number-bar{
+    float: right;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-buttons-bar{
+    width: 180px;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-nav-button{
+    border: none;
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px 0 5px;
+}
+
+.shop-navbar{
+    width: 1200px;
+    height: 60px;
+    display: flex;
+}
+
+.shop-info-bar{
+    flex: 1;
+    height: 100%;
+}
+
+.shop-catalog-bar{
+    width: 250px;
+    height: 100%;
+}
+
+.catalog-button{
+    height: 50px;
+    width: 90%;
+    margin: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: #232323;
+    color: white;
+}
+
+.shop-info-buttons-bar{
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 3px;
+    height: 50px;
+    width: 100%;
+}
+
+.shop-content{
+    display: flex;
+    width: 1200px;
+    height: 1500px;
+}
+
+.shop-categories-bar{
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.shop-playground{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop-categories-button{
+    height: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: black;
+    border-bottom: gainsboro solid 1px;
+}
+
+.shop-categories-button:hover{
+    background-color: #eeeeee;
+}
+
+.shop-categories-buttons-bar{
+    margin-top: 10px;
+    border-radius: 3px;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 1px 3px darkgray;
+}
+
+.shop-categories-buttons-bar:hover{
+    box-shadow: 0 2px 5px darkgray;
+}
+
+.shop-radius-catalog {
+
+}
+
+.shop-images-slider{
+    height: 400px;
+    background-color: #dddddd;
+    margin: 10px 5px 0 5px;
+    border-radius: 3px;
+    width: 100%;
+    background: url("https://sun9-22.userapi.com/impg/WGnwtBIOEiCYBeb0AcKcVD0RA3Ot8OhpCsuKzw/PUWhNbMEb-M.jpg?size=807x531&quality=95&sign=4b3c599e4b0db24fa8861ad7c0224960&type=album");
+    background-position: top;
+}
+
+.shop-images-bar{
+    height: 400px;
+    width: 100%;
+
+}
+
+.shop-benefits-bar{
+
+
+    width: 100%;
+    height: 200px;
+    margin: 20px 5px 5px 5px;
+    background-color: gainsboro;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-benefits-bar-item{
+    width: 130px;
+    height: 100%;
+    margin: 0 40px 0 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shop-benefits-bar-item-image{
+    float: top;
+    height: 80px;
+}
+
+.shop-benefits-image{
+    height: 50px;
+    width: 50px;
+    margin-top: 10px;
+}
+
+.shop-benefits-bar-item-text{
+    float: bottom;
+    height: 80px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: dimgray;
+}
+
+.shop-new-products-bar{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-new-products-header{
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: dimgray;
+
+    margin: 10px 0 10px 10px;
+}
+
+.shop-products-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shop-product{
+    border-radius: 3px;
+    width: 30%;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    background-color: #dddddd;
+}
+
+.shop-product-info-bar{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.shop-product-image-bar{
+    width: 100%;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop-product-image{
+    width: 100%;
+    height: 100%;
+}
+
+.shop-product-title{
+    text-align: left;
+    margin: 10px 10px 0 10px;
+}
+
+.shop-product-cost{
+    text-align: left;
+    margin: 10px;
+}
+
+.shop-product-buy-button{
+    background-color: dodgerblue;
+    color: white;
+
+    height: 40px;
+    width: 100px;
+
+    margin: 10px;
+
+    border: none;
+    border-radius: 3px;
+}
+
+.shop-product-buy-button:hover{
+    background-color: deepskyblue;
+}
+
+.shop-product-buy-button-bar{
+
+}
+
+.shop-news-bar{
+    margin-top: 30px;
+    float: left;
+    width: 100%;
+}
+
+.shop-news-header{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.shop-news-item{
+    margin-bottom: 20px;
+}
+
+.shop-news-text{
+    margin-left: 10px;
+}
+
+.shop-news-date{
+    margin: 10px 0 0 10px;
+}
+
+.shop-description-bar{
+    margin-top: 30px;
+    width: 100%;
+}
+
+.shop-footer{
+    background-color: #eeeeee;
+    height: 150px;
+    margin-top: -150px;
 }
