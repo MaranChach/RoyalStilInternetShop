@@ -205,10 +205,40 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 
     <div class="shop-footer">
-
+        <div class="shop-footer-column">
+            <div class="shop-footer-column-header text-main">
+                Информация
+            </div>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+        </div>
+        <div class="shop-footer-column">
+            <div class="shop-footer-column-header text-main">
+                Информация
+            </div>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+        </div>
+        <div class="shop-footer-column">
+            <div class="shop-footer-column-header text-main">
+                Информация
+            </div>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+            <a class="text-main">О магазине</a>
+        </div>
     </div>
+
 </body>
 </html>

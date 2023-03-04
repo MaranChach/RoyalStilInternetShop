@@ -6,7 +6,7 @@
 }
 
 body{
-
+    height: 100%;
 }
 
 .text-header{
@@ -384,12 +384,14 @@ body{
 
 
 .shop-main-container{
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 100%;
     flex-wrap: wrap;
     align-content: center;
+    padding-bottom: 350px;
 }
 
 .shop-top-bar{
@@ -496,7 +498,8 @@ body{
 .shop-content{
     display: flex;
     width: 1200px;
-    height: 1500px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .shop-categories-bar{
@@ -722,6 +725,21 @@ body{
 
 .shop-footer{
     background-color: #eeeeee;
-    height: 150px;
-    margin-top: -150px;
+    height: 240px;
+    margin-top: -240px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.shop-footer-column{
+    height: 100%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-footer-column-header{
+    margin-top: 50px;
+    margin-bottom: 10px;
 }
