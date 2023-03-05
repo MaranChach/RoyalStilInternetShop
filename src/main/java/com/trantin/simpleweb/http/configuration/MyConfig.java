@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.annotation.Resources;
@@ -28,7 +30,7 @@ import java.util.Properties;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource("classpath:/application.properties")
-public class MyConfig {
+public class MyConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource dataSource(){
@@ -81,4 +83,8 @@ public class MyConfig {
         return resolver;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/sources/**").addResourceLocations("/sources/");
+    }
 }

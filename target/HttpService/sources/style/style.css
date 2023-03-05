@@ -552,11 +552,35 @@ body{
 .shop-images-slider{
     height: 400px;
     background-color: #dddddd;
-    margin: 10px 5px 0 5px;
+    margin-top: 10px;
     border-radius: 3px;
+    width: 947px;
+    overflow: hidden;
+}
+
+.shop-slider-line{
+    width: 3800px;
+    height: 400px;
+    display: flex;
+    position: relative;
+    right: 0px;
+    transition: 1s;
+}
+
+.shop-slider-buttons-bar{
+    height: 50px;
+    display: flex;
     width: 100%;
-    background: url("https://sun9-22.userapi.com/impg/WGnwtBIOEiCYBeb0AcKcVD0RA3Ot8OhpCsuKzw/PUWhNbMEb-M.jpg?size=807x531&quality=95&sign=4b3c599e4b0db24fa8861ad7c0224960&type=album");
-    background-position: top;
+}
+
+.shop-slider-button-left{
+    height: 30px;
+    width: 20px;
+}
+
+.shop-slider-button-right{
+    height: 30px;
+    width: 20px;
 }
 
 .shop-images-bar{

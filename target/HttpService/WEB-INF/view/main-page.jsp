@@ -11,9 +11,7 @@
 <html>
 <head>
     <title>Title</title>
-    <style>
-        <%@include file="static/style/style.css"%>
-    </style>
+    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
 </head>
 <body>
     <div class="top-bar">

@@ -139,7 +139,7 @@
 </div>
 
 <script charset="UTF-8" type="text/javascript">
-   <%@include file="static/js/script.js"%>
+   <%@include file="../../sources/script/script.js"%>
 </script>
 </body>
 </html>
