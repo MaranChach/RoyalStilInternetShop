@@ -12,4 +12,18 @@ public class ShopController {
         return "shop-main-page";
     }
 
+    @RequestMapping("/catalog")
+    public String getCatalogPage(){
+        return "shop-catalog-page";
+    }
+
+    @RequestMapping("/category")
+    public String getCategoryPage(){
+        return "shop-category-page";
+    }
+
+    @RequestMapping("/product")
+    public String getProductPage(){
+        return "shop-product-page";
+    }
 }

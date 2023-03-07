@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 
 @Controller
-@RequestMapping(produces = "text/html; charset=UTF-8")
+@RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
 public class CRMController {
 
     //region DAO

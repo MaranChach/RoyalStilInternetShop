@@ -1,8 +1,9 @@
+
 let offset = 0;
 
 const lineClass = document.querySelector(".shop-slider-line");
 
-document.querySelector(".shop-slider-button-right").addEventListener('click', function () {
+document.querySelector(".shop-button-right").addEventListener('click', function () {
     if (offset >= 2850){
         offset = 0;
     }
@@ -12,7 +13,7 @@ document.querySelector(".shop-slider-button-right").addEventListener('click', fu
     lineClass.style.right = offset + "px";
 });
 
-document.querySelector(".shop-slider-button-left").addEventListener('click', function () {
+document.querySelector(".shop-button-left").addEventListener('click', function () {
     if (offset <= 0){
         offset = 2850;
     }

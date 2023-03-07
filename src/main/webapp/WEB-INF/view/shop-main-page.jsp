@@ -12,11 +12,16 @@
     <title>Title</title>
 
     <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+
+    <style>
+        <%@include file="/sources/style/style.css"%>
+    </style>
 </head>
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-
+            <a class="text-main" style="float: right;" href="#">Личный кабинет</a>
+            <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
@@ -51,8 +56,8 @@
 
         <div class="shop-navbar">
             <div class="shop-catalog-bar center">
-                <button class="catalog-button">
-
+                <button onclick="window.location.href='catalog'" class="catalog-button">
+                    Каталог
                 </button>
             </div>
             <div class="shop-info-bar center">
@@ -113,9 +118,8 @@
                         <img src="<c:url value="/sources/images/pjZjugxlwEE.jpg"/> " alt="">
                     </div>
                 </div>
-
                 <div class="shop-slider-buttons-bar">
-                    <button class="shop-slider-button-left">
+                    <button class="shop-slider-button shop-button-left">
 
                     </button>
 
@@ -123,7 +127,7 @@
 
                     </div>
 
-                    <button class="shop-slider-button-right">
+                    <button class="shop-slider-button shop-button-right">
 
                     </button>
                 </div>
@@ -179,17 +183,17 @@
 
                             </div>
                             <div class="shop-product-info-bar">
-                                <div class="shop-product-title text-header">
+                                <div class="shop-product-title text-product">
                                     Товарный товар товара товару
                                 </div>
-                                <div class="shop-product-cost text-header">
-                                    1234
+                                <div class="shop-product-cost text-product">
+                                    1234.00 руб.
                                 </div>
                                 <div class="shop-product-buy-button-bar">
-                                    <button class="shop-product-buy-button text-item">
+                                    <button class="shop-product-buy-button text-product-buttons">
                                         В корзину
                                     </button>
-                                    <button class="shop-product-buy-button text-item">
+                                    <button class="shop-product-buy-button text-product-buttons">
                                         Купить
                                     </button>
                                 </div>
@@ -207,19 +211,13 @@
                 </div>
 
                 <div class="shop-description-bar text-main">
-                    <p>
-                        Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то, что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда актуальным, цены доступными, сервис лучшим.
-
-                    </p>
+                    <p>Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то, что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда актуальным, цены доступными, сервис лучшим.</p>
                     <br>
-                    <p>                    Предлагаем Вам убедится в этом и сделать заказ в нашем интернет-магазине. Вы сможете быстро оплатить и получить заказ. Подробнее о вариантах оплаты и доставки Вы сможете узнать на соответствующих страницах.
-                    </p>
+                    <p>Предлагаем Вам убедится в этом и сделать заказ в нашем интернет-магазине. Вы сможете быстро оплатить и получить заказ. Подробнее о вариантах оплаты и доставки Вы сможете узнать на соответствующих страницах.</p>
                     <br>
-                    <p>                    Для всех постоянных клиентов мы делаем скидки и заботимся о том, чтобы интернет-магазин Вам нравился и Вы приходили в него снова и снова.
-                    </p>
+                    <p>Для всех постоянных клиентов мы делаем скидки и заботимся о том, чтобы интернет-магазин Вам нравился и Вы приходили в него снова и снова.</p>
                     <br>
-                    <p>                    Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то, что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда актуальным, цены доступными, сервис лучшим.
-                    </p>
+                    <p>Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то, что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда актуальным, цены доступными, сервис лучшим.</p>
                 </div>
             </div>
         </div>
@@ -258,7 +256,7 @@
         </div>
     </div>
 
-    <script src="<c:url value="/sources/script/script.js" />">
+    <script src="<c:url value="/sources/script/slider-script.js" />">
     </script>
 </body>
 </html>

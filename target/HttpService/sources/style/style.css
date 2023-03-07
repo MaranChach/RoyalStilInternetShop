@@ -55,6 +55,35 @@ body{
     flex: 1;
 }
 
+.text-product{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: black;
+}
+
+.text-product-buttons{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: white;
+}
+
+.text-product-header{
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    color: black;
+}
+
+.text-availability{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #00c700;
+}
+
+.text-product-buy{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: dodgerblue;
+}
 
 .content{
     display: flex;
@@ -381,8 +410,6 @@ body{
     padding: 20px 0 0 20px;
 }
 
-
-
 .shop-main-container{
     box-sizing: border-box;
     display: flex;
@@ -395,6 +422,9 @@ body{
 }
 
 .shop-top-bar{
+    display: flex;
+    align-items: center;
+    justify-content: right;
     height: 50px;
     width: 1200px;
     border-bottom: darkgray solid 1px;
@@ -511,8 +541,7 @@ body{
 }
 
 .shop-playground{
-    flex: 1;
-    height: 100%;
+    width: 950px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -570,17 +599,30 @@ body{
 .shop-slider-buttons-bar{
     height: 50px;
     display: flex;
-    width: 100%;
+    width: 49%;
+    position: absolute;
+    margin-top: 200px;
+    justify-content: space-between;
+    visibility: visible;
 }
 
-.shop-slider-button-left{
-    height: 30px;
-    width: 20px;
+.shop-slider-buttons-bar:hover{
+    visibility: visible;
 }
 
-.shop-slider-button-right{
-    height: 30px;
-    width: 20px;
+.shop-slider-button{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: none;
+}
+
+.shop-button-right{
+
+}
+
+.shop-button-left{
+
 }
 
 .shop-images-bar{
@@ -658,11 +700,12 @@ body{
 
 .shop-product{
     border-radius: 3px;
-    width: 30%;
+    width: 285px;
     height: 350px;
     display: flex;
     flex-direction: column;
     background-color: #dddddd;
+    margin-bottom: 20px;
 }
 
 .shop-product-info-bar{
@@ -766,4 +809,263 @@ body{
 .shop-footer-column-header{
     margin-top: 50px;
     margin-bottom: 10px;
+}
+
+.shop-catalog-header{
+    margin-top: 10px;
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.shop-catalog-categories-bar{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.shop-catalog-category{
+    height: 200px;
+    width: 300px;
+    background-color: #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.shop-catalog-category-block-header{
+    margin: 5px 0 0 5px;
+}
+
+.shop-category-filters-bar{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.shop-category-filters-header{
+    margin: 5px 0 0 20px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.shop-categories-filters{
+    margin-top: 10px;
+    border-radius: 3px;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    box-shadow: 0 1px 3px darkgray;
+}
+
+.shop-filters-buttons-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 70px;
+    width: 100%;
+    border-top: gainsboro solid 1px;
+}
+
+.shop-filters{
+    width: 100%;
+    height: 400px;
+}
+
+.shop-filter-button{
+    width: 90px;
+    height: 40px;
+    border-radius: 3px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+}
+
+.shop-filter-apply{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.shop-filter-apply:hover{
+    background-color: deepskyblue;
+}
+
+.shop-filter-clear{
+    background-color: #dddddd;
+    color: dodgerblue;
+}
+
+.shop-filter-clear:hover{
+    background-color: #c4c4c4;
+}
+
+.shop-product-header{
+    width: 100%;
+    height: 30px;
+    margin: 20px 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+.shop-product-rating-bar{
+    width: 100%;
+    height: 30px;
+    margin: 10px 0 0 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.shop-product-rating{
+    height: 100%;
+    width: 200px;
+}
+
+.shop-product-article{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 120px;
+}
+
+.shop-product-reviews-number{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 120px;
+}
+
+.shop-product-content{
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.shop-product-content-image-bar{
+    width: 50%;
+    height: 600px;
+
+    flex-direction: column;
+    display: flex;
+
+}
+
+.shop-product-content-image{
+    margin: 10px;
+    height: 200px;
+    flex: 1;
+    flex-direction: row;
+}
+
+.shop-product-content-cost-bar{
+    width: 25%;
+    height: 600px;
+    padding-left: 20px;
+}
+
+.shop-product-content-delivery-info-bar{
+    width: 25%;
+    height: 600px;
+}
+
+.shop-product-content-number{
+    flex: 1;
+    flex-direction: column;
+    height: 80px;
+    margin: 10px;
+}
+
+.shop-product-number-input{
+    height: 50px;
+    width: 120px;
+    background-color: gainsboro;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.shop-product-number-input:hover{
+    box-shadow: 0 0 8px gainsboro;
+}
+
+.shop-product-details-payment-bar{
+    flex-direction: column;
+}
+
+.shop-product-content-cost{
+    margin: 10px;
+}
+
+.shop-product-content-availability{
+    margin: 10px;
+}
+
+.shop-product-content-buy-button{
+    height: 50px;
+    width: 150px;
+
+    background-color: dodgerblue;
+    border-radius: 3px;
+    border: none;
+
+    margin: 10px;
+
+}
+
+.shop-product-content-oneclick-buy-button{
+    margin: 10px;
+    text-decoration: underline;
+}
+
+.shop-product-content-delivery-info{
+    margin: 10px;
+    border-radius: 5px;
+    background-color: gainsboro;
+    flex: 1;
+    height: 400px;
+}
+
+.shop-product-tabs-bar{
+    width: 100%;
+    margin-top: 20px;
+    height: 70px;
+    border-bottom: gainsboro solid 1px;
+    display: flex;
+    flex-direction: row;
+}
+
+.shop-product-tab{
+    height: 100%;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.shop-product-tab:hover{
+    border-bottom: dodgerblue solid 3px;
+    color: grey;
+}
+
+.shop-product-tab-bar{
+    margin: 10px;
+    flex: 1;
+}
+
+.shop-product-description{
+    display: block;
+}
+
+.shop-product-details{
+    display: none;
+}
+
+.shop-product-reviews{
+    display: none;
 }
