@@ -86,7 +86,6 @@
                                 <div class="unit center">Ед. изм.</div>
                                 <div class="activated center">Актиность</div>
                                 <div class="products-delete-button center"></div>
-
                             </div>
 
 

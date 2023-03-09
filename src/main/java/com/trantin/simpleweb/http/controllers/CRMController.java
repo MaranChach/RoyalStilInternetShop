@@ -32,7 +32,7 @@ public class CRMController {
 
     //endregion
 
-    @RequestMapping(value = "/main")
+    @RequestMapping(value = "/")
     public String mainView(Model model) throws UnsupportedEncodingException {
 
         model.addAttribute("newProduct", new Product());

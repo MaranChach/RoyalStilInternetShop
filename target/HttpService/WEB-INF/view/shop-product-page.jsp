@@ -78,7 +78,7 @@
                 <div class="shop-product-article text-main">
                     Артикул: 1234
                 </div>
-                <div class="shop-product-reviews-number">
+                <div class="shop-product-reviews-number text-main">
                     Отзывов: 0
                 </div>
             </div>
@@ -127,15 +127,9 @@
             </div>
 
             <div class="shop-product-tab-bar shop-product-description text-main">
-                <p>
-                    Товар ультра товар товар
-                </p>
-                <p>
-                    Товар ультра товар товар
-                </p>
-                <p>
-                    Товар ультра товар товар
-                </p>
+                <p>Товар ультра товар товар</p>
+                <p>Товар ультра товар товар</p>
+                <p>Товар ультра товар товар</p>
             </div>
 
             <div class="shop-product-tab-bar shop-product-details text-main">

@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: tpant
@@ -23,7 +24,7 @@
         <p class="side-bar-block-header text-header"> Основное </p>
         <div class="side-bar-block">
             <p class="side-bar-block-header" ></p>
-            <div class="side-bar-item" onclick="window.location.href = '/main/main'">
+            <div class="side-bar-item" onclick="window.location.href = '/main/'">
                 <p class="side-bar-item-text text-item" >Рабочий стол</p>
             </div>
             <div class="side-bar-item text-item" onclick="window.location.href = '/main/products'">

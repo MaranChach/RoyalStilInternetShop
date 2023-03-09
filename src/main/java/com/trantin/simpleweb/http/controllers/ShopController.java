@@ -26,4 +26,9 @@ public class ShopController {
     public String getProductPage(){
         return "shop-product-page";
     }
+
+    @RequestMapping("/personal-page")
+    public String getPersonalPage(){
+        return "personal-page";
+    }
 }
