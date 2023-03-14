@@ -2,6 +2,8 @@ package com.trantin.simpleweb.http.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -13,6 +15,7 @@ public class Product {
     private int id;
 
     @Column(name = "name")
+    @NotEmpty (message = "Поле \"Наименование\" не может быть пустым")
     private String name;
 
     @Column(name = "number")

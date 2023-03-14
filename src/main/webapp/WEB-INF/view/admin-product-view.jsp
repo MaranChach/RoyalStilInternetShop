@@ -11,7 +11,10 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <style>
+        <%@include file="/sources/style/style.css"%>
+    </style>
 </head>
 <body>
 <div class="top-bar">
@@ -24,13 +27,13 @@
         <p class="side-bar-block-header text-header"> Основное </p>
         <div class="side-bar-block">
             <p class="side-bar-block-header" ></p>
-            <div class="side-bar-item" onclick="window.location.href = '/main/'">
+            <div class="side-bar-item" onclick="window.location.href = 'http://localhost:8080/main/admin/'">
                 <p class="side-bar-item-text text-item" >Рабочий стол</p>
             </div>
-            <div class="side-bar-item text-item" onclick="window.location.href = '/main/products'">
+            <div class="side-bar-item text-item" onclick="window.location.href = '/main/admin/products'">
                 <p class="side-bar-item-text text-item" >Заказы</p>
             </div>
-            <div class="side-bar-item" onclick="window.location.href = '/main/products'">
+            <div class="side-bar-item" onclick="window.location.href = '/main/admin/products'">
                 <p class="side-bar-item-text text-item">Товары</p>
             </div>
             <div class="side-bar-item">
@@ -67,53 +70,64 @@
                         <p class="text-header-values-group">Основное</p>
                         <br>
                         <form:hidden path="id"/>
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Название</p>
-                            <form:input path="name" class="attribute-value" type="text"/>
+                            <form:input autocomplete="off" path="name" class="attribute-value" type="text"/>
+                            <form:errors cssStyle="color: red" path="name"/>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Артикул</p>
-                            <form:input path="article" class="attribute-value" type="text"/>
+                            <form:input autocomplete="off" path="article" class="attribute-value" type="text"/>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Цена</p>
-                            <form:input path="cost" class="attribute-value" type="text"/>
+                            <form:input autocomplete="off" path="cost" class="attribute-value" type="text"/>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Количество</p>
-                            <form:input path="number" class="attribute-value" type="text"/>
+                            <form:input path="number" class="attribute-value" type="number"/>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Единица измерения</p>
-                            <form:select path="unit" items="${unitsMap}" class="attribute-value"/>
+                            <form:select path="unit" class="attribute-value">
+                                <form:option cssStyle="background-color: grey" value="${product.unit.id}" label="${product.unit.name}"></form:option>
+                                <form:options items="${unitsMap}" ></form:options>
+                            </form:select>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Категория</p>
-                            <form:select path="category" items="${categoriesMap}" class="attribute-value"/>
+                            <form:select path="category" class="attribute-value">
+                                <form:option cssStyle="background-color: grey" value="${product.category.id}" label="${product.category.name}"></form:option>
+                                <form:options items="${categoriesMap}" ></form:options>
+                            </form:select>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Производитель</p>
-                            <form:select path="manufacturer" items="${manufacturersMap}" class="attribute-value"/>
+                            <form:select path="manufacturer" class="attribute-value">
+                                <form:option cssStyle="background-color: grey" value="${product.manufacturer.id}" label="${product.manufacturer.name}"></form:option>
+                                <form:options items="${manufacturersMap}" ></form:options>
+                            </form:select>
                         </div>
 
-                        <div class="product-attribute">
+                        <div class="form-attribute">
                             <p class="attribute-name">Описание</p>
-                            <form:input path="description" class="attribute-value" type="text"/>
+                            <form:textarea autocomplete="off" path="description" class="attribute-value"/>
                         </div>
                     </div>
 
                 </div>
             </form:form>
             </div>
-
-
     </div>
 </div>
+
+<script type="text/javascript" src="//mod.postimage.org/phpbb3-german-family.js" charset="utf-8"></script>
+
 </body>
 </html>

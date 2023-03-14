@@ -20,15 +20,14 @@
 <body style="">
 <div class="shop-main-container">
     <div class="shop-top-bar">
-        <a class="text-main" style="float: right;" href="#">Личный кабинет</a>
+        <a class="text-main" style="float: right;" href="admin/">Личный кабинет</a>
         <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
     </div>
 
     <div class="shop-main-bar">
-        <div class="shop-logo-bar">
+        <div onclick="window.location.href = 'http://localhost:8080/main'" class="shop-logo-bar">
             <image style="width: 80%; height: 80%; margin: 20px"
                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png">
-
             </image>
         </div>
 
@@ -57,7 +56,7 @@
 
     <div class="shop-navbar">
         <div class="shop-catalog-bar center">
-            <button onclick="window.location.href='catalog'" class="catalog-button">
+            <button onclick="window.location.href='catalog'" class="catalog-button text-product-buttons">
                 Каталог
             </button>
         </div>

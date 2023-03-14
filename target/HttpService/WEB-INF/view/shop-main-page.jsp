@@ -20,12 +20,12 @@
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-            <a class="text-main" style="float: right;" href="#">Личный кабинет</a>
-            <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
+            <a class="text-main" style="float: right;" href="personal-page">Личный кабинет</a>
+            <a class="text-main" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
-            <div class="shop-logo-bar">
+            <div onclick="window.location.href = 'http://localhost:8080/main'"  class="shop-logo-bar">
                 <image style="width: 80%; height: 80%; margin: 20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png">
 
                 </image>
@@ -56,7 +56,7 @@
 
         <div class="shop-navbar">
             <div class="shop-catalog-bar center">
-                <button onclick="window.location.href='catalog'" class="catalog-button">
+                <button onclick="window.location.href='catalog'" class="catalog-button text-product-buttons">
                     Каталог
                 </button>
             </div>
@@ -70,15 +70,14 @@
         <div class="shop-content">
             <div class="shop-categories-bar">
                 <div class="shop-categories-buttons-bar">
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
+                    <c:forEach var="category" items="${categories}">
+                        <c:url var="categoryButton" value="category">
+                            <c:param name="categoryId" value="${category.id}"/>
+                        </c:url>
+                        <div onclick="window.location.href = '${categoryButton}'" class="shop-categories-button shop-radius-catalog">
+                            <p class="text-main shop-categories-button-text">${category.name}</p>
+                        </div>
+                    </c:forEach>
                 </div>
 
                 <div class="shop-news-bar">
@@ -120,7 +119,7 @@
                 </div>
                 <div class="shop-slider-buttons-bar">
                     <button class="shop-slider-button shop-button-left">
-
+                        <img width="40px" height="40px" src="<c:url value="/sources/images/arrow-left-circle-svgrepo-com.svg"/>">
                     </button>
 
                     <div style="flex: 1">
@@ -128,7 +127,7 @@
                     </div>
 
                     <button class="shop-slider-button shop-button-right">
-
+                        <img width="40px" height="40px" src="<c:url value="/sources/images/arrow-right-circle-svgrepo-com.svg"/>">
                     </button>
                 </div>
 

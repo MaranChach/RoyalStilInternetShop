@@ -50,6 +50,11 @@ public class UnitDao {
 
     @Transactional
     public void delete(int id) {
-        sessionFactory.getCurrentSession().delete(id);
+        sessionFactory.getCurrentSession().createQuery("delete from Unit where id = " + id);
+    }
+
+    @Transactional
+    public void deleteunit(Unit unit) {
+        sessionFactory.getCurrentSession().delete(unit);
     }
 }

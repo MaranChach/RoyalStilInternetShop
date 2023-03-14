@@ -20,12 +20,12 @@
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-            <a class="text-main" style="float: right;" href="#">Личный кабинет</a>
-            <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
+            <a class="text-main" style="float: right;" href="personal-page">Личный кабинет</a>
+            <a class="text-main" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
-            <div class="shop-logo-bar">
+            <div onclick="window.location.href = 'http://localhost:8080/main'"  class="shop-logo-bar">
                 <image style="width: 80%; height: 80%; margin: 20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png">
 
                 </image>
@@ -56,7 +56,7 @@
 
         <div class="shop-navbar">
             <div class="shop-catalog-bar center">
-                <button onclick="window.location.href='catalog'" class="catalog-button">
+                <button onclick="window.location.href='catalog'" class="catalog-button text-product-buttons">
                     Каталог
                 </button>
             </div>
@@ -70,15 +70,14 @@
         <div class="shop-content">
             <div class="shop-categories-bar">
                 <div class="shop-categories-buttons-bar">
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
-                    <div class="shop-categories-button shop-radius-catalog">
-
-                    </div>
+                    <c:forEach var="category" items="${categories}">
+                        <c:url var="categoryButton" value="category">
+                            <c:param name="categoryId" value="${category.id}"/>
+                        </c:url>
+                        <div onclick="window.location.href = '${categoryButton}'" class="shop-categories-button shop-radius-catalog">
+                            <p class="text-main shop-categories-button-text">${category.name}</p>
+                        </div>
+                    </c:forEach>
                 </div>
 
                 <div class="shop-category-filters-bar">
@@ -103,224 +102,39 @@
             </div>
             <div class="shop-playground">
                 <div class="text-header shop-catalog-header">
-                    Категория 1
+                    ${curCategory.name}
                 </div>
 
                 <div class="shop-catalog-categories-bar">
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
+                    <c:forEach var="product" items="${products}">
+                        <c:url var="productButton" value="product">
+                            <c:param name="productId" value="${product.id}"/>
+                        </c:url>
+                        <div class="shop-product" onclick="window.location.href = '${productButton}'">
+                            <div class="shop-product-image-bar">
 
+                            </div>
+                            <div class="shop-product-info-bar">
+                                <div class="shop-product-title text-product">
+                                    ${product.name}
+                                </div>
+                                <div class="shop-product-cost text-product">
+                                    ${product.cost} руб.
+                                </div>
+                                <div class="shop-product-buy-button-bar">
+                                    <button class="shop-product-buy-button text-product-buttons">
+                                        В корзину
+                                    </button>
+                                    <button class="shop-product-buy-button text-product-buttons">
+                                        Купить
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
+                    </c:forEach>
                 </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-product">
-                        <div class="shop-product-image-bar">
-
-                        </div>
-                        <div class="shop-product-info-bar">
-                            <div class="shop-product-title text-product">
-                                Товарный товар товара товару
-                            </div>
-                            <div class="shop-product-cost text-product">
-                                1234.00 руб.
-                            </div>
-                            <div class="shop-product-buy-button-bar">
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    В корзину
-                                </button>
-                                <button class="shop-product-buy-button text-product-buttons">
-                                    Купить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
             </div>
         </div>
-
-</div>
     </div>
 
     <div class="shop-footer">

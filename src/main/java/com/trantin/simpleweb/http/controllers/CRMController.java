@@ -55,7 +55,48 @@ public class CRMController {
         model.addAttribute("clients", clientDao.getAll());
         model.addAttribute("details", detailsDao.getAll());
 
-        return "main-page";
+        return "admin-main-page";
+    }
+
+
+
+    @RequestMapping("/units")
+    public String unitsView(Model model){
+        model.addAttribute("units", unitDao.getAll());
+
+        return "admin-units-page";
+    }
+
+    @RequestMapping("/unit")
+    public String unitView(Model model){
+        model.addAttribute("unit", new Unit());
+
+        return "admin-unit-view";
+    }
+
+    @RequestMapping("/updateUnit")
+    public String unitViewById(@RequestParam("unitId") int id, Model model){
+        model.addAttribute("unit", unitDao.getById(id));
+
+        return "admin-unit-view";
+    }
+
+    @RequestMapping(value = "/saveUnit")
+    public String saveUnit(@ModelAttribute("unit") Unit unit){
+        System.out.println(unit);
+
+        unitDao.save(unit);
+
+        return "redirect:/admin/units";
+    }
+
+    @RequestMapping("/deleteUnit")
+    public String deleteUnit(@RequestParam("unitId") int id, Model model){
+        System.out.println("работай сука");
+
+        unitDao.deleteunit(unitDao.getById(id));
+
+        return "redirect:/admin/units";
     }
 
     @RequestMapping(value = "/products")
@@ -81,9 +122,8 @@ public class CRMController {
         model.addAttribute("clients", clientDao.getAll());
         model.addAttribute("details", detailsDao.getAll());
 
-        return "products-view";
+        return "admin-products-view";
     }
-
 
     @RequestMapping(value = "/product")
     public String productView(Model model){
@@ -95,7 +135,7 @@ public class CRMController {
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
-        return "product-view";
+        return "admin-product-view";
     }
 
     @RequestMapping("/updateProduct")
@@ -106,20 +146,12 @@ public class CRMController {
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
-        return "product-view";
+        return "admin-product-view";
     }
 
 
-    @RequestMapping("/product/{id}")
-    public String productViewById(Model model, @PathVariable int id){
-        model.addAttribute("product", productDao.getById(id));
 
-        model.addAttribute("unitsMap", unitDao.getMap());
-        model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
-        return "product-view";
-    }
 
     @RequestMapping(value = "/saveProduct")
     public String saveProduct(@ModelAttribute("newProduct") Product product,
@@ -135,16 +167,20 @@ public class CRMController {
 
         productDao.save(product);
 
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
-    @RequestMapping(value = "/saveUnit")
-    public String saveUnit(@ModelAttribute("newUnit") Unit unit){
-        System.out.println(unit);
 
-        unitDao.save(unit);
 
-        return "redirect:/test";
+    @RequestMapping("/product/{id}")
+    public String productViewById(Model model, @PathVariable int id){
+        model.addAttribute("product", productDao.getById(id));
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+        return "admin-product-view";
     }
 
     @RequestMapping(value = "/saveManufacturer")
@@ -153,15 +189,15 @@ public class CRMController {
 
         manufacturerDao.save(manufacturer);
 
-        return "redirect:/main";
+        return "redirect:/main/admin";
     }
 
     @RequestMapping(value = "/saveCategory")
     public String saveCategory(@ModelAttribute("newCategory") Category category){
         System.out.println(category);
 
-        categoryDao .save(category);
+        categoryDao.save(category);
 
-        return "redirect:/test";
+        return "redirect:/test/admin";
     }
 }

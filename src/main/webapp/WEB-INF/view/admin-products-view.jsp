@@ -24,7 +24,7 @@
         <p class="side-bar-block-header text-header"> Основное </p>
         <div class="side-bar-block">
             <p class="side-bar-block-header" ></p>
-            <div class="side-bar-item" onclick="window.location.href = 'main'">
+            <div class="side-bar-item" onclick="window.location.href = 'http://localhost:8080/main/admin/'">
                 <p class="side-bar-item-text text-item" >Рабочий стол</p>
             </div>
             <div class="side-bar-item text-item">
@@ -85,12 +85,12 @@
                                 <div class="count center">Количество</div>
                                 <div class="unit center">Ед. изм.</div>
                                 <div class="activated center">Актиность</div>
-                                <div class="products-delete-button center"></div>
+                                <div class="list-delete-button center"></div>
                             </div>
 
 
                             <c:forEach var="product" items="${products}">
-                                <c:url var="updateButton" value="/updateProduct">
+                                <c:url var="updateButton" value="updateProduct">
                                     <c:param name="productId" value="${product.id}"/>
                                 </c:url>
                                 <div class="results-panel-item border-bottom-gray" onclick="window.location.href = '${updateButton}'">
@@ -104,7 +104,7 @@
                                     <div class="count center">${product.number}</div>
                                     <div class="unit center">${product.unit.name}</div>
                                     <div class="activated center">a</div>
-                                    <div class="products-delete-button center"></div>
+                                    <div class="list-delete-button center"></div>
                                 </div>
                             </c:forEach>
                         </div>

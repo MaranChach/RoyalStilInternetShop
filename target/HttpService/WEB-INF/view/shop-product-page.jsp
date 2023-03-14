@@ -20,12 +20,12 @@
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-            <a class="text-main" style="float: right;" href="#">Личный кабинет</a>
-            <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
+            <a class="text-main" style="float: right;" href="personal-page">Личный кабинет</a>
+            <a class="text-main" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
-            <div class="shop-logo-bar">
+            <div onclick="window.location.href = 'http://localhost:8080/main'" class="shop-logo-bar">
                 <image style="width: 80%; height: 80%; margin: 20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png">
 
                 </image>
@@ -56,7 +56,7 @@
 
         <div class="shop-navbar">
             <div class="shop-catalog-bar center">
-                <button onclick="window.location.href='catalog'" class="catalog-button">
+                <button onclick="window.location.href='catalog'" class="catalog-button text-product-buttons">
                     Каталог
                 </button>
             </div>
@@ -69,14 +69,14 @@
 
         <div style="flex-direction: column" class="shop-content">
             <div class="shop-product-header text-product-header">
-                Товар товар
+                ${product.name}
             </div>
             <div class="shop-product-rating-bar">
                 <div class="shop-product-rating">
 
                 </div>
                 <div class="shop-product-article text-main">
-                    Артикул: 1234
+                    Артикул: ${product.article}
                 </div>
                 <div class="shop-product-reviews-number text-main">
                     Отзывов: 0
@@ -96,15 +96,33 @@
 
                     <div class="shop-product-details-payment-bar">
                         <div class="shop-product-content-cost text-product-header">
-                            1000 руб.
+                            ${product.cost} руб.
                         </div>
-                        <div class="shop-product-content-availability text-availability">
-                            Есть в наличии
-                        </div>
-                        <button class="shop-product-content-buy-button text-product-buttons">
-                            Добавить
-                        </button>
-                        <div onclick="window.location.href='#'" class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик</div>
+
+                        <c:choose>
+
+                            <c:when test="${product.number <= '0'}">
+                                <div style="color: red" class="shop-product-content-availability text-availability">
+                                    Нет в наличии
+                                </div>
+                                <button style="background-color: gainsboro" disabled="disabled" class="shop-product-content-buy-button text-product-buttons">
+                                    Добавить
+                                </button>
+                            </c:when>
+
+                            <c:otherwise>
+                                <div class="shop-product-content-availability text-availability">
+                                    Есть в наличии
+                                </div>
+                                <button disabled="" class="shop-product-content-buy-button text-product-buttons">
+                                    Добавить
+                                </button>
+
+                                <div onclick="window.location.href='#'" class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик</div>
+                            </c:otherwise>
+
+                        </c:choose>
+
                     </div>
                 </div>
                 <div class="shop-product-content-delivery-info-bar">
@@ -127,9 +145,7 @@
             </div>
 
             <div class="shop-product-tab-bar shop-product-description text-main">
-                <p>Товар ультра товар товар</p>
-                <p>Товар ультра товар товар</p>
-                <p>Товар ультра товар товар</p>
+                ${product.description}
             </div>
 
             <div class="shop-product-tab-bar shop-product-details text-main">

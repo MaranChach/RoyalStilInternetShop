@@ -52,7 +52,11 @@ public class ProductDao {
 
 
     public List<Product> getByCategory(Category category){
-        return sessionFactory.getCurrentSession().createQuery("from where category = " + category, Product.class).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Product where category = " + category, Product.class).getResultList();
+    }
+
+    public List<Product> getByCategoryId(int categoryId){
+        return sessionFactory.getCurrentSession().createQuery("from Product where category.id = " + categoryId, Product.class).getResultList();
     }
 
 
