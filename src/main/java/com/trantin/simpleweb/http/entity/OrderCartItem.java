@@ -14,7 +14,7 @@ public class OrderCartItem {
     private int id;
 
     @JoinColumn(name = "product_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private Product product;
 
     @Column(name = "number")

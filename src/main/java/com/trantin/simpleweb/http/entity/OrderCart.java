@@ -16,6 +16,8 @@ public class OrderCart {
     @OneToMany(mappedBy = "orderCart", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<OrderCartItem> items;
 
+    @Column(name = "session_id")
+    private String uid;
 
     public void addItemInCart(OrderCartItem cartItem){
         if(this.items == null)
@@ -43,6 +45,14 @@ public class OrderCart {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public List<OrderCartItem> getItems() {

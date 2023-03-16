@@ -26,9 +26,7 @@
 
     <div class="shop-main-bar">
         <div onclick="window.location.href = 'http://localhost:8080/main'" class="shop-logo-bar">
-            <image style="width: 80%; height: 80%; margin: 20px"
-                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png">
-            </image>
+            <img style="height: 90%;" src="/main/sources/images/logo2.png" alt="">
         </div>
 
         <div class="shop-search-bar">

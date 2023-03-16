@@ -8,11 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @Controller
 @RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
 public class CRMController {
+
+
+    @Autowired
+    private HttpSession session;
 
     //region DAO
     @Autowired
@@ -34,6 +39,8 @@ public class CRMController {
 
     @RequestMapping(value = "/")
     public String mainView(Model model) throws UnsupportedEncodingException {
+
+        System.out.println(session.getId());
 
         model.addAttribute("newProduct", new Product());
         model.addAttribute("newUnit", new Unit());

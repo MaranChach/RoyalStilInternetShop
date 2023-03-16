@@ -2,21 +2,39 @@ package com.trantin.simpleweb.http.controllers;
 
 
 import com.trantin.simpleweb.http.dao.CategoryDao;
+import com.trantin.simpleweb.http.dao.OrderCartDao;
+import com.trantin.simpleweb.http.dao.OrderDao;
 import com.trantin.simpleweb.http.dao.ProductDao;
+import com.trantin.simpleweb.http.entity.Order;
+import com.trantin.simpleweb.http.entity.OrderCart;
+import com.trantin.simpleweb.http.entity.OrderCartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ShopController {
+
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private ProductDao productDao;
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private OrderCartDao orderCartDao;
+
+    @Autowired
+    private OrderDao orderDao;
 
     @RequestMapping("/")
     public String getMainPage(Model model){
@@ -55,6 +73,73 @@ public class ShopController {
     public String getPersonalPage(Model model){
         return "shop-personal-page";
     }
+
+
+    @RequestMapping("/saveToCart")
+    public void saveProductToCart(@RequestParam int productId){
+
+
+
+        String sessionId = session.getId();
+
+        System.out.println(sessionId);
+
+        OrderCart orderCart = null;
+
+        try{
+            orderCart = orderCartDao.getBySessionId(sessionId);
+        }
+        catch (Exception e){
+            System.out.println("Creating new cart");
+        }
+
+        if(orderCart == null){
+            orderCart = new OrderCart();
+            orderCart.setUid(sessionId);
+        }
+
+        orderCart.addItemInCart(new OrderCartItem(productDao.getById(productId), 1));
+
+        orderCartDao.saveOrderCart(orderCart);
+    }
+
+    @RequestMapping("/cart")
+    private String getCartView(Model model){
+
+        String sessionId = session.getId();
+        System.out.println(sessionId);
+
+        OrderCart orderCart = null;
+
+        try {
+            orderCart = orderCartDao.getBySessionId(sessionId);
+            model.addAttribute("orderCart", orderCart);
+            Order order = new Order();
+            order.setOrderCart(orderCart);
+
+            System.out.println(order);
+
+            model.addAttribute("order", order);
+        }
+        catch (Exception e){
+        }
+
+        return "shop-order-cart-page";
+    }
+
+    @RequestMapping("/sendOrder")
+    private String saveOrder(@ModelAttribute("order") Order order,
+                             @RequestParam("orderCartId") int id){
+        System.out.println(order);
+
+        order.setOrderCart(orderCartDao.getById(id));
+        order.setCurrentDate();
+
+        orderDao.save(order);
+
+        return "";
+    }
+
 
 
 

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: tpant
@@ -67,26 +68,83 @@
 
     <div style="flex-direction: column" class="shop-content">
         <div class="shop-product-header text-product-header">
-            Личный кабинет
+            Корзина
         </div>
 
-        <ul class="personal-buttons-bar" type="none">
-            <li class="personal-button-bar">
-                <a class="personal-button-text" href="">Информация</a>
-            </li>
-            <li class="personal-button-bar">
-                <a class="personal-button-text" href="">Информация</a>
-            </li>
-            <li class="personal-button-bar">
-                <a class="personal-button-text" href="">Информация</a>
-            </li>
-            <li class="personal-button-bar">
-                <a class="personal-button-text" href="">Информация</a>
-            </li>
-            <li class="personal-button-bar">
-                <a class="personal-button-text" href="">Информация</a>
-            </li>
-        </ul>
+        <div class="shop-cart-bar">
+            <c:choose>
+
+                <c:when test="${empty orderCart}">
+                    <p>
+                        Корзина пуста
+                    </p>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="shop-cart-bar-header">
+                        <div class="shop-cart-item-cell cart-item-name text-gray">
+                            Товар
+                        </div>
+                        <div class="shop-cart-item-cell cart-item-cost text-gray">
+                            Цена
+                        </div>
+                        <div class="shop-cart-item-cell cart-item-number text-gray">
+                            Количество
+                        </div>
+                        <div class="shop-cart-item-cell cart-item-final-cost text-gray">
+                            Стоимость
+                        </div>
+                        <div class="shop-cart-item-cell cart-item-delete text-gray">
+                            Удалить
+                        </div>
+                    </div>
+
+
+                        <c:forEach var="item" items="${orderCart.items}">
+                            <div class="shop-cart-bar-item">
+                                <div class="shop-cart-item-cell cart-item-name text-gray">
+                                    ${item.product.name}
+                                </div>
+                                <div class="shop-cart-item-cell cart-item-cost text-gray">
+                                    ${item.product.cost}
+                                </div>
+                                <div class="shop-cart-item-cell cart-item-number text-gray">
+                                    ${item.number}
+                                </div>
+                                <div class="shop-cart-item-cell cart-item-final-cost text-gray">
+                                    ${item.number * item.product.cost}
+                                </div>
+                                <div class="shop-cart-item-cell cart-item-delete text-gray">
+
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                        <div class="shop-cart-bar-footer">
+                            <c:url var="orderSendButton" value="sendOrder">
+                                <c:param name="orderCartId" value="${orderCart.id}"/>
+                            </c:url>
+
+<%--                            <form:select path="orderCart">--%>
+<%--                                <form:option value="${orderCart.}" label="${orderCart.id}"/>--%>
+<%--                            </form:select>--%>
+
+<%--                            <form:hidden path="orderCartId" value="${orderCart.id}"/>--%>
+
+
+                            <button onclick="window.location.href = '${orderSendButton}'">
+
+                            </button>
+                        </div>
+
+                </c:otherwise>
+
+            </c:choose>
+
+
+
+        </div>
+
     </div>
 </div>
 
