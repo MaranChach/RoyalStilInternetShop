@@ -1,10 +1,8 @@
 package com.trantin.simpleweb.http.controllers;
 
 
-import com.trantin.simpleweb.http.dao.CategoryDao;
-import com.trantin.simpleweb.http.dao.OrderCartDao;
-import com.trantin.simpleweb.http.dao.OrderDao;
-import com.trantin.simpleweb.http.dao.ProductDao;
+import com.trantin.simpleweb.http.dao.*;
+import com.trantin.simpleweb.http.entity.Client;
 import com.trantin.simpleweb.http.entity.Order;
 import com.trantin.simpleweb.http.entity.OrderCart;
 import com.trantin.simpleweb.http.entity.OrderCartItem;
@@ -16,10 +14,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.rmi.server.UID;
 
 @Controller
 public class ShopController {
+
+    @Autowired
+    private Cookie userIdCookie;
 
     @Autowired
     private HttpSession session;
@@ -36,8 +40,14 @@ public class ShopController {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private ClientDao clientDao;
+
+
     @RequestMapping("/")
     public String getMainPage(Model model){
+        System.out.println(userIdCookie.getValue());
+
         model.addAttribute("categories", categoryDao.getAll());
 
         return "shop-main-page";
@@ -76,11 +86,11 @@ public class ShopController {
 
 
     @RequestMapping("/saveToCart")
-    public void saveProductToCart(@RequestParam int productId){
+    public void saveProductToCart(@RequestParam int productId, HttpServletResponse response){
 
+        String sessionId = userIdCookie.getValue();
 
-
-        String sessionId = session.getId();
+        //String sessionId = session.getId();
 
         System.out.println(sessionId);
 
@@ -100,20 +110,27 @@ public class ShopController {
 
         orderCart.addItemInCart(new OrderCartItem(productDao.getById(productId), 1));
 
+        //saving cookie and cart data
+
+        response.addCookie(userIdCookie);
+
         orderCartDao.saveOrderCart(orderCart);
     }
 
     @RequestMapping("/cart")
-    private String getCartView(Model model){
+    private String getCartView(Model model, @CookieValue("USERID") String sessionId){
 
-        String sessionId = session.getId();
+        //String sessionId = session.getId();
         System.out.println(sessionId);
+
+        model.addAttribute("client", new Client());
 
         OrderCart orderCart = null;
 
         try {
             orderCart = orderCartDao.getBySessionId(sessionId);
             model.addAttribute("orderCart", orderCart);
+
             Order order = new Order();
             order.setOrderCart(orderCart);
 
@@ -140,7 +157,12 @@ public class ShopController {
         return "";
     }
 
+    @RequestMapping("saveClient")
+    private String saveClient(@ModelAttribute("client") Client client){
+        clientDao.save(client);
 
+        return "";
+    }
 
 
 

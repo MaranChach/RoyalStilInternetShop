@@ -190,6 +190,24 @@ public class CRMController {
         return "admin-product-view";
     }
 
+
+
+    @RequestMapping("/orders")
+    private String ordersView(Model model){
+        model.addAttribute("orders", orderDao.getAll());
+
+        return "admin-orders-view";
+    }
+
+    @RequestMapping("/order")
+    private String orderView(@RequestParam("orderId") int id, Model model){
+        model.addAttribute("order", orderDao.getById(id));
+        model.addAttribute("iterator", 0);
+
+        return "admin-order-view";
+    }
+
+
     @RequestMapping(value = "/saveManufacturer")
     public String saveManufacturer(@ModelAttribute("newManufacturer") Manufacturer manufacturer){
         System.out.println(manufacturer);

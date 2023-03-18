@@ -3,6 +3,7 @@ package com.trantin.simpleweb.http.entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -42,7 +43,23 @@ public class Order {
         this.date = Date.valueOf(LocalDate.now());
     }
 
-    @Override
+    public double orderSum(){
+        System.out.println("работай сука");
+
+        double result = 0;
+
+        List<OrderCartItem> list = orderCart.getItems();
+
+//        for (int i = 0; i < list.size(); i++) {
+//            result += orderCart.getItems().get(i).getProduct().getCost();
+//        }
+
+        System.out.println(result);
+
+        return result;
+    }
+
+
     public String toString() {
         return "Order{" +
                 "id=" + id +
@@ -87,6 +104,13 @@ public class Order {
 
     public boolean isConfirmed() {
         return confirmed;
+    }
+
+    public String isConfirmedStr(){
+        if(isConfirmed()){
+            return "Да";
+        }
+        return "Нет";
     }
 
     public void setConfirmed(boolean confirmed) {

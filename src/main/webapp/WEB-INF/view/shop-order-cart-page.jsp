@@ -19,6 +19,11 @@
     </style>
 </head>
 <body style="">
+
+<div class="page-shadow">
+
+</div>
+
 <div class="shop-main-container">
     <div class="shop-top-bar">
         <a class="text-main" style="float: right;" href="admin/">Личный кабинет</a>
@@ -102,49 +107,84 @@
 
                         <c:forEach var="item" items="${orderCart.items}">
                             <div class="shop-cart-bar-item">
-                                <div class="shop-cart-item-cell cart-item-name text-gray">
+                                <div class="shop-cart-item-cell cart-item-name text-black">
                                     ${item.product.name}
                                 </div>
-                                <div class="shop-cart-item-cell cart-item-cost text-gray">
+                                <div class="shop-cart-item-cell cart-item-cost text-black">
                                     ${item.product.cost}
                                 </div>
-                                <div class="shop-cart-item-cell cart-item-number text-gray">
+                                <div class="shop-cart-item-cell cart-item-number text-black">
                                     ${item.number}
                                 </div>
-                                <div class="shop-cart-item-cell cart-item-final-cost text-gray">
+                                <div class="shop-cart-item-cell cart-item-final-cost text-black">
                                     ${item.number * item.product.cost}
                                 </div>
-                                <div class="shop-cart-item-cell cart-item-delete text-gray">
-
+                                <div class="shop-cart-item-cell cart-item-delete text-black">
+                                    <button class="cart-delete-button">
+                                        <img class="cart-delete-icon" src="<c:url value="/sources/images/garbage-trash-svgrepo-com.svg"/>" alt="">
+                                    </button>
                                 </div>
                             </div>
                         </c:forEach>
 
+                    <form:form modelAttribute="client" action="saveClient">
                         <div class="shop-cart-bar-footer">
                             <c:url var="orderSendButton" value="sendOrder">
                                 <c:param name="orderCartId" value="${orderCart.id}"/>
                             </c:url>
 
-<%--                            <form:select path="orderCart">--%>
-<%--                                <form:option value="${orderCart.}" label="${orderCart.id}"/>--%>
-<%--                            </form:select>--%>
-
-<%--                            <form:hidden path="orderCartId" value="${orderCart.id}"/>--%>
-
-
-                            <button onclick="window.location.href = '${orderSendButton}'">
-
+                            <button class="shop-product-buy-button shop-order-send-button" onclick="window.location.href = '${orderSendButton}'">
+                                Оформить
                             </button>
-                        </div>
+                            <button class="shop-product-buy-button shop-order-send-button shop-order-one-click-buy" onclick="">
+                                Купить в один клик
+                            </button>
 
+                            <dialog class="shop-order-one-click-buy-dialog">
+                                <div class="order-dialog-header">
+                                    <div class="order-dialog-header-text text-black">
+                                        Оформить заказ
+                                    </div>
+                                    <div class="order-dialog-close-button">
+
+                                    </div>
+                                </div>
+                                <div class="order-dialog-body">
+                                    <div class="dialog-body-text text-main">
+                                        Пожалуйста, укажите свой телефон, чтобы мы могли с вами связаться
+                                    </div>
+                                    <div class="dialog-body-attribute-header text-main">
+                                        Ваше имя
+                                    </div>
+                                    <form:input path="name" class="dialog-body-attribute" type="text"/>
+
+                                    <div class="dialog-body-attribute-header text-main">
+                                        Номер телефона
+                                    </div>
+                                    <form:input path="phoneNumber" class="dialog-body-attribute" type="text"/>
+
+                                    <div class="dialog-body-attribute-header text-main">
+                                        Комментарий
+                                    </div>
+                                    <input class="dialog-body-attribute" type="text"/>
+
+                                    <div style="flex-direction: column; flex: 1;">
+
+                                    </div>
+
+                                    <button class="shop-product-buy-button">
+                                        Заказать
+                                    </button>
+                                </div>
+                            </dialog>
+                        </div>
+                    </form:form>
                 </c:otherwise>
 
             </c:choose>
 
 
-
         </div>
-
     </div>
 </div>
 
@@ -180,7 +220,7 @@
 </div>
 
 <script>
-    <%@include file="/sources/script/tabs-script.js"%>
+    <%@include file="/sources/script/open-order-dialog-script.js"%>
 </script>
 </body>
 </html>

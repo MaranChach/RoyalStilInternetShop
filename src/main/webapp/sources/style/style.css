@@ -9,6 +9,16 @@ body{
     height: 100%;
 }
 
+.page-shadow{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #adadad;
+    opacity: 50%;
+    display: none;
+    overflow: hidden;
+}
+
 .text-header{
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -20,6 +30,12 @@ body{
     font-family: 'Inter', sans-serif;
     font-size: 20px;
     color: gray;
+}
+
+.text-black{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    color: black;
 }
 
 .text-item{
@@ -415,6 +431,217 @@ body{
 
 .product-nav-block{
     padding: 20px 0 0 20px;
+}
+
+
+.admin-orders-panel{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+}
+
+.admin-orders-tabs-panel{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    border-bottom: gray 1px solid;
+}
+
+.admin-orders-tab{
+    height: 100%;
+    width: 140px;
+    border-right: gray 1px solid;
+}
+
+.admin-orders-tab:hover{
+    background-color: #adadad;
+}
+
+.admin-orders-list{
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#order-list-header{
+    border-top: grey 1px solid;
+}
+
+.order-item{
+    width: 98%;
+    height: 60px;
+    border: grey solid;
+    border-width: 0 1px 1px 1px;
+    display: flex;
+}
+
+.order-number{
+
+}
+
+.order-cell{
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+
+.order-marker{
+    width: 60px;
+}
+
+.marker{
+    margin-left: 15px;
+}
+
+.order-number{
+    width: 100px;
+}
+
+.order-status{
+    width: 140px;
+}
+
+.order-client{
+    width: 160px;
+}
+
+.order-town{
+    width: 150px;
+}
+
+.order-sum{
+    width: 140px;
+}
+
+.order-payed{
+    width: 130px;
+}
+
+.order-payment-method{
+    width: 130px;
+}
+
+.order-shipment-method{
+    width: 130px;
+}
+
+.order-comment{
+    width: 150px;
+}
+
+.order-date-time{
+    width: 150px;
+}
+
+.order-edit-button{
+    width: 40px;
+}
+
+.order-delete-button{
+    width: 40px;
+}
+
+.order-data-panel{
+    display: flex;
+    background-color: white;
+    width: 100%;
+    height: 1000px;
+}
+
+.order-left-panel{
+    flex: 1;
+    height: 100%;
+}
+
+.order-date{
+    height: 60px;
+    width: 100%;
+    border-bottom: #e8e8e8 1px solid;
+    display: flex;
+    align-items: center;
+}
+
+.order-date-picker{
+    margin-left: 20px;
+    height: 30px;
+    width: 200px;
+    border: #e8e8e8 1px solid;
+}
+
+.order-list-header{
+    width: 80%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.order-list-bar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.order-list{
+    width: 97%;
+    border: gainsboro 1px solid;
+}
+
+.order-table-header{
+    height: 50px;
+    width: 100%;
+    border-bottom: gainsboro 1px solid;
+    flex-direction: row;
+    display: flex;
+}
+
+.order-table-item{
+    height: 80px;
+    width: 100%;
+    border-bottom: gainsboro 1px solid;
+    flex-direction: row;
+    display: flex;
+}
+
+.order-list-id{
+    width: 50px;
+    margin-left: 10px;
+}
+
+.order-list-image-space{
+    width: 100px;
+    margin-left: 10px;
+}
+
+.order-list-name{
+    flex: 1;
+    margin-left: 10px;
+}
+
+.order-list-cost{
+    width: 100px;
+    margin-left: 10px;
+}
+
+.order-list-number{
+    width: 100px;
+    margin-left: 10px;
+}
+
+.order-list-sum{
+    width: 100px;
+    margin-left: 10px;
+}
+
+.order-right-panel{
+    width: 300px;
+    height: 100%;
 }
 
 .shop-main-container{
@@ -1146,6 +1373,82 @@ body{
     display: flex;
     align-items: center;
     padding-left: 30px;
+}
+
+.shop-order-send-button{
+    float: right;
+    height: 50px;
+    width: 140px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+.shop-order-one-click-buy{
+
+}
+
+.shop-order-one-click-buy-dialog{
+    height: 500px;
+    width: 40%;
+    background-color: white;
+    position: absolute;
+    left: 30%;
+    top: 21%;
+    border-radius: 5px;
+    border: none;
+    box-shadow: black 0px 0px 5px;
+    overflow: hidden;
+}
+
+.order-dialog-header{
+    height: 50px;
+    width: 100%;
+    border-bottom: gainsboro 1px solid;
+    display: flex;
+}
+
+.order-dialog-header-text{
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.order-dialog-close-button{
+    height: 100%;
+    width: 50px;
+    float: right;
+    background-color: #adadad;
+}
+
+.order-dialog-body{
+    height: 82%;
+    width: 94.7%;
+    padding: 20px;
+}
+
+.dialog-body-attribute-header{
+    margin-top: 20px;
+}
+
+.dialog-body-attribute{
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-radius: 3px;
+    background-color: #e8e8e8;
+    margin-top: 5px;
+}
+
+.cart-delete-icon{
+    height: 35px;
+}
+
+.cart-delete-button{
+    background-color: white;
+    border: none;
 }
 
 .cart-item-name{

@@ -18,8 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.annotation.Resources;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -81,6 +84,16 @@ public class MyConfig extends WebMvcConfigurerAdapter {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setMaxUploadSize(100000);
         return resolver;
+    }
+
+    @Bean(name = "userIdCookie")
+    @Scope("prototype")
+    public Cookie userIdCookie(){
+        Cookie cookie = new Cookie("USERID", new UID().toString());
+
+        System.out.println(cookie.getValue());
+
+        return cookie;
     }
 
     @Override
