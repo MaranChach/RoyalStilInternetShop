@@ -19,6 +19,10 @@ body{
     overflow: hidden;
 }
 
+.text-bold{
+    font-weight: bold;
+}
+
 .text-header{
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -50,9 +54,21 @@ body{
     color: gray;
 }
 
-.text-main{
+.text-main-20{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    color: black;
+}
+
+.text-main-15{
     font-family: 'Inter', sans-serif;
     font-size: 15px;
+    color: black;
+}
+
+.text-main-12{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
     color: black;
 }
 
@@ -557,6 +573,7 @@ body{
 .order-left-panel{
     flex: 1;
     height: 100%;
+    border-right: #e8e8e8 1px solid;
 }
 
 .order-date{
@@ -568,6 +585,7 @@ body{
 }
 
 .order-date-picker{
+    padding-left: 5px;
     margin-left: 20px;
     height: 30px;
     width: 200px;
@@ -591,6 +609,7 @@ body{
 .order-list{
     width: 97%;
     border: gainsboro 1px solid;
+    border-bottom: none;
 }
 
 .order-table-header{
@@ -639,9 +658,56 @@ body{
     margin-left: 10px;
 }
 
+.order-data-footer{
+    height: 100px;
+    margin-top: 30px;
+    float: right;
+    flex-direction: column;
+    display: flex;
+}
+
+.order-footer-attribute{
+    display: flex;
+    float: right;
+    margin-bottom: 10px;
+    justify-content: right;
+}
+
+.order-footer-attribute-name{
+    height: 30px;
+    padding-right: 5px;
+}
+
+.order-footer-attribute-value{
+    height: 30px;
+    width: 200px;
+    padding-left: 5px;
+}
+
 .order-right-panel{
     width: 300px;
     height: 100%;
+}
+
+
+
+.order-client-contact{
+    width: 100%;
+    border-bottom: gainsboro 1px solid;
+}
+
+.order-client-contact-item{
+    padding: 0 20px 10px 20px;
+}
+
+.order-client-contact-name{}
+
+.order-client-contact-email{}
+
+.order-client-contact-phone{}
+
+.order-client-address{
+
 }
 
 .shop-main-container{
@@ -1469,4 +1535,166 @@ body{
 
 .cart-item-delete{
     width: 100px;
+}
+
+.shop-ordering-content{
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.shop-ordering-info{
+    width: 70%;
+}
+
+
+
+.shop-ordering-info-bar{
+    width: 90%;
+    padding-left: 10px;
+}
+
+.shop-ordering-info-bar-header{
+    width: 80%;
+    height: 30px;
+}
+
+.shop-ordering-info-attributes{
+
+}
+
+.shop-ordering-info-attribute{
+    margin-bottom: 10px;
+}
+
+.shop-ordering-info-attribute-header{
+    margin-bottom: 10px;
+}
+
+.shop-ordering-info-attribute-value{
+    height: 35px;
+    width: 60%;
+}
+
+.shop-ordering-info-attribute-house{
+    display: flex;
+}
+
+.radio-select-bar{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 300px;
+}
+
+.radio-select-image{
+    height: 40px;
+    width: 70px;
+    margin: 0 15px;
+    border-radius: 3px;
+    border: #e8e8e8 1px solid;
+    overflow: hidden;
+}
+
+.radio-select-header{
+    height: 30px;
+    display: flex;
+    align-items: end;
+    margin-bottom: 4px;
+}
+
+.radio-ordering{
+    height: 20px;
+    width: 20px;
+}
+
+.radio-select-value{
+    height: 30px;
+    margin-top: 4px;
+}
+
+.shop-ordering-comment{
+    max-width: 100%;
+    max-height: 200px;
+    min-width: 500px;
+    min-height: 100px;
+}
+
+.order-confirm-button{
+    height: 50px;
+    width: 190px;
+    margin: 10px 0 0 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: deepskyblue;
+    color: white;
+}
+
+.order-confirm-button:hover{
+    background-color: dodgerblue;
+}
+
+.shop-ordering-cart-info{
+    width: 30%;
+}
+
+.shop-ordering-cart-bar{
+    width: 85%;
+    border-radius: 5px;
+    background-color: #e8e8e8;
+    padding: 20px;
+    float: right;
+}
+
+.shop-ordering-cart-bar-header{
+
+}
+
+.shop-ordering-cart-items{
+    margin-top: 10px;
+}
+
+.shop-ordering-cart-item{
+    height: 60px;
+    width: 100%;
+    border-bottom: #dddddd 1px solid;
+    display: flex;
+}
+
+.shop-ordering-cart-item-info{
+    flex: 1;
+    height: 100%;
+
+}
+
+.shop-ordering-cart-info-item{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.shop-ordering-cart-info-item-text{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.shop-ordering-cart-item-cost{
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.shop-ordering-cart-item-name{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: end;
+}
+
+.shop-ordering-cart-item-number{
+    width: 100%;
+    height: 30px;
 }

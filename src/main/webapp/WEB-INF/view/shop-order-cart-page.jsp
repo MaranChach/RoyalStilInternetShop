@@ -26,8 +26,8 @@
 
 <div class="shop-main-container">
     <div class="shop-top-bar">
-        <a class="text-main" style="float: right;" href="admin/">Личный кабинет</a>
-        <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
+        <a class="text-main-15" style="float: right;" href="admin/">Личный кабинет</a>
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="main">Администрирование</a>
     </div>
 
     <div class="shop-main-bar">
@@ -150,20 +150,20 @@
                                     </div>
                                 </div>
                                 <div class="order-dialog-body">
-                                    <div class="dialog-body-text text-main">
+                                    <div class="dialog-body-text text-main-15">
                                         Пожалуйста, укажите свой телефон, чтобы мы могли с вами связаться
                                     </div>
-                                    <div class="dialog-body-attribute-header text-main">
+                                    <div class="dialog-body-attribute-header text-main-15">
                                         Ваше имя
                                     </div>
                                     <form:input path="name" class="dialog-body-attribute" type="text"/>
 
-                                    <div class="dialog-body-attribute-header text-main">
+                                    <div class="dialog-body-attribute-header text-main-15">
                                         Номер телефона
                                     </div>
                                     <form:input path="phoneNumber" class="dialog-body-attribute" type="text"/>
 
-                                    <div class="dialog-body-attribute-header text-main">
+                                    <div class="dialog-body-attribute-header text-main-15">
                                         Комментарий
                                     </div>
                                     <input class="dialog-body-attribute" type="text"/>
@@ -190,32 +190,32 @@
 
 <div class="shop-footer">
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
 </div>
 

@@ -203,6 +203,7 @@ public class CRMController {
     private String orderView(@RequestParam("orderId") int id, Model model){
         model.addAttribute("order", orderDao.getById(id));
         model.addAttribute("iterator", 0);
+        model.addAttribute("orderSum", 0d);
 
         return "admin-order-view";
     }

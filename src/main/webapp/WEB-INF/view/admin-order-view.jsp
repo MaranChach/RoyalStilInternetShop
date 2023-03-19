@@ -51,7 +51,7 @@
         <div class="order-data-panel">
             <div class="order-left-panel">
                 <div class="order-date">
-                    <input class="order-date-picker" type="date" value="${order.date}">
+                    <input class="order-date-picker text-main-12" type="date" value="${order.date}">
                 </div>
                 <div class="order-list-header text-black">
                     Содержание заказа
@@ -80,6 +80,9 @@
                         </div>
 
                         <c:forEach var="orderItem" items="${order.orderCart.items}">
+                            <div style="display: none">
+                                ${orderSum = orderSum + (orderItem.product.cost * orderItem.number)}
+                            </div>
                             <div class="order-table-item">
                                 <div class="order-list-id order-cell">
                                     ${iterator = iterator+1}
@@ -103,9 +106,68 @@
                         </c:forEach>
                     </div>
                 </div>
+
+                <div class="order-data-footer">
+                    <div class="order-footer-attribute">
+                        <div class="order-footer-attribute-name text-main-12">
+                            Стоимость заказа:
+                        </div>
+                        <div class="order-footer-attribute-value text-main-12 text-bold">
+                            ${orderSum} руб.
+                        </div>
+                    </div>
+
+                    <div class="order-footer-attribute">
+                        <div class="order-footer-attribute-name text-main-12">
+                            Скидка:
+                        </div>
+                        <div class="order-footer-attribute-value text-main-12 text-bold">
+                            10 руб.
+                        </div>
+                    </div>
+
+                    <div class="order-footer-attribute">
+                        <div class="order-footer-attribute-name text-main-12">
+                            Доставка:
+                        </div>
+                        <div class="order-footer-attribute-value text-main-12 text-bold">
+                            100 руб.
+                        </div>
+                    </div>
+
+                    <div class="order-footer-attribute">
+                        <div class="order-footer-attribute-name text-black">
+                            Итого:
+                        </div>
+                        <div class="order-footer-attribute-value text-black text-bold   ">
+                            ${orderSum + orderDelivery - orderDiscount} руб.
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="order-right-panel">
-
+                <div class="order-client-contact">
+                    <div class="order-list-header text-black">
+                        Контакты
+                    </div>
+                    <div class="order-client-contact-name order-client-contact-item text-main-15">
+                        Сидоров Сидор Сидорович
+                    </div>
+                    <div class="order-client-contact-email order-client-contact-item text-main-12">
+                        example@mail.ru
+                    </div>
+                    <div class="order-client-contact-phone order-client-contact-item text-main-12">
+                        +7 999 999 99-99
+                    </div>
+                </div>
+                <div class="order-client-address">
+                    <div class="order-list-header text-black">
+                        Адрес
+                    </div>
+                    <div class="order-client-contact-name order-client-contact-item text-main-12">
+                        г. Гусь-Хрустальный, ул. Интернациональная, д. 123, кв. 34
+                    </div>
+                </div>
             </div>
         </div>
     </div>

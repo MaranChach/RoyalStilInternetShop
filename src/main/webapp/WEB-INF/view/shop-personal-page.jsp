@@ -20,8 +20,8 @@
 <body style="">
 <div class="shop-main-container">
     <div class="shop-top-bar">
-        <a class="text-main" style="float: right;" href="admin/">Личный кабинет</a>
-        <a class="text-main" style="float: right; margin-left: 10px" href="main">Администрирование</a>
+        <a class="text-main-15" style="float: right;" href="admin/">Личный кабинет</a>
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="main">Администрирование</a>
     </div>
 
     <div class="shop-main-bar">
@@ -92,32 +92,32 @@
 
 <div class="shop-footer">
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
     <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main">
+        <div class="shop-footer-column-header text-main-15">
             Информация
         </div>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
-        <a class="text-main">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
+        <a class="text-main-15">О магазине</a>
     </div>
 </div>
 

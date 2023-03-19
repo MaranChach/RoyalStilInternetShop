@@ -20,8 +20,8 @@
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-            <a class="text-main" style="float: right;" href="personal-page">Личный кабинет</a>
-            <a class="text-main" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
+            <a class="text-main-15" style="float: right;" href="personal-page">Личный кабинет</a>
+            <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
@@ -73,7 +73,7 @@
                             <c:param name="categoryId" value="${category.id}"/>
                         </c:url>
                         <div onclick="window.location.href = '${categoryButton}'" class="shop-categories-button shop-radius-catalog">
-                            <p class="text-main shop-categories-button-text">${category.name}</p>
+                            <p class="text-main-15 shop-categories-button-text">${category.name}</p>
                         </div>
                     </c:forEach>
                 </div>
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="shop-news-item">
-                        <div class="shop-news-text text-main">
+                        <div class="shop-news-text text-main-15">
                             Слава россии!
                         </div>
                         <div class="shop-news-date text">
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="shop-news-item">
-                        <div class="shop-news-text text-main">
+                        <div class="shop-news-text text-main-15">
                             Слава россии!
                         </div>
                         <div class="shop-news-date text">
@@ -207,7 +207,7 @@
                     </div>
                 </div>
 
-                <div class="shop-description-bar text-main">
+                <div class="shop-description-bar text-main-15">
                     <p>Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то, что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда актуальным, цены доступными, сервис лучшим.</p>
                     <br>
                     <p>Предлагаем Вам убедится в этом и сделать заказ в нашем интернет-магазине. Вы сможете быстро оплатить и получить заказ. Подробнее о вариантах оплаты и доставки Вы сможете узнать на соответствующих страницах.</p>
@@ -224,32 +224,32 @@
 
     <div class="shop-footer">
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
     </div>
 

@@ -20,8 +20,8 @@
 <body style="">
     <div class="shop-main-container">
         <div class="shop-top-bar">
-            <a class="text-main" style="float: right;" href="personal-page">Личный кабинет</a>
-            <a class="text-main" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
+            <a class="text-main-15" style="float: right;" href="personal-page">Личный кабинет</a>
+            <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
         </div>
 
         <div class="shop-main-bar">
@@ -73,10 +73,10 @@
                 <div class="shop-product-rating">
 
                 </div>
-                <div class="shop-product-article text-main">
+                <div class="shop-product-article text-main-15">
                     Артикул: ${product.article}
                 </div>
-                <div class="shop-product-reviews-number text-main">
+                <div class="shop-product-reviews-number text-main-15">
                     Отзывов: 0
                 </div>
             </div>
@@ -86,10 +86,10 @@
                 </div>
                 <div class="shop-product-content-cost-bar">
                     <div class="shop-product-content-number">
-                        <div class="text-main">
+                        <div class="text-main-15">
                             Количество:
                         </div>
-                        <input class="shop-product-number-input text-main" type="number">
+                        <input class="shop-product-number-input text-main-15" type="number">
                     </div>
 
                     <div class="shop-product-details-payment-bar">
@@ -142,17 +142,17 @@
                 </div>
             </div>
 
-            <div class="shop-product-tab-bar shop-product-description text-main">
+            <div class="shop-product-tab-bar shop-product-description text-main-15">
                 ${product.description}
             </div>
 
-            <div class="shop-product-tab-bar shop-product-details text-main">
+            <div class="shop-product-tab-bar shop-product-details text-main-15">
                 <p>Детали Детали Детали</p>
                 <p>Детали Детали Детали</p>
                 <p>Детали Детали Детали</p>
             </div>
 
-            <div class="shop-product-tab-bar shop-product-reviews text-main">
+            <div class="shop-product-tab-bar shop-product-reviews text-main-15">
                 <p>Отзывы Отзывы Отзывы </p>
                 <p>Отзывы Отзывы Отзывы </p>
                 <p>Отзывы Отзывы Отзывы </p>
@@ -162,32 +162,32 @@
 
     <div class="shop-footer">
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
         <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main">
+            <div class="shop-footer-column-header text-main-15">
                 Информация
             </div>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
-            <a class="text-main">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
+            <a class="text-main-15">О магазине</a>
         </div>
     </div>
 

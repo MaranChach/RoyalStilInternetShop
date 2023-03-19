@@ -144,8 +144,23 @@ public class ShopController {
         return "shop-order-cart-page";
     }
 
+    @RequestMapping("/ordering")
+    private String orderingPage(Model model){
+        model.addAttribute("order", new Order());
+        model.addAttribute("client", new Client());
+
+        return "shop-ordering-page";
+    }
+
+    @RequestMapping("/sendFullOrder")
+    private String sendFullOrder(@RequestParam("clientName") String clientName){
+        System.out.println(clientName);
+
+        return "";
+    }
+
     @RequestMapping("/sendOrder")
-    private String saveOrder(@ModelAttribute("order") Order order,
+    private String saveOrder(@ModelAttribute("order") Order order, @ModelAttribute Client client,
                              @RequestParam("orderCartId") int id){
         System.out.println(order);
 
