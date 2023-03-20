@@ -20,7 +20,7 @@ public class Order {
     private OrderCart orderCart;
 
     @JoinColumn(name = "client_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Client client;
 
     @Column(name = "date")
@@ -28,6 +28,10 @@ public class Order {
 
     @Column(name = "confirmed")
     private boolean confirmed;
+
+    @JoinColumn(name = "address")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Address address;
 
 
     public Order() {}
@@ -60,6 +64,7 @@ public class Order {
     }
 
 
+    @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
@@ -67,6 +72,7 @@ public class Order {
                 ", client=" + client +
                 ", date=" + date +
                 ", confirmed=" + confirmed +
+                ", address=" + address +
                 '}';
     }
 
@@ -115,5 +121,13 @@ public class Order {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

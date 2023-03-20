@@ -105,41 +105,47 @@
                     </div>
 
 
-                        <c:forEach var="item" items="${orderCart.items}">
-                            <div class="shop-cart-bar-item">
-                                <div class="shop-cart-item-cell cart-item-name text-black">
+                    <c:forEach var="item" items="${orderCart.items}">
+                        <div class="shop-cart-bar-item">
+                            <div class="shop-cart-item-cell cart-item-name text-black">
                                     ${item.product.name}
-                                </div>
-                                <div class="shop-cart-item-cell cart-item-cost text-black">
-                                    ${item.product.cost}
-                                </div>
-                                <div class="shop-cart-item-cell cart-item-number text-black">
-                                    ${item.number}
-                                </div>
-                                <div class="shop-cart-item-cell cart-item-final-cost text-black">
-                                    ${item.number * item.product.cost}
-                                </div>
-                                <div class="shop-cart-item-cell cart-item-delete text-black">
-                                    <button class="cart-delete-button">
-                                        <img class="cart-delete-icon" src="<c:url value="/sources/images/garbage-trash-svgrepo-com.svg"/>" alt="">
-                                    </button>
-                                </div>
                             </div>
-                        </c:forEach>
+                            <div class="shop-cart-item-cell cart-item-cost text-black">
+                                    ${item.product.cost}
+                            </div>
+                            <div class="shop-cart-item-cell cart-item-number text-black">
+                                    ${item.number}
+                            </div>
+                            <div class="shop-cart-item-cell cart-item-final-cost text-black">
+                                    ${item.number * item.product.cost}
+                            </div>
+                            <div class="shop-cart-item-cell cart-item-delete text-black">
+                                <button class="cart-delete-button">
+                                    <img class="cart-delete-icon"
+                                         src="<c:url value="/sources/images/garbage-trash-svgrepo-com.svg"/>" alt="">
+                                </button>
+                            </div>
+                        </div>
+                    </c:forEach>
 
-                    <form:form modelAttribute="client" action="saveClient">
-                        <div class="shop-cart-bar-footer">
-                            <c:url var="orderSendButton" value="sendOrder">
-                                <c:param name="orderCartId" value="${orderCart.id}"/>
-                            </c:url>
 
-                            <button class="shop-product-buy-button shop-order-send-button" onclick="window.location.href = '${orderSendButton}'">
-                                Оформить
-                            </button>
-                            <button class="shop-product-buy-button shop-order-send-button shop-order-one-click-buy" onclick="">
-                                Купить в один клик
-                            </button>
+                    <div class="shop-cart-bar-footer">
+                        <c:url var="orderSendButton" value="sendOrder">
+                            <c:param name="orderCartId" value="${orderCart.id}"/>
+                        </c:url>
+                        <c:url var="orderingButton" value="ordering">
+                            <c:param name="orderCartId" value="${orderCart.id}"/>
+                        </c:url>
 
+                        <button class="shop-product-buy-button shop-order-send-button"
+                                onclick="window.location.href = '${orderingButton}'">
+                            Оформить
+                        </button>
+                        <button class="shop-product-buy-button shop-order-send-button shop-order-one-click-buy"
+                                onclick="">
+                            Купить в один клик
+                        </button>
+                        <form:form modelAttribute="client" action="saveClient">
                             <dialog class="shop-order-one-click-buy-dialog">
                                 <div class="order-dialog-header">
                                     <div class="order-dialog-header-text text-black">
@@ -177,8 +183,9 @@
                                     </button>
                                 </div>
                             </dialog>
-                        </div>
-                    </form:form>
+                        </form:form>
+                    </div>
+
                 </c:otherwise>
 
             </c:choose>

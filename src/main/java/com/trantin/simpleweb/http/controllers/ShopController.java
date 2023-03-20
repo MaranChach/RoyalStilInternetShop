@@ -2,10 +2,7 @@ package com.trantin.simpleweb.http.controllers;
 
 
 import com.trantin.simpleweb.http.dao.*;
-import com.trantin.simpleweb.http.entity.Client;
-import com.trantin.simpleweb.http.entity.Order;
-import com.trantin.simpleweb.http.entity.OrderCart;
-import com.trantin.simpleweb.http.entity.OrderCartItem;
+import com.trantin.simpleweb.http.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +40,9 @@ public class ShopController {
     @Autowired
     private ClientDao clientDao;
 
+    @Autowired
+    private AddressDao addressDao;
+
 
     @RequestMapping("/")
     public String getMainPage(Model model){
@@ -73,7 +73,8 @@ public class ShopController {
     }
 
     @RequestMapping("/product")
-    public String getProductPage(@RequestParam int productId, Model model){
+    public String getProductPage(@RequestParam int productId,
+                                 Model model){
         model.addAttribute("product", productDao.getById(productId));
 
         return "shop-product-page";
@@ -86,7 +87,7 @@ public class ShopController {
 
 
     @RequestMapping("/saveToCart")
-    public void saveProductToCart(@RequestParam int productId, HttpServletResponse response){
+    public String saveProductToCart(@RequestParam int productId, HttpServletResponse response){
 
         String sessionId = userIdCookie.getValue();
 
@@ -115,6 +116,8 @@ public class ShopController {
         response.addCookie(userIdCookie);
 
         orderCartDao.saveOrderCart(orderCart);
+
+        return "redirect:/cart";
     }
 
     @RequestMapping("/cart")
@@ -145,16 +148,42 @@ public class ShopController {
     }
 
     @RequestMapping("/ordering")
-    private String orderingPage(Model model){
+    private String orderingPage(@RequestParam("orderCartId") int orderCartId,
+                                Model model){
         model.addAttribute("order", new Order());
         model.addAttribute("client", new Client());
+        model.addAttribute("orderCartId", orderCartId);
+        model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
+
 
         return "shop-ordering-page";
     }
 
     @RequestMapping("/sendFullOrder")
-    private String sendFullOrder(@RequestParam("clientName") String clientName){
-        System.out.println(clientName);
+    private String sendFullOrder(@RequestParam("clientEmail") String clientEmail,
+                                 @RequestParam("clientName") String clientName,
+                                 @RequestParam("clientSurname") String clientSurname,
+                                 @RequestParam("clientPhoneNumber") String clientPhoneNumber,
+                                 @RequestParam("city") String city,
+                                 @RequestParam("street") String street,
+                                 @RequestParam("houseNumber") String houseNumber,
+                                 @RequestParam("flatNumber") int flatNumber,
+                                 @RequestParam("orderCartId") int orderCartId,
+                                 Model model){
+
+
+        Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
+
+        Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
+
+        Order order = new Order();
+
+        order.setOrderCart(orderCartDao.getById(orderCartId));
+        order.setClient(client);
+        order.setAddress(address);
+        order.setCurrentDate();
+
+        orderDao.save(order);
 
         return "";
     }

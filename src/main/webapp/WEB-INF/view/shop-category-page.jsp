@@ -111,22 +111,26 @@
                         <c:url var="saveProduct" value="saveToCart">
                             <c:param name="productId" value="${product.id}"/>
                         </c:url>
-                        <div class="shop-product" >
-                            <div class="shop-product-image-bar">
-
+                        <div  class="shop-product" >
+                            <div onclick="window.location.href = '${productButton}'" class="shop-product-image-bar">
+                                <img src="${product.imageUrl}" alt="">
                             </div>
                             <div class="shop-product-info-bar">
-                                <div class="shop-product-title text-product">
-                                    ${product.name}
+                                <div onclick="window.location.href = '${productButton}'">
+                                    <div class="shop-product-title text-product">
+                                            ${product.name}
+                                    </div>
+                                    <div class="shop-product-cost text-product">
+                                            ${product.cost} руб.
+                                    </div>
                                 </div>
-                                <div class="shop-product-cost text-product">
-                                    ${product.cost} руб.
-                                </div>
+
+
                                 <div class="shop-product-buy-button-bar">
-                                    <button class="shop-product-buy-button text-product-buttons">
+                                    <button onclick="window.location.href = '${saveProduct}'" class="shop-product-buy-button text-product-buttons">
                                         В корзину
                                     </button>
-                                    <button onclick="window.location.href = '${saveProduct}'" class="shop-product-buy-button text-product-buttons">
+                                    <button  class="shop-product-buy-button text-product-buttons">
                                         Купить
                                     </button>
                                 </div>

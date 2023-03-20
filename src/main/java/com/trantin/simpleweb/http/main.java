@@ -8,13 +8,19 @@ import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.services.UnitDaoService;
 import com.trantin.simpleweb.http.utils.ClassUML;
+import com.trantin.simpleweb.http.utils.Validator;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class main {
 
     public static void main(String[] args) {
 
-        ClassUML classUML = new ClassUML();
+        String s = Validator.trimImageUrl("[url=https://postimg.cc/S2m57c49][img]https://i.postimg.cc/S2m57c49/29-11-2022-203649.jpg[/img][/url]");
+
+        System.out.println(s);
+
+
+        /*ClassUML classUML = new ClassUML();
 
 
 
@@ -42,7 +48,7 @@ public class main {
         classUML.printSummary(OrderCart.class);
         classUML.printSummary(OrderCartItem.class);
         classUML.printSummary(Product.class);
-        classUML.printSummary(Unit.class);
+        classUML.printSummary(Unit.class);*/
 
 
 

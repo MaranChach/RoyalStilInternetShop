@@ -13,11 +13,11 @@ public class Address {
     private int id;
 
     @JoinColumn(name = "city")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private City city;
 
     @JoinColumn(name = "street")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Street street;
 
     @Column(name = "house_number")
@@ -49,7 +49,7 @@ public class Address {
     }
 
     public String  getSummary() {
-        return "г. " + getCity() + " ул. " + getStreet() + " д. " + getHouseNumber() + " н. " + getFlatNumber();
+        return "г. " + getCity().getName() + " ул. " + getStreet().getName() + " д. " + getHouseNumber() + " кв. " + getFlatNumber();
     }
 
     public int getId() {

@@ -47,7 +47,7 @@
     </div>
     <div class="main-panel" style="display: flex; padding: 10px">
         <div class="product-nav-panel">
-
+            <img class="admin-product-image" src="${product.imageUrl}" alt="">
         </div>
 
 
@@ -116,6 +116,13 @@
                         </div>
 
                         <div class="form-attribute">
+                            <p class="attribute-name">Ссылка на картинку</p>
+                            <div style="flex: 1">
+                                <form:textarea type="text" autocomplete="off" path="imageUrl" class="attribute-value" id="url"/>
+                            </div>
+                        </div>
+
+                        <div class="form-attribute">
                             <p class="attribute-name">Описание</p>
                             <form:textarea autocomplete="off" path="description" class="attribute-value"/>
                         </div>
@@ -127,7 +134,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//mod.postimage.org/phpbb3-german-family.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        <%@include file="/sources/script/image-script.js"%>
+    </script>
 
 </body>
 </html>

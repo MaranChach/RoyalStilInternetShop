@@ -151,13 +151,13 @@
                         Контакты
                     </div>
                     <div class="order-client-contact-name order-client-contact-item text-main-15">
-                        Сидоров Сидор Сидорович
+                        ${order.client.surname} ${order.client.name}
                     </div>
                     <div class="order-client-contact-email order-client-contact-item text-main-12">
-                        example@mail.ru
+                        ${order.client.email}
                     </div>
                     <div class="order-client-contact-phone order-client-contact-item text-main-12">
-                        +7 999 999 99-99
+                        ${order.client.phoneNumber}
                     </div>
                 </div>
                 <div class="order-client-address">
@@ -165,7 +165,7 @@
                         Адрес
                     </div>
                     <div class="order-client-contact-name order-client-contact-item text-main-12">
-                        г. Гусь-Хрустальный, ул. Интернациональная, д. 123, кв. 34
+                        ${order.address.summary}
                     </div>
                 </div>
             </div>

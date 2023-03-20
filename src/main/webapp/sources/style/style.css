@@ -134,6 +134,13 @@ body{
     border-bottom: 1px solid #adadad;
 }
 
+#url{
+    min-height: 30px;
+    min-width: 200px;
+    width: 974px;
+    max-width: 974px;
+}
+
 .logo-bar{
     float: left;
     display: flex;
@@ -401,6 +408,11 @@ body{
     padding: 0 5px 0 5px;
 }
 
+.admin-product-image{
+    width: 100%;
+    height: 150px;
+}
+
 .product-panel{
     flex: 1;
     height: 1000px;
@@ -437,7 +449,6 @@ body{
     height: 30px;
     background-color: white;
     border: gray solid 1px;
-    float: right;
     flex: 1;
     margin-right: 20px;
     font-family: 'Inter', sans-serif;
@@ -1265,13 +1276,13 @@ body{
 
     flex-direction: column;
     display: flex;
+    align-items: center;
 
 }
 
 .shop-product-content-image{
     margin: 10px;
-    height: 200px;
-    flex: 1;
+    width: 100%;
     flex-direction: row;
 }
 

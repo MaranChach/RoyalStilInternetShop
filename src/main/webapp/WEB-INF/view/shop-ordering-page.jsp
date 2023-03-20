@@ -72,7 +72,6 @@
         </div>
         <form action="sendFullOrder">
         <div class="shop-ordering-content">
-
             <div class="shop-ordering-info">
                 <div class="shop-ordering-info-bar">
                     <div class="shop-ordering-info-bar-header text-main-20">
@@ -81,19 +80,19 @@
                     <div class="shop-ordering-info-attributes">
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Email </p>
-                            <input name="clientName" class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="clientEmail" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Имя </p>
-                            <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="clientName" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Фамилия </p>
-                            <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="clientSurname" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
-                            <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                     </div>
                 </div>
@@ -139,20 +138,20 @@
                     <div class="shop-ordering-info-attributes">
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Город </p>
-                            <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="city" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                         <div class="shop-ordering-info-attribute">
                             <p class="shop-ordering-info-attribute-header text-main-15 "> Улица </p>
-                            <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                            <input name="street" class="shop-ordering-info-attribute-value text-main-15" type="text">
                         </div>
                         <div class="shop-ordering-info-attribute-house">
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер дома </p>
-                                <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                                <input name="houseNumber" class="shop-ordering-info-attribute-value text-main-15" type="text">
                             </div>
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Квартира </p>
-                                <input class="shop-ordering-info-attribute-value text-main-15" type="text">
+                                <input name="flatNumber" class="shop-ordering-info-attribute-value text-main-15" type="text">
                             </div>
                         </div>
                     </div>
@@ -220,47 +219,24 @@
                         Мой заказ
                     </p>
 
-                    <div class="shop-ordering-cart-items">
-                        <div class="shop-ordering-cart-item">
-                            <div class="shop-ordering-cart-item-info">
-                                <div class="shop-ordering-cart-item-name text-main-15 text-bold">
-                                    Доска
-                                </div>
-                                <div class="shop-ordering-cart-item-number text-main-15">
-                                    Количество: 1
-                                </div>
-                            </div>
-                            <div class="shop-ordering-cart-item-cost text-main-15">
-                                700 руб.
-                            </div>
-                        </div>
-                        <div class="shop-ordering-cart-item">
-                            <div class="shop-ordering-cart-item-info">
-                                <div class="shop-ordering-cart-item-name text-main-15 text-bold">
-                                    Доска
-                                </div>
-                                <div class="shop-ordering-cart-item-number text-main-15">
-                                    Количество: 1
-                                </div>
-                            </div>
-                            <div class="shop-ordering-cart-item-cost text-main-15">
-                                700 руб.
-                            </div>
-                        </div>
-                        <div class="shop-ordering-cart-item">
-                            <div class="shop-ordering-cart-item-info">
-                                <div class="shop-ordering-cart-item-name text-main-15 text-bold">
-                                    Доска
-                                </div>
-                                <div class="shop-ordering-cart-item-number text-main-15">
-                                    Количество: 1
-                                </div>
-                            </div>
-                            <div class="shop-ordering-cart-item-cost text-main-15">
-                                700 руб.
-                            </div>
-                        </div>
+                    <input name="orderCartId" type="hidden" value="${orderCartId}">
 
+                    <div class="shop-ordering-cart-items">
+                        <c:forEach var="cartItem" items="${orderCart.items}">
+                            <div class="shop-ordering-cart-item">
+                                <div class="shop-ordering-cart-item-info">
+                                    <div class="shop-ordering-cart-item-name text-main-15 text-bold">
+                                        ${cartItem.product.name}
+                                    </div>
+                                    <div class="shop-ordering-cart-item-number text-main-15">
+                                        Количество: ${cartItem.number}
+                                    </div>
+                                </div>
+                                <div class="shop-ordering-cart-item-cost text-main-15">
+                                    ${cartItem.product.cost * cartItem.number}
+                                </div>
+                            </div>
+                        </c:forEach>
 
                         <div class="shop-ordering-cart-info-item">
                             <div class="shop-ordering-cart-info-item-text text-main-15">

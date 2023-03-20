@@ -82,7 +82,7 @@
             </div>
             <div class="shop-product-content">
                 <div class="shop-product-content-image-bar">
-                    <img class="shop-product-content-image" src="<c:url value="/sources/images/g-jJlyEe1UQ.jpg"/>" alt="">
+                    <img height="300px" class="shop-product-content-image" src="${product.imageUrl}" alt="">
                 </div>
                 <div class="shop-product-content-cost-bar">
                     <div class="shop-product-content-number">
@@ -103,7 +103,8 @@
                                 <div style="color: red" class="shop-product-content-availability text-availability">
                                     Нет в наличии
                                 </div>
-                                <button style="background-color: gainsboro" disabled="disabled" class="shop-product-content-buy-button text-product-buttons">
+
+                                <button onclick="window.location.href = '${addToCartButton}'" style="background-color: gainsboro" disabled="disabled" class="shop-product-content-buy-button text-product-buttons">
                                     Добавить
                                 </button>
                             </c:when>
@@ -112,11 +113,16 @@
                                 <div class="shop-product-content-availability text-availability">
                                     Есть в наличии
                                 </div>
-                                <button disabled="" class="shop-product-content-buy-button text-product-buttons">
+
+                                <c:url var="addToCartButton" value="saveToCart">
+                                    <c:param name="productId" value="${product.id}"/>
+                                </c:url>
+
+                                <button onclick="window.location.href='${addToCartButton}'" class="shop-product-content-buy-button text-product-buttons">
                                     Добавить
                                 </button>
 
-                                <div onclick="window.location.href='#'" class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик</div>
+                                <div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик</div>
                             </c:otherwise>
 
                         </c:choose>

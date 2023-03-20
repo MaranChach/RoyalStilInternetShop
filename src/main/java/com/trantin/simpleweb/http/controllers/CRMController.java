@@ -3,6 +3,7 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -169,6 +170,8 @@ public class CRMController {
         product.setUnit(unitDao.getById(unitId));
         product.setCategory(categoryDao.getById(categoryId));
         product.setManufacturer(manufacturerDao.getById(manufacturerId));
+
+        product.setImageUrl(Validator.trimImageUrl(product.getImageUrl()));
 
         System.out.println(product);
 
