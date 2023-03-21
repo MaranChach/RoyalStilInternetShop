@@ -102,7 +102,7 @@
                     </div>
                     <div class="shop-ordering-info-attributes">
                         <div class="radio-select-bar">
-                            <input class="radio-ordering" type="radio">
+                            <input name="shipmentMethod" value="pickup" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="radio-select-bar">
-                            <input class="radio-ordering" type="radio">
+                            <input name="shipmentMethod" value="ship" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -161,8 +161,9 @@
                         Способ оплаты
                     </div>
                     <div class="shop-ordering-info-attributes">
+
                         <div class="radio-select-bar">
-                            <input class="radio-ordering" type="radio">
+                            <input name="paymentMethod" value="cash" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -176,7 +177,7 @@
                             </div>
                         </div>
                         <div class="radio-select-bar">
-                            <input class="radio-ordering" type="radio">
+                            <input name="paymentMethod" value="card" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -223,6 +224,10 @@
 
                     <div class="shop-ordering-cart-items">
                         <c:forEach var="cartItem" items="${orderCart.items}">
+                            <div style="display: none">
+                                ${orderSum = orderSum + (cartItem.product.cost * cartItem.number)}
+                            </div>
+
                             <div class="shop-ordering-cart-item">
                                 <div class="shop-ordering-cart-item-info">
                                     <div class="shop-ordering-cart-item-name text-main-15 text-bold">
@@ -233,7 +238,7 @@
                                     </div>
                                 </div>
                                 <div class="shop-ordering-cart-item-cost text-main-15">
-                                    ${cartItem.product.cost * cartItem.number}
+                                    ${cartItem.product.cost * cartItem.number} руб.
                                 </div>
                             </div>
                         </c:forEach>
@@ -243,7 +248,7 @@
                                 Стоимость заказа
                             </div>
                             <div class="shop-ordering-cart-item-cost text-main-15">
-                                2100 руб.
+                                ${orderSum} руб.
                             </div>
                         </div>
                         <div class="shop-ordering-cart-info-item">

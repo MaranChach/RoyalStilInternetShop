@@ -113,7 +113,7 @@
                         </c:url>
                         <div  class="shop-product" >
                             <div onclick="window.location.href = '${productButton}'" class="shop-product-image-bar">
-                                <img src="${product.imageUrl}" alt="">
+                                <img class="shop-catalog-product-image" src="${product.imageUrl}" alt="">
                             </div>
                             <div class="shop-product-info-bar">
                                 <div onclick="window.location.href = '${productButton}'">

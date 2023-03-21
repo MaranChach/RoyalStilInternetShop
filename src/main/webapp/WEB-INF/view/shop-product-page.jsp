@@ -70,9 +70,6 @@
                 ${product.name}
             </div>
             <div class="shop-product-rating-bar">
-                <div class="shop-product-rating">
-
-                </div>
                 <div class="shop-product-article text-main-15">
                     Артикул: ${product.article}
                 </div>
@@ -198,7 +195,7 @@
     </div>
 
     <script>
-        <%@include file="/sources/script/tabs-script.js"%>
+        <%@include file="/sources/script/product-tabs-script.js"%>
     </script>
 </body>
 </html>

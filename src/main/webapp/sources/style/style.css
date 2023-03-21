@@ -28,6 +28,7 @@ body{
     font-size: 20px;
     color: #16202a;
     display: inline-block;
+    justify-content: space-between;
 }
 
 .text-gray{
@@ -156,7 +157,7 @@ body{
     background-color: #2f4050;
     float: right;
     height: 1000px;
-    width: 18%;
+    width: 300px;
     display: table-cell;
 }
 
@@ -191,7 +192,7 @@ body{
 
 .main-panel{
     float: right;
-    width: 82%;
+    flex: 1;
     background-color: #eeeeee;
 }
 
@@ -401,8 +402,8 @@ body{
 }
 
 .product-nav-panel{
-    height: 1000px;
-    width: 250px;
+    height: 100%;
+    width: 300px;
     background-color: white;
     display: flex;
     padding: 0 5px 0 5px;
@@ -465,7 +466,8 @@ body{
     display: flex;
     flex-direction: column;
     flex: 1;
-
+    margin: 10px 20px;
+    background-color: #eeeeee;
 }
 
 .admin-orders-tabs-panel{
@@ -483,6 +485,18 @@ body{
 
 .admin-orders-tab:hover{
     background-color: #adadad;
+}
+
+.order-list-tab-all{
+    display: block;
+}
+
+.order-list-tab-conf{
+    display: none;
+}
+
+.order-list-tab-not-conf{
+    display: none;
 }
 
 .admin-orders-list{
@@ -1047,6 +1061,10 @@ body{
     align-items: center;
 }
 
+.shop-catalog-product-image{
+    width: 95%;
+}
+
 .shop-product-image{
     width: 100%;
     height: 100%;
@@ -1272,7 +1290,7 @@ body{
 
 .shop-product-content-image-bar{
     width: 50%;
-    height: 600px;
+    height: 450px;
 
     flex-direction: column;
     display: flex;
@@ -1288,13 +1306,13 @@ body{
 
 .shop-product-content-cost-bar{
     width: 25%;
-    height: 600px;
+    height: 450px;
     padding-left: 20px;
 }
 
 .shop-product-content-delivery-info-bar{
     width: 25%;
-    height: 600px;
+    height: 450px;
 }
 
 .shop-product-content-number{
@@ -1676,7 +1694,6 @@ body{
 .shop-ordering-cart-item-info{
     flex: 1;
     height: 100%;
-
 }
 
 .shop-ordering-cart-info-item{

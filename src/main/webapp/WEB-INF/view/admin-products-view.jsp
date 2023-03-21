@@ -11,7 +11,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <style><%@include file="/sources/style/style.css"%></style>
 </head>
 <body>
 <div class="top-bar">
@@ -27,7 +28,7 @@
             <div class="side-bar-item" onclick="window.location.href = 'http://localhost:8080/main/admin/'">
                 <p class="side-bar-item-text text-item" >Рабочий стол</p>
             </div>
-            <div class="side-bar-item text-item">
+            <div class="side-bar-item text-item" onclick="window.location.href = 'orders'">
                 <p class="side-bar-item-text text-item" >Заказы</p>
             </div>
             <div class="side-bar-item" onclick="window.location.href='products'">

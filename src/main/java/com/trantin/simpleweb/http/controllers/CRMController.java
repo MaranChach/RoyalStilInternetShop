@@ -3,6 +3,7 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.utils.Sorter;
 import com.trantin.simpleweb.http.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
@@ -197,7 +199,15 @@ public class CRMController {
 
     @RequestMapping("/orders")
     private String ordersView(Model model){
-        model.addAttribute("orders", orderDao.getAll());
+        List<Order> orders = orderDao.getAll();
+
+
+
+        model.addAttribute("orders", orders);
+        model.addAttribute("ordersConf", Sorter.getSortedByConfirmOrders(orders, true));
+        model.addAttribute("ordersNotConf", Sorter.getSortedByConfirmOrders(orders, false));
+
+        model.addAttribute("orderSum", 0d);
 
         return "admin-orders-view";
     }

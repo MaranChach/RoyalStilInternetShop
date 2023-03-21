@@ -47,6 +47,10 @@
     <div class="main-panel">
         <div class="text-header text-header-margin">
             Заказ №${order.id}
+            <div>
+                <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
+                <button class="delete-button">Удалить</button>
+            </div>
         </div>
         <div class="order-data-panel">
             <div class="order-left-panel">

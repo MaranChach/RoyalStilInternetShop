@@ -154,6 +154,7 @@ public class ShopController {
         model.addAttribute("client", new Client());
         model.addAttribute("orderCartId", orderCartId);
         model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
+        model.addAttribute("orderSum", 0d);
 
 
         return "shop-ordering-page";
@@ -169,6 +170,8 @@ public class ShopController {
                                  @RequestParam("houseNumber") String houseNumber,
                                  @RequestParam("flatNumber") int flatNumber,
                                  @RequestParam("orderCartId") int orderCartId,
+                                 @RequestParam("shipmentMethod") String shipmentMethod,
+                                 @RequestParam("paymentMethod") String paymentMethod,
                                  Model model){
 
 
@@ -182,6 +185,16 @@ public class ShopController {
         order.setClient(client);
         order.setAddress(address);
         order.setCurrentDate();
+
+        if (paymentMethod.equals("cash"))
+            order.setPaymentMethod(PaymentMethods.cash);
+        else order.setPaymentMethod(PaymentMethods.card);
+
+        if (paymentMethod.equals("ship"))
+            order.setShipmentMethod(ShipmentMethods.ship);
+        else order.setShipmentMethod(ShipmentMethods.pickup);
+
+
 
         orderDao.save(order);
 

@@ -122,7 +122,7 @@
 </div>
 
 <script>
-    <%@include file="/sources/script/tabs-script.js"%>
+    <%@include file="/sources/script/product-tabs-script.js"%>
 </script>
 </body>
 </html>

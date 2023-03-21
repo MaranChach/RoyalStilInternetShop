@@ -50,15 +50,18 @@
             Заказы
         </div>
         <div class="data-panel">
+            <div style="height: 10px">
+
+            </div>
             <div class="admin-orders-panel">
                 <div class="admin-orders-tabs-panel">
-                    <div class="admin-orders-tab">
+                    <div class="admin-orders-tab tab-all-orders">
 
                     </div>
-                    <div class="admin-orders-tab">
+                    <div class="admin-orders-tab tab-conf-orders">
 
                     </div>
-                    <div class="admin-orders-tab">
+                    <div class="admin-orders-tab tab-not-conf-orders">
 
                     </div>
                 </div>
@@ -98,9 +101,6 @@
                         <div class="order-shipment-method order-cell">
                             Метод доставки
                         </div>
-                        <div class="order-comment order-cell">
-                            Менеджер
-                        </div>
                         <div class="order-date-time order-cell">
                             Комментарий
                         </div>
@@ -111,97 +111,193 @@
 
                         </div>
                     </div>
-                    <div class="order-item">
-                        <div class="order-marker order-cell">
-                            <input class="marker" type="checkbox">
-                        </div>
-                        <div class="order-number order-cell">
-                            fffdsfdf
-                        </div>
-                        <div class="order-status order-cell">
-                           fdafdsfasdf
-                        </div>
-                        <div class="order-client order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-town order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-sum order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-payed order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-payment-method order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-shipment-method order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-comment order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-date-time order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-edit-button order-cell">
-                            fdasfdsaf
-                        </div>
-                        <div class="order-delete-button order-cell">
-                            fdasfdsaf
-                        </div>
+                    <div class="order-list-tab-all">
+                        <c:forEach var="order" items="${orders}">
+                            <c:url var="orderButton" value="order">
+                                <c:param name="orderId" value="${order.id}"/>
+                            </c:url>
+
+                            <div style="display: none">
+                                    ${orderSum = 0}
+
+                                <c:forEach var="orderItem" items="${order.orderCart.items}">
+                                    ${orderSum = orderSum + orderItem.product.cost}
+                                </c:forEach>
+                            </div>
+
+
+                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                                <div class="order-marker order-cell">
+                                    <input class="marker" type="checkbox">
+                                </div>
+                                <div class="order-number order-cell">
+                                        ${order.id}
+                                </div>
+                                <div class="order-status order-cell">
+                                        ${order.isConfirmedStr()}
+                                </div>
+                                <div class="order-client order-cell">
+                                        ${order.client.name} ${order.client.surname}
+                                </div>
+                                <div class="order-town order-cell">
+                                        ${order.address.city.name}
+                                </div>
+                                <div class="order-sum order-cell">
+                                        ${orderSum}
+                                </div>
+                                <div class="order-payed order-cell">
+
+                                </div>
+                                <div class="order-payment-method order-cell">
+                                    ${order.paymentMethodStr}
+                                </div>
+                                <div class="order-shipment-method order-cell">
+                                    ${order.shipmentMethodStr}
+                                </div>
+
+                                <div class="order-comment order-cell">
+
+                                </div>
+                                <div class="order-date-time order-cell">
+                                        ${order.date}
+                                </div>
+                                <div class="order-edit-button order-cell">
+                                    <button></button>
+                                </div>
+                                <div class="order-delete-button order-cell">
+                                    <button></button>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
-                    <c:forEach var="order" items="${orders}">
-                        <c:url var="orderButton" value="order">
-                            <c:param name="orderId" value="${order.id}"/>
-                        </c:url>
-                        <div class="order-item" onclick="window.location.href = '${orderButton}'">
-                            <div class="order-marker order-cell">
-                                <input class="marker" type="checkbox">
-                            </div>
-                            <div class="order-number order-cell">
-                                ${order.id}
-                            </div>
-                            <div class="order-status order-cell">
-                                null
-                            </div>
-                            <div class="order-client order-cell">
-                                ${order.client.name} ${order.client.surname}
-                            </div>
-                            <div class="order-town order-cell">
-                                null
-                            </div>
-                            <div class="order-sum order-cell">
-<%--                                ${order.orderSum()}--%>
-                            </div>
-                            <div class="order-payed order-cell">
+                    <div class="order-list-tab-conf">
+                        <c:forEach var="order" items="${ordersConf}">
+                            <c:url var="orderButton" value="order">
+                                <c:param name="orderId" value="${order.id}"/>
+                            </c:url>
 
-                            </div>
-                            <div class="order-payment-method order-cell">
-                                null
-                            </div>
-                            <div class="order-shipment-method order-cell">
-                                null
-                            </div>
-                            <div class="order-comment order-cell">
+                            <div style="display: none">
+                                    ${orderSum = 0}
 
+                                <c:forEach var="orderItem" items="${order.orderCart.items}">
+                                    ${orderSum = orderSum + orderItem.product.cost}
+                                </c:forEach>
                             </div>
-                            <div class="order-date-time order-cell">
-                                ${order.date}
+
+
+                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                                <div class="order-marker order-cell">
+                                    <input class="marker" type="checkbox">
+                                </div>
+                                <div class="order-number order-cell">
+                                        ${order.id}
+                                </div>
+                                <div class="order-status order-cell">
+                                        ${order.isConfirmedStr()}
+                                </div>
+                                <div class="order-client order-cell">
+                                        ${order.client.name} ${order.client.surname}
+                                </div>
+                                <div class="order-town order-cell">
+                                        ${order.address.city.name}
+                                </div>
+                                <div class="order-sum order-cell">
+                                        ${orderSum}
+                                </div>
+                                <div class="order-payed order-cell">
+
+                                </div>
+                                <div class="order-payment-method order-cell">
+                                    null
+                                </div>
+                                <div class="order-shipment-method order-cell">
+                                    null
+                                </div>
+
+                                <div class="order-comment order-cell">
+
+                                </div>
+                                <div class="order-date-time order-cell">
+                                        ${order.date}
+                                </div>
+                                <div class="order-edit-button order-cell">
+                                    <button></button>
+                                </div>
+                                <div class="order-delete-button order-cell">
+                                    <button></button>
+                                </div>
                             </div>
-                            <div class="order-edit-button order-cell">
-                                <button></button>
+                        </c:forEach>
+                    </div>
+                    <div class="order-list-tab-not-conf">
+                        <c:forEach var="order" items="${ordersNotConf}">
+                            <c:url var="orderButton" value="order">
+                                <c:param name="orderId" value="${order.id}"/>
+                            </c:url>
+
+                            <div style="display: none">
+                                    ${orderSum = 0}
+
+                                <c:forEach var="orderItem" items="${order.orderCart.items}">
+                                    ${orderSum = orderSum + orderItem.product.cost}
+                                </c:forEach>
                             </div>
-                            <div class="order-delete-button order-cell">
-                                <button></button>
+
+
+                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                                <div class="order-marker order-cell">
+                                    <input class="marker" type="checkbox">
+                                </div>
+                                <div class="order-number order-cell">
+                                        ${order.id}
+                                </div>
+                                <div class="order-status order-cell">
+                                        ${order.isConfirmedStr()}
+                                </div>
+                                <div class="order-client order-cell">
+                                        ${order.client.name} ${order.client.surname}
+                                </div>
+                                <div class="order-town order-cell">
+                                        ${order.address.city.name}
+                                </div>
+                                <div class="order-sum order-cell">
+                                        ${orderSum}
+                                </div>
+                                <div class="order-payed order-cell">
+
+                                </div>
+                                <div class="order-payment-method order-cell">
+                                    null
+                                </div>
+                                <div class="order-shipment-method order-cell">
+                                    null
+                                </div>
+
+                                <div class="order-comment order-cell">
+
+                                </div>
+                                <div class="order-date-time order-cell">
+                                        ${order.date}
+                                </div>
+                                <div class="order-edit-button order-cell">
+                                    <button></button>
+                                </div>
+                                <div class="order-delete-button order-cell">
+                                    <button></button>
+                                </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    <%@include file="/sources/script/orders-tabs-script.js"%>
+</script>
+
 </body>
 </html>

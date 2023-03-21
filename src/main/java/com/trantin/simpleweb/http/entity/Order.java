@@ -1,5 +1,9 @@
 package com.trantin.simpleweb.http.entity;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -8,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class Order {
 
     @Id
@@ -33,6 +38,15 @@ public class Order {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @Column(name = "payment_method")
+    @Enumerated(EnumType.STRING)
+    @Type(type = "pgsql_enum")
+    private PaymentMethods paymentMethod;
+
+    @Column(name = "shipment_method")
+    @Enumerated(EnumType.STRING)
+    @Type(type = "pgsql_enum")
+    private ShipmentMethods shipmentMethod;
 
     public Order() {}
 
@@ -48,8 +62,6 @@ public class Order {
     }
 
     public double orderSum(){
-        System.out.println("работай сука");
-
         double result = 0;
 
         List<OrderCartItem> list = orderCart.getItems();
@@ -73,6 +85,8 @@ public class Order {
                 ", date=" + date +
                 ", confirmed=" + confirmed +
                 ", address=" + address +
+                ", paymentMethod=" + paymentMethod +
+                ", shipmentMethod=" + shipmentMethod +
                 '}';
     }
 
@@ -114,9 +128,9 @@ public class Order {
 
     public String isConfirmedStr(){
         if(isConfirmed()){
-            return "Да";
+            return "Доставлен";
         }
-        return "Нет";
+        return "В работе";
     }
 
     public void setConfirmed(boolean confirmed) {
@@ -130,4 +144,49 @@ public class Order {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public PaymentMethods getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public String getPaymentMethodStr() {
+        if(paymentMethod == PaymentMethods.cash)
+            return "Наличная оплата";
+        else if (paymentMethod == PaymentMethods.card)
+            return "Безналичная оплата";
+
+        return "Неопределено";
+    }
+
+    public void setPaymentMethod(PaymentMethods paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public ShipmentMethods getShipmentMethod() {
+        return shipmentMethod;
+    }
+
+    public String getShipmentMethodStr() {
+        if(shipmentMethod == ShipmentMethods.ship)
+            return "Доставка";
+        else if (shipmentMethod == ShipmentMethods.pickup)
+            return "Самовывоз";
+
+        return "Неопределено";
+    }
+
+    public void setShipmentMethod(ShipmentMethods shipmentMethod) {
+        this.shipmentMethod = shipmentMethod;
+    }
+
+    /*public void setPaymentMethodEnum(PaymentMethods payment_method) {
+        switch (payment_method){
+            case Cash:
+                this.paymentMethod = "cash";
+                break;
+            case Card:
+                this.paymentMethod = "card";
+                break;
+        }
+    }*/
 }

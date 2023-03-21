@@ -46,12 +46,7 @@
 
     </div>
     <div class="main-panel" style="display: flex; padding: 10px">
-        <div class="product-nav-panel">
-            <img class="admin-product-image" src="${product.imageUrl}" alt="">
-        </div>
-
-
-            <div class="product-panel">
+        <div class="product-panel">
             <form:form modelAttribute="product" action="saveProduct">
                 <div class="product-header">
                     <p class="text-header-values">Товар</p>
@@ -59,10 +54,6 @@
                         Удалить
                     </button>
                     <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
-
-                </div>
-                <div>
-
                 </div>
 
                 <div class="product-data-panel">
@@ -131,6 +122,10 @@
                 </div>
             </form:form>
             </div>
+
+        <div class="product-nav-panel">
+            <img class="admin-product-image" src="${product.imageUrl}" alt="">
+        </div>
     </div>
 </div>
 
