@@ -38,6 +38,8 @@ public class CRMController {
     @Autowired
     private DetailsDao detailsDao;
 
+    @Autowired DetailsParameterDao parameterDao;
+
     //endregion
 
     @RequestMapping(value = "/")
@@ -102,8 +104,6 @@ public class CRMController {
 
     @RequestMapping("/deleteUnit")
     public String deleteUnit(@RequestParam("unitId") int id, Model model){
-        System.out.println("работай сука");
-
         unitDao.deleteunit(unitDao.getById(id));
 
         return "redirect:/admin/units";
@@ -199,7 +199,7 @@ public class CRMController {
 
     @RequestMapping("/orders")
     private String ordersView(Model model){
-        List<Order> orders = orderDao.getAll();
+        List<Order> orders = orderDao.getAllSortedByDate();
 
 
 
@@ -221,6 +221,37 @@ public class CRMController {
         return "admin-order-view";
     }
 
+    @RequestMapping("/deleteOrder")
+    private String deleteOrder(@RequestParam("orderId") int id){
+        orderDao.delete(orderDao.getById(id));
+
+        return "redirect:/admin/orders";
+    }
+
+    @RequestMapping("/details")
+    private String detailsView(Model model){
+        model.addAttribute("newParameter", new DetailsParameter());
+
+        model.addAttribute("detailsParameters", parameterDao.getAll());
+
+        model.addAttribute("units", unitDao.getMap());
+
+
+        return "admin-details-view";
+    }
+
+    @RequestMapping("/saveDetailsParameter")
+    private String saveDetailsParameter(@ModelAttribute("newParameter") DetailsParameter detailsParameter,
+                                        @RequestParam("unit") int unitId,
+                                        Model model){
+        detailsParameter.setUnit(unitDao.getById(unitId));
+
+        parameterDao.save(detailsParameter);
+
+        System.out.println(detailsParameter);
+
+        return "redirect:/admin/details";
+    }
 
     @RequestMapping(value = "/saveManufacturer")
     public String saveManufacturer(@ModelAttribute("newManufacturer") Manufacturer manufacturer){

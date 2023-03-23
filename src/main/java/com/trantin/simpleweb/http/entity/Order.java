@@ -21,11 +21,11 @@ public class Order {
     private int id;
 
     @JoinColumn(name = "order_cart")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.EAGER)
     private OrderCart orderCart;
 
     @JoinColumn(name = "client_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Client client;
 
     @Column(name = "date")
@@ -35,7 +35,7 @@ public class Order {
     private boolean confirmed;
 
     @JoinColumn(name = "address")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Address address;
 
     @Column(name = "payment_method")

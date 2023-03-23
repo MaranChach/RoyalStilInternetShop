@@ -62,27 +62,27 @@
                         <br>
                         <form:hidden path="id"/>
                         <div class="form-attribute">
-                            <p class="attribute-name">Название</p>
+                            <p class="attribute-name text-main-14-gray">Название</p>
                             <form:input autocomplete="off" path="name" class="attribute-value" type="text"/>
                             <form:errors cssStyle="color: red" path="name"/>
                         </div>
 
                         <div class="form-attribute">
-                            <p class="attribute-name">Артикул</p>
+                            <p class="attribute-name text-main-14-gray">Артикул</p>
                             <form:input autocomplete="off" path="article" class="attribute-value" type="text"/>
                         </div>
 
                         <div class="form-attribute">
-                            <p class="attribute-name">Цена</p>
+                            <p class="attribute-name text-main-14-gray">Цена</p>
                             <form:input autocomplete="off" path="cost" class="attribute-value" type="text"/>
                         </div>
 
                         <div class="form-attribute">
-                            <p class="attribute-name">Количество</p>
+                            <p class="attribute-name text-main-14-gray">Количество</p>
                             <form:input path="number" class="attribute-value" type="number"/>
                         </div>
 
-                        <div class="form-attribute">
+                        <div class="form-attribute text-main-14-gray">
                             <p class="attribute-name">Единица измерения</p>
                             <form:select path="unit" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.unit.id}" label="${product.unit.name}"></form:option>
@@ -90,7 +90,7 @@
                             </form:select>
                         </div>
 
-                        <div class="form-attribute">
+                        <div class="form-attribute text-main-14-gray">
                             <p class="attribute-name">Категория</p>
                             <form:select path="category" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.category.id}" label="${product.category.name}"></form:option>
@@ -98,7 +98,7 @@
                             </form:select>
                         </div>
 
-                        <div class="form-attribute">
+                        <div class="form-attribute text-main-14-gray">
                             <p class="attribute-name">Производитель</p>
                             <form:select path="manufacturer" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.manufacturer.id}" label="${product.manufacturer.name}"></form:option>
@@ -106,14 +106,14 @@
                             </form:select>
                         </div>
 
-                        <div class="form-attribute">
+                        <div class="form-attribute text-main-14-gray">
                             <p class="attribute-name">Ссылка на картинку</p>
                             <div style="flex: 1">
                                 <form:textarea type="text" autocomplete="off" path="imageUrl" class="attribute-value" id="url"/>
                             </div>
                         </div>
 
-                        <div class="form-attribute">
+                        <div class="form-attribute text-main-14-gray">
                             <p class="attribute-name">Описание</p>
                             <form:textarea autocomplete="off" path="description" class="attribute-value"/>
                         </div>

@@ -49,7 +49,11 @@
             Заказ №${order.id}
             <div>
                 <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
-                <button class="delete-button">Удалить</button>
+
+                <c:url var="deleteButton" value="deleteOrder">
+                    <c:param name="orderId" value="${order.id}"/>
+                </c:url>
+                <button class="delete-button" onclick="window.location.href = '${deleteButton}'">Удалить</button>
             </div>
         </div>
         <div class="order-data-panel">
@@ -63,22 +67,22 @@
                 <div class="order-list-bar">
                     <div class="order-list">
                         <div class="order-table-header">
-                            <div class="order-list-id order-cell">
+                            <div class="order-list-id table-cell">
                                 №
                             </div>
-                            <div class="order-list-image-space order-cell">
+                            <div class="order-list-image-space table-cell">
 
                             </div>
-                            <div class="order-list-name order-cell">
+                            <div class="order-list-name table-cell">
                                 Название
                             </div>
-                            <div class="order-list-cost order-cell">
+                            <div class="order-list-cost table-cell">
                                 Цена
                             </div>
-                            <div class="order-list-number order-cell">
+                            <div class="order-list-number table-cell">
                                 Кол-во
                             </div>
-                            <div class="order-list-sum order-cell">
+                            <div class="order-list-sum table-cell">
                                 Стоимость
                             </div>
                         </div>
@@ -88,22 +92,22 @@
                                 ${orderSum = orderSum + (orderItem.product.cost * orderItem.number)}
                             </div>
                             <div class="order-table-item">
-                                <div class="order-list-id order-cell">
+                                <div class="order-list-id table-cell">
                                     ${iterator = iterator+1}
                                 </div>
-                                <div class="order-list-image-space order-cell">
+                                <div class="order-list-image-space table-cell">
 
                                 </div>
-                                <div class="order-list-name order-cell">
+                                <div class="order-list-name table-cell">
                                     ${orderItem.product.name}
                                 </div>
-                                <div class="order-list-cost order-cell">
+                                <div class="order-list-cost table-cell">
                                     ${orderItem.product.cost}
                                 </div>
-                                <div class="order-list-number order-cell">
+                                <div class="order-list-number table-cell">
                                     ${orderItem.number}
                                 </div>
-                                <div class="order-list-sum order-cell">
+                                <div class="order-list-sum table-cell">
                                     ${orderItem.number * orderItem.product.cost}
                                 </div>
                             </div>
@@ -121,7 +125,7 @@
                         </div>
                     </div>
 
-                    <div class="order-footer-attribute">
+                    <div class="order-footer-attribute" style="height: 15px;">
                         <div class="order-footer-attribute-name text-main-12">
                             Скидка:
                         </div>
@@ -129,7 +133,11 @@
                             10 руб.
                         </div>
                     </div>
-
+                    <div class="order-footer-attribute">
+                        <a href="" onclick="" class="order-discount order-footer-attribute-value text-main-12">
+                            Добавить скидку
+                        </a>
+                    </div>
                     <div class="order-footer-attribute">
                         <div class="order-footer-attribute-name text-main-12">
                             Доставка:

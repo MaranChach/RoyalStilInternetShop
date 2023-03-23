@@ -14,6 +14,9 @@ public class Details {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "name")
+    private String name;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "details", fetch = FetchType.EAGER)
     private List<DetailsAttribute> attributes;
 
@@ -30,6 +33,7 @@ public class Details {
     public String toString() {
         return "Details{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", attributes=" + attributes +
                 '}';
     }
@@ -47,6 +51,14 @@ public class Details {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<DetailsAttribute> getAttributes() {

@@ -15,20 +15,26 @@ public class DetailsParameter {
     @Column(name = "name")
     private String name;
 
+    @JoinColumn(name = "unit")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    private Unit unit;
+
 
     @Override
     public String toString() {
         return "DetailsParameter{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", unit=" + unit.getName() +
                 '}';
     }
 
     public DetailsParameter() {
     }
 
-    public DetailsParameter(String name) {
+    public DetailsParameter(String name, Unit unit) {
         this.name = name;
+        this.unit = unit;
     }
 
     public int getId() {
@@ -45,5 +51,13 @@ public class DetailsParameter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 }

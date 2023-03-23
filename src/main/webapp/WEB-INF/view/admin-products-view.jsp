@@ -77,7 +77,7 @@
                         <div class="results-panel text border-gray">
                             <div class="results-panel-header">
                                 <div class="check-box center">
-                                    <input type="checkbox">
+                                    <input id="select-all" type="checkbox">
                                 </div>
                                 <div class="article center">Артикул</div>
                                 <div class="image center">Картинка</div>
@@ -96,10 +96,12 @@
                                 </c:url>
                                 <div class="results-panel-item border-bottom-gray" onclick="window.location.href = '${updateButton}'">
                                     <div class="check-box center">
-                                        <input type="checkbox">
+                                        <input class="select-product" type="checkbox">
                                     </div>
                                     <div class="article center">${product.article}</div>
-                                    <div class="image center">img</div>
+                                    <div class="image center">
+                                        <img class="image-thumb center" src="${product.imageUrl}" alt="" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'">
+                                    </div>
                                     <div class="name">${product.name}</div>
                                     <div class="price center">${product.cost}</div>
                                     <div class="count center">${product.number}</div>

@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
     <style>
         <%@include file="/sources/style/style.css"%>
@@ -120,9 +120,7 @@
                         <img width="40px" height="40px" src="<c:url value="/sources/images/arrow-left-circle-svgrepo-com.svg"/>">
                     </button>
 
-                    <div style="flex: 1">
 
-                    </div>
 
                     <button class="shop-slider-button shop-button-right">
                         <img width="40px" height="40px" src="<c:url value="/sources/images/arrow-right-circle-svgrepo-com.svg"/>">

@@ -196,7 +196,7 @@ public class ShopController {
 
 
 
-        orderDao.save(order);
+        orderDao.persist(order);
 
         return "";
     }
@@ -209,7 +209,7 @@ public class ShopController {
         order.setOrderCart(orderCartDao.getById(id));
         order.setCurrentDate();
 
-        orderDao.save(order);
+        orderDao.persist(order);
 
         return "";
     }

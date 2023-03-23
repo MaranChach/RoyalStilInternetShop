@@ -69,45 +69,45 @@
                     <button class="input-panel-button filter-button">Добавить фильтр</button>
                     <input class="search-input border-gray">
                     <div class="results-num-panel border-gray text">
-                        Найдено результатов:
+                        Найдено результатов: ${orders.size()}
                     </div>
                 </div>
                 <div class="admin-orders-list">
                     <div id="order-list-header" class="order-item">
-                        <div class="order-marker order-cell">
+                        <div class="table-marker table-cell">
                             <input class="marker" type="checkbox">
                         </div>
-                        <div class="order-number order-cell">
+                        <div class="order-number table-cell">
                             Номер
                         </div>
-                        <div class="order-status order-cell">
+                        <div class="order-status table-cell">
                             Статус
                         </div>
-                        <div class="order-client order-cell">
+                        <div class="order-client table-cell">
                             Покупатель
                         </div>
-                        <div class="order-town order-cell">
+                        <div class="order-town table-cell">
                             Город получателя
                         </div>
-                        <div class="order-sum order-cell">
+                        <div class="order-sum table-cell">
                             Сумма
                         </div>
-                        <div class="order-payed order-cell">
+                        <div class="order-payed table-cell">
                             Оплата
                         </div>
-                        <div class="order-payment-method order-cell">
+                        <div class="order-payment-method table-cell">
                             Метод оплаты
                         </div>
-                        <div class="order-shipment-method order-cell">
+                        <div class="order-shipment-method table-cell">
                             Метод доставки
                         </div>
-                        <div class="order-date-time order-cell">
+                        <div class="order-date-time table-cell">
                             Комментарий
                         </div>
-                        <div class="order-edit-button order-cell">
+                        <div class="order-edit-button table-cell">
                             Дата и время
                         </div>
-                        <div class="order-delete-button order-cell">
+                        <div class="order-delete-button table-cell">
 
                         </div>
                     </div>
@@ -127,44 +127,44 @@
 
 
                             <div class="order-item" onclick="window.location.href = '${orderButton}'">
-                                <div class="order-marker order-cell">
+                                <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>
-                                <div class="order-number order-cell">
+                                <div class="order-number table-cell">
                                         ${order.id}
                                 </div>
-                                <div class="order-status order-cell">
+                                <div class="order-status table-cell">
                                         ${order.isConfirmedStr()}
                                 </div>
-                                <div class="order-client order-cell">
+                                <div class="order-client table-cell">
                                         ${order.client.name} ${order.client.surname}
                                 </div>
-                                <div class="order-town order-cell">
+                                <div class="order-town table-cell">
                                         ${order.address.city.name}
                                 </div>
-                                <div class="order-sum order-cell">
-                                        ${orderSum}
+                                <div class="order-sum table-cell">
+                                        ${orderSum} руб.
                                 </div>
-                                <div class="order-payed order-cell">
+                                <div class="order-payed table-cell">
 
                                 </div>
-                                <div class="order-payment-method order-cell">
+                                <div class="order-payment-method table-cell">
                                     ${order.paymentMethodStr}
                                 </div>
-                                <div class="order-shipment-method order-cell">
+                                <div class="order-shipment-method table-cell">
                                     ${order.shipmentMethodStr}
                                 </div>
 
-                                <div class="order-comment order-cell">
+                                <div class="order-comment table-cell">
 
                                 </div>
-                                <div class="order-date-time order-cell">
+                                <div class="order-date-time table-cell">
                                         ${order.date}
                                 </div>
-                                <div class="order-edit-button order-cell">
+                                <div class="order-edit-button table-cell">
                                     <button></button>
                                 </div>
-                                <div class="order-delete-button order-cell">
+                                <div class="order-delete-button table-cell">
                                     <button></button>
                                 </div>
                             </div>
@@ -186,44 +186,44 @@
 
 
                             <div class="order-item" onclick="window.location.href = '${orderButton}'">
-                                <div class="order-marker order-cell">
+                                <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>
-                                <div class="order-number order-cell">
+                                <div class="order-number table-cell">
                                         ${order.id}
                                 </div>
-                                <div class="order-status order-cell">
+                                <div class="order-status table-cell">
                                         ${order.isConfirmedStr()}
                                 </div>
-                                <div class="order-client order-cell">
+                                <div class="order-client table-cell">
                                         ${order.client.name} ${order.client.surname}
                                 </div>
-                                <div class="order-town order-cell">
+                                <div class="order-town table-cell">
                                         ${order.address.city.name}
                                 </div>
-                                <div class="order-sum order-cell">
+                                <div class="order-sum table-cell">
                                         ${orderSum}
                                 </div>
-                                <div class="order-payed order-cell">
+                                <div class="order-payed table-cell">
 
                                 </div>
-                                <div class="order-payment-method order-cell">
+                                <div class="order-payment-method table-cell">
                                     null
                                 </div>
-                                <div class="order-shipment-method order-cell">
+                                <div class="order-shipment-method table-cell">
                                     null
                                 </div>
 
-                                <div class="order-comment order-cell">
+                                <div class="order-comment table-cell">
 
                                 </div>
-                                <div class="order-date-time order-cell">
+                                <div class="order-date-time table-cell">
                                         ${order.date}
                                 </div>
-                                <div class="order-edit-button order-cell">
+                                <div class="order-edit-button table-cell">
                                     <button></button>
                                 </div>
-                                <div class="order-delete-button order-cell">
+                                <div class="order-delete-button table-cell">
                                     <button></button>
                                 </div>
                             </div>
@@ -245,44 +245,44 @@
 
 
                             <div class="order-item" onclick="window.location.href = '${orderButton}'">
-                                <div class="order-marker order-cell">
+                                <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>
-                                <div class="order-number order-cell">
+                                <div class="order-number table-cell">
                                         ${order.id}
                                 </div>
-                                <div class="order-status order-cell">
+                                <div class="order-status table-cell">
                                         ${order.isConfirmedStr()}
                                 </div>
-                                <div class="order-client order-cell">
+                                <div class="order-client table-cell">
                                         ${order.client.name} ${order.client.surname}
                                 </div>
-                                <div class="order-town order-cell">
+                                <div class="order-town table-cell">
                                         ${order.address.city.name}
                                 </div>
-                                <div class="order-sum order-cell">
+                                <div class="order-sum table-cell">
                                         ${orderSum}
                                 </div>
-                                <div class="order-payed order-cell">
+                                <div class="order-payed table-cell">
 
                                 </div>
-                                <div class="order-payment-method order-cell">
+                                <div class="order-payment-method table-cell">
                                     null
                                 </div>
-                                <div class="order-shipment-method order-cell">
+                                <div class="order-shipment-method table-cell">
                                     null
                                 </div>
 
-                                <div class="order-comment order-cell">
+                                <div class="order-comment table-cell">
 
                                 </div>
-                                <div class="order-date-time order-cell">
+                                <div class="order-date-time table-cell">
                                         ${order.date}
                                 </div>
-                                <div class="order-edit-button order-cell">
+                                <div class="order-edit-button table-cell">
                                     <button></button>
                                 </div>
-                                <div class="order-delete-button order-cell">
+                                <div class="order-delete-button table-cell">
                                     <button></button>
                                 </div>
                             </div>

@@ -79,7 +79,7 @@
             </div>
             <div class="shop-product-content">
                 <div class="shop-product-content-image-bar">
-                    <img height="300px" class="shop-product-content-image" src="${product.imageUrl}" alt="">
+                    <img class="shop-product-content-image" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" src="${product.imageUrl}" alt="">
                 </div>
                 <div class="shop-product-content-cost-bar">
                     <div class="shop-product-content-number">

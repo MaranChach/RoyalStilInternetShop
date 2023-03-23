@@ -22,6 +22,11 @@ public class OrderDao {
         return sessionFactory.getCurrentSession().createQuery("from Order").getResultList();
     }
 
+    @Transactional
+    public List<Order> getAllSortedByDate() {
+        return sessionFactory.getCurrentSession().createQuery("from Order order by date desc").getResultList();
+    }
+
 
     @Transactional
     public Order getById(int id) {
@@ -54,13 +59,22 @@ public class OrderDao {
     }
 
     @Transactional
-    public void save(Order entity) {
+    public void saveOrUpdate(Order entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
+    @Transactional
+    public void persist(Order entity) {
+        sessionFactory.getCurrentSession().persist(entity);
+    }
 
     @Transactional
-    public void delete(int id) {
-        sessionFactory.getCurrentSession().delete(id);
+    public void delete(Order order) {
+        sessionFactory.getCurrentSession().delete(order);
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        sessionFactory.getCurrentSession().createQuery("delete from Order where id = " + id);
     }
 }
