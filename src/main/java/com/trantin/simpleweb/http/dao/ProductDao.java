@@ -86,6 +86,9 @@ public class ProductDao {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
+    public void update(Product entity) {
+        sessionFactory.getCurrentSession().refresh(entity);
+    }
 
     public void delete(int id) {
         sessionFactory.getCurrentSession().delete(id);

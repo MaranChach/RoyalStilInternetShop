@@ -495,6 +495,8 @@ body{
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     padding: 0 5px 0 5px;
+    max-width: 974px;
+    min-height: 30px;
 }
 
 .fast-form{

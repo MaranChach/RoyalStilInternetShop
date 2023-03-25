@@ -36,7 +36,7 @@ public class Product {
     private String description;
 
     @JoinColumn(name = "details_id")
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.EAGER)
     private Details details;
 

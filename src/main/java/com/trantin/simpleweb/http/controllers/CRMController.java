@@ -1,6 +1,7 @@
 package com.trantin.simpleweb.http.controllers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.utils.Sorter;
@@ -37,8 +38,10 @@ public class CRMController {
     private OrderDao orderDao;
     @Autowired
     private DetailsDao detailsDao;
-
-    @Autowired DetailsParameterDao parameterDao;
+    @Autowired
+    private DetailsParameterDao parameterDao;
+    @Autowired
+    private DetailsAttributeDao attributeDao;
 
     //endregion
 
@@ -145,6 +148,9 @@ public class CRMController {
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
+        model.addAttribute("attribute", new DetailsAttribute());
+        model.addAttribute("detailsMap", parameterDao.getMap());
+
         return "admin-product-view";
     }
 
@@ -156,10 +162,44 @@ public class CRMController {
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
+        model.addAttribute("attribute", new DetailsAttribute());
+        model.addAttribute("detailsMap", parameterDao.getMap());
+
         return "admin-product-view";
     }
 
+    @RequestMapping("/saveDetailsAttribute")
+    private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
+                                        @RequestParam("parameter") int parameterId,
+                                        @RequestParam("productId") int productId,
+                                        @RequestParam("value") double value,
+                                        Model model){
+        Product product = productDao.getById(productId);
 
+        DetailsAttribute attribute = new DetailsAttribute();
+
+        attribute.setParameter(parameterDao.getById(parameterId));
+        attribute.setValue(value);
+
+        if (product.getDetails() == null){
+            System.out.println("У продукта нет характеристик, создание новых");
+
+            Details details = new Details();
+            detailsDao.save(details);
+
+            System.out.println(details.getId());
+
+            product.setDetails(details);
+            productDao.save(product);
+        }
+        attribute.setDetails(product.getDetails());
+
+        System.out.println("Создание аттрибута");
+
+        attributeDao.save(attribute);
+
+        return "redirect:/admin/updateProduct?productId=" + product.getId();
+    }
 
 
 
@@ -172,6 +212,7 @@ public class CRMController {
         product.setUnit(unitDao.getById(unitId));
         product.setCategory(categoryDao.getById(categoryId));
         product.setManufacturer(manufacturerDao.getById(manufacturerId));
+        product.setDetails(new Details());
 
         product.setImageUrl(Validator.trimImageUrl(product.getImageUrl()));
 
@@ -200,8 +241,6 @@ public class CRMController {
     @RequestMapping("/orders")
     private String ordersView(Model model){
         List<Order> orders = orderDao.getAllSortedByDate();
-
-
 
         model.addAttribute("orders", orders);
         model.addAttribute("ordersConf", Sorter.getSortedByConfirmOrders(orders, true));

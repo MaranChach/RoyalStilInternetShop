@@ -2,11 +2,14 @@ package com.trantin.simpleweb.http.dao;
 
 
 import com.trantin.simpleweb.http.entity.DetailsParameter;
+import com.trantin.simpleweb.http.entity.Unit;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -19,6 +22,21 @@ public class DetailsParameterDao {
     @Transactional
     public List<DetailsParameter> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from DetailsParameter", DetailsParameter.class).getResultList();
+    }
+
+    @Transactional
+    public Map<Integer, String> getMap() {
+
+        List<DetailsParameter> parameters =
+                sessionFactory.getCurrentSession().createQuery("from DetailsParameter", DetailsParameter.class).getResultList();
+
+        Map<Integer, String> parametersMap = new HashMap<>();
+
+        for (int i = 0; i < parameters.size(); i++) {
+            parametersMap.put(parameters.get(i).getId(), parameters.get(i).getName());
+        }
+
+        return parametersMap;
     }
 
 
