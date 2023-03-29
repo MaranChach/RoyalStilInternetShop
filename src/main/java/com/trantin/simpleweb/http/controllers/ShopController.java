@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.rmi.server.UID;
 
 @Controller
 public class ShopController {
@@ -50,14 +49,14 @@ public class ShopController {
 
         model.addAttribute("categories", categoryDao.getAll());
 
-        return "shop-main-page";
+        return "shop-pages/shop-main-page";
     }
 
     @RequestMapping("/catalog")
     public String getCatalogPage(Model model){
         model.addAttribute("categories", categoryDao.getAll());
 
-        return "shop-catalog-page";
+        return "shop-pages/shop-catalog-page";
     }
 
     @RequestMapping("/category")
@@ -69,7 +68,7 @@ public class ShopController {
         model.addAttribute("products",
                 productDao.getByCategoryId(categoryId));
 
-        return "shop-category-page";
+        return "shop-pages/shop-category-page";
     }
 
     @RequestMapping("/product")
@@ -77,12 +76,12 @@ public class ShopController {
                                  Model model){
         model.addAttribute("product", productDao.getById(productId));
 
-        return "shop-product-page";
+        return "shop-pages/shop-product-page";
     }
 
     @RequestMapping("/personal-page")
     public String getPersonalPage(Model model){
-        return "shop-personal-page";
+        return "shop-pages/shop-personal-page";
     }
 
 
@@ -144,7 +143,7 @@ public class ShopController {
         catch (Exception e){
         }
 
-        return "shop-order-cart-page";
+        return "shop-pages/shop-order-cart-page";
     }
 
     @RequestMapping("/ordering")
@@ -157,7 +156,7 @@ public class ShopController {
         model.addAttribute("orderSum", 0d);
 
 
-        return "shop-ordering-page";
+        return "shop-pages/shop-ordering-page";
     }
 
     @RequestMapping("/sendFullOrder")
@@ -227,10 +226,10 @@ public class ShopController {
     public String getCategoryPage(Model model){
         model.addAttribute("products", productDao.getAll());
 
-        return "shop-category-page";
+        return "shop-pages/shop-category-page";
     }
     @RequestMapping("/productTest")
     public String getTestProductPage(){
-        return "shop-product-page";
+        return "shop-pages/shop-product-page";
     }
 }

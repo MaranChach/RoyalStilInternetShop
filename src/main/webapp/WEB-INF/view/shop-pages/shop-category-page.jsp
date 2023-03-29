@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
     <style>
         <%@include file="/sources/style/style.css"%>
@@ -19,51 +19,7 @@
 </head>
 <body style="">
     <div class="shop-main-container">
-        <div class="shop-top-bar">
-            <a class="text-main-15" style="float: right;" href="personal-page">Личный кабинет</a>
-            <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
-        </div>
-
-        <div class="shop-main-bar">
-            <div onclick="window.location.href = 'http://localhost:8080/main'"  class="shop-logo-bar">
-                <img style="height: 90%;" src="/main/sources/images/logo2.png" alt="">
-            </div>
-
-            <div class="shop-search-bar">
-                <input placeholder="Поиск" type="search" class="shop-search text-item">
-            </div>
-
-            <div class="shop-phone-number-bar">
-                <p class="text-header">
-                    8 (492) 232-27-52
-                </p>
-            </div>
-
-            <div class="shop-buttons-bar">
-            <button class="shop-nav-button">
-
-                </button>
-                <button class="shop-nav-button">
-
-                </button>
-                <button class="shop-nav-button">
-
-                </button>
-            </div>
-        </div>
-
-        <div class="shop-navbar">
-            <div class="shop-catalog-bar center">
-                <button onclick="window.location.href='catalog'" class="catalog-button text-product-buttons">
-                    Каталог
-                </button>
-            </div>
-            <div class="shop-info-bar center">
-                <div class="shop-info-buttons-bar">
-
-                </div>
-            </div>
-        </div>
+        <%@include file="../modules/module-shop-top-bar.jsp"%>
 
         <div class="shop-content">
             <div class="shop-categories-bar">
@@ -78,53 +34,68 @@
                     </c:forEach>
                 </div>
 
-                <div class="shop-news-bar">
-                    <div class="shop-news-header text-header">
-                        Новости
+                <div class="shop-category-filters-bar">
+                    <div class="shop-category-filters-header text-main-15">
+                        Фильтры
                     </div>
 
-                    <div class="shop-news-item">
-                        <div class="shop-news-text text-main-15">
-                            Слава россии!
+                    <div class="shop-categories-filters">
+
+                        <div class="shop-filters">
+
                         </div>
-                        <div class="shop-news-date text">
-                            1 февраля 2023
+
+
+                        <div class="shop-filters-buttons-bar">
+                            <button class="shop-filter-button shop-filter-apply">Применить</button>
+
+                            <button class="shop-filter-button shop-filter-clear">Сбросить</button>
                         </div>
                     </div>
-
-                    <div class="shop-news-item">
-                        <div class="shop-news-text text-main-15">
-                            Слава россии!
-                        </div>
-                        <div class="shop-news-date text">
-                            1 февраля 2023
-                        </div>
-                    </div>
-
-                    <a href="" class="text shop-news-date">Показать ещё</a>
                 </div>
-
             </div>
             <div class="shop-playground">
                 <div class="text-header shop-catalog-header">
-                    Каталог
+                    ${curCategory.name}
                 </div>
 
                 <div class="shop-catalog-categories-bar">
-
-                    <c:forEach var="category" items="${categories}">
-                        <c:url var="categoryButton" value="category">
-                            <c:param name="categoryId" value="${category.id}"/>
+                    <c:forEach var="product" items="${products}">
+                        <c:url var="productButton" value="product">
+                            <c:param name="productId" value="${product.id}"/>
                         </c:url>
-                        <div class="shop-catalog-category" onclick="window.location.href = '${categoryButton}'">
-                            <p class="text-main-15 shop-catalog-category-block-header">${category.name}</p>
+                        <c:url var="saveProduct" value="saveToCart">
+                            <c:param name="productId" value="${product.id}"/>
+                        </c:url>
+                        <div  class="shop-product" >
+                            <div onclick="window.location.href = '${productButton}'" class="shop-product-image-bar">
+                                <img class="shop-catalog-product-image" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" src="${product.imageUrl}" alt="">
+                            </div>
+                            <div class="shop-product-info-bar">
+                                <div onclick="window.location.href = '${productButton}'">
+                                    <div class="shop-product-title text-product">
+                                            ${product.name}
+                                    </div>
+                                    <div class="shop-product-cost text-product">
+                                            ${product.cost} руб.
+                                    </div>
+                                </div>
+
+
+                                <div class="shop-product-buy-button-bar">
+                                    <button onclick="window.location.href = '${saveProduct}'" class="shop-product-buy-button text-product-buttons">
+                                        В корзину
+                                    </button>
+                                    <button  class="shop-product-buy-button text-product-buttons">
+                                        Купить
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <div class="shop-footer">

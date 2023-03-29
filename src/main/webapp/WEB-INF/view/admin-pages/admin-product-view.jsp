@@ -17,34 +17,9 @@
     </style>
 </head>
 <body>
-<div class="top-bar">
-    <div class="logo-bar">
-        <p class="text-logo">ROYAL STEEL</p>
-    </div>
-</div>
+<%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
-    <div class="side-bar">
-        <p class="side-bar-block-header text-header"> Основное </p>
-        <div class="side-bar-block">
-            <p class="side-bar-block-header"></p>
-            <div class="side-bar-item" onclick="window.location.href = 'http://localhost:8080/main/admin/'">
-                <p class="side-bar-item-text text-item">Рабочий стол</p>
-            </div>
-            <div class="side-bar-item text-item" onclick="window.location.href = '/main/admin/products'">
-                <p class="side-bar-item-text text-item">Заказы</p>
-            </div>
-            <div class="side-bar-item" onclick="window.location.href = '/main/admin/products'">
-                <p class="side-bar-item-text text-item">Товары</p>
-            </div>
-            <div class="side-bar-item">
-
-            </div>
-            <div class="side-bar-item">
-
-            </div>
-        </div>
-
-    </div>
+    <%@include file="../modules/module-admin-side-panel.jsp"%>
     <div class="main-panel" style="display: flex; padding: 10px">
         <div class="product-panel">
             <form:form modelAttribute="product" action="saveProduct">

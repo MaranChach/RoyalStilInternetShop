@@ -11,40 +11,16 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <style><%@include file="/sources/style/style.css"%></style>
 </head>
 <body>
-<div class="top-bar">
-    <div class="logo-bar">
-        <p class="text-logo">ROYAL STEEL</p>
-    </div>
-</div>
+<%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
-    <div class="side-bar">
-        <p class="side-bar-block-header text-header"> Основное </p>
-        <div class="side-bar-block">
-            <p class="side-bar-block-header" ></p>
-            <div class="side-bar-item" onclick="window.location.href = 'http://localhost:8080/main/admin/'">
-                <p class="side-bar-item-text text-item" >Рабочий стол</p>
-            </div>
-            <div class="side-bar-item text-item">
-                <p class="side-bar-item-text text-item" >Заказы</p>
-            </div>
-            <div class="side-bar-item" onclick="window.location.href='products'">
-                <p class="side-bar-item-text text-item" >Товары</p>
-            </div>
-            <div class="side-bar-item">
-
-            </div>
-            <div class="side-bar-item">
-
-            </div>
-        </div>
-
-    </div>
+    <%@include file="../modules/module-admin-side-panel.jsp"%>
     <div class="main-panel">
         <div class="text-header text-header-margin">
-            Единицы измерения
+            Товары
         </div>
         <div class="data-panel">
             <div class="menus-panel">
@@ -62,8 +38,8 @@
 
                     <div class="table-panel">
                         <div class="table-header">
-                            <p class="text-header">Единицы измерения</p>
-                            <button onclick="window.location.href = 'unit'" class="input-panel-button add-button">Добавить единицу</button>
+                            <p class="text-header">Товары</p>
+                            <button onclick="window.location.href = 'product'" class="input-panel-button add-button">Добавить товар</button>
                         </div>
 
                         <div class="input-group">
@@ -74,27 +50,37 @@
                             </div>
                         </div>
                         <div class="results-panel text border-gray">
-
-
                             <div class="results-panel-header">
                                 <div class="check-box center">
-                                    <input type="checkbox">
+                                    <input id="select-all" type="checkbox">
                                 </div>
+                                <div class="article center">Артикул</div>
+                                <div class="image center">Картинка</div>
                                 <div class="name">Наименование</div>
+                                <div class="price center">Цена</div>
+                                <div class="count center">Количество</div>
+                                <div class="unit center">Ед. изм.</div>
                                 <div class="activated center">Актиность</div>
                                 <div class="list-delete-button center"></div>
                             </div>
 
 
-                            <c:forEach var="unit" items="${units}">
-                                <c:url var="updateButton" value="updateUnit">
-                                    <c:param name="unitId" value="${unit.id}"/>
+                            <c:forEach var="product" items="${products}">
+                                <c:url var="updateButton" value="updateProduct">
+                                    <c:param name="productId" value="${product.id}"/>
                                 </c:url>
                                 <div class="results-panel-item border-bottom-gray" onclick="window.location.href = '${updateButton}'">
                                     <div class="check-box center">
-                                        <input type="checkbox">
+                                        <input class="select-product" type="checkbox">
                                     </div>
-                                    <div class="name">${unit.name}</div>
+                                    <div class="article center">${product.article}</div>
+                                    <div class="image center">
+                                        <img class="image-thumb center" src="${product.imageUrl}" alt="" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'">
+                                    </div>
+                                    <div class="name">${product.name}</div>
+                                    <div class="price center">${product.cost}</div>
+                                    <div class="count center">${product.number}</div>
+                                    <div class="unit center">${product.unit.name}</div>
                                     <div class="activated center">a</div>
                                     <div class="list-delete-button center"></div>
                                 </div>

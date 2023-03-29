@@ -1,7 +1,6 @@
 package com.trantin.simpleweb.http.controllers;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.utils.Sorter;
@@ -46,7 +45,7 @@ public class CRMController {
     //endregion
 
     @RequestMapping(value = "/")
-    public String mainView(Model model) throws UnsupportedEncodingException {
+    public String mainView(Model model) {
 
         System.out.println(session.getId());
 
@@ -70,7 +69,7 @@ public class CRMController {
         model.addAttribute("clients", clientDao.getAll());
         model.addAttribute("details", detailsDao.getAll());
 
-        return "admin-main-page";
+        return "admin-pages/admin-main-page";
     }
 
 
@@ -79,21 +78,21 @@ public class CRMController {
     public String unitsView(Model model){
         model.addAttribute("units", unitDao.getAll());
 
-        return "admin-units-page";
+        return "admin-pages/admin-units-page";
     }
 
     @RequestMapping("/unit")
     public String unitView(Model model){
         model.addAttribute("unit", new Unit());
 
-        return "admin-unit-view";
+        return "admin-pages/admin-unit-view";
     }
 
     @RequestMapping("/updateUnit")
     public String unitViewById(@RequestParam("unitId") int id, Model model){
         model.addAttribute("unit", unitDao.getById(id));
 
-        return "admin-unit-view";
+        return "admin-pages/admin-unit-view";
     }
 
     @RequestMapping(value = "/saveUnit")
@@ -113,7 +112,7 @@ public class CRMController {
     }
 
     @RequestMapping(value = "/products")
-    public String productsView(Model model) throws UnsupportedEncodingException {
+    public String productsView(Model model) {
 
         model.addAttribute("newProduct", new Product());
         model.addAttribute("newUnit", new Unit());
@@ -135,7 +134,7 @@ public class CRMController {
         model.addAttribute("clients", clientDao.getAll());
         model.addAttribute("details", detailsDao.getAll());
 
-        return "admin-products-view";
+        return "admin-pages/admin-products-view";
     }
 
     @RequestMapping(value = "/product")
@@ -151,7 +150,7 @@ public class CRMController {
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
 
-        return "admin-product-view";
+        return "admin-pages/admin-product-view";
     }
 
     @RequestMapping("/updateProduct")
@@ -165,7 +164,7 @@ public class CRMController {
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
 
-        return "admin-product-view";
+        return "admin-pages/admin-product-view";
     }
 
     @RequestMapping("/saveDetailsAttribute")
@@ -233,7 +232,7 @@ public class CRMController {
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
-        return "admin-product-view";
+        return "admin-pages/admin-product-view";
     }
 
 
@@ -248,7 +247,7 @@ public class CRMController {
 
         model.addAttribute("orderSum", 0d);
 
-        return "admin-orders-view";
+        return "admin-pages/admin-orders-view";
     }
 
     @RequestMapping("/order")
@@ -257,7 +256,7 @@ public class CRMController {
         model.addAttribute("iterator", 0);
         model.addAttribute("orderSum", 0d);
 
-        return "admin-order-view";
+        return "admin-pages/admin-order-view";
     }
 
     @RequestMapping("/deleteOrder")
@@ -276,7 +275,7 @@ public class CRMController {
         model.addAttribute("units", unitDao.getMap());
 
 
-        return "admin-details-view";
+        return "admin-pages/admin-details-view";
     }
 
     @RequestMapping("/saveDetailsParameter")

@@ -1186,6 +1186,20 @@ body{
 
 }
 
+.details-attribute-row{
+    width: 100%;
+    display: flex;
+    margin: 5px 0;
+}
+
+.details-attribute-name{
+    width: 50%;
+}
+
+.details-attribute-value{
+    width: 50%;
+}
+
 .shop-news-bar{
     margin-top: 30px;
     float: left;
