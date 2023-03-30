@@ -129,35 +129,39 @@
                     </div>
 
                     <div class="shop-products-row">
-                        <div class="shop-product">
-                            <div class="shop-product-image-bar">
+                        <c:forEach var="product" items="${newProducts}">
+                            <c:url var="productButton" value="product">
+                                <c:param name="productId" value="${product.id}"/>
+                            </c:url>
+                            <c:url var="saveProduct" value="saveToCart">
+                                <c:param name="productId" value="${product.id}"/>
+                            </c:url>
+                            <div  class="shop-product" >
+                                <div onclick="window.location.href = '${productButton}'" class="shop-product-image-bar">
+                                    <img class="shop-catalog-product-image" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" src="${product.imageUrl}" alt="">
+                                </div>
+                                <div class="shop-product-info-bar">
+                                    <div onclick="window.location.href = '${productButton}'">
+                                        <div class="shop-product-title text-product">
+                                                ${product.name}
+                                        </div>
+                                        <div class="shop-product-cost text-product">
+                                                ${product.cost} руб.
+                                        </div>
+                                    </div>
 
+
+                                    <div class="shop-product-buy-button-bar">
+                                        <button onclick="window.location.href = '${saveProduct}'" class="shop-product-buy-button text-product-buttons">
+                                            В корзину
+                                        </button>
+                                        <button  class="shop-product-buy-button text-product-buttons">
+                                            Купить
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="shop-product-info-bar">
-                                <div class="shop-product-title text-product">
-                                    Товарный товар товара товару
-                                </div>
-                                <div class="shop-product-cost text-product">
-                                    1234.00 руб.
-                                </div>
-                                <div class="shop-product-buy-button-bar">
-                                    <button class="shop-product-buy-button text-product-buttons">
-                                        В корзину
-                                    </button>
-                                    <button class="shop-product-buy-button text-product-buttons">
-                                        Купить
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="shop-product">
-
-                        </div>
-
-                        <div class="shop-product">
-
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
 

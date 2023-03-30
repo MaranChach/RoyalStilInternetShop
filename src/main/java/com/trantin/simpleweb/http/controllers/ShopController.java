@@ -49,6 +49,8 @@ public class ShopController {
 
         model.addAttribute("categories", categoryDao.getAll());
 
+        model.addAttribute("newProducts", productDao.getLastThree());
+
         return "shop-pages/shop-main-page";
     }
 

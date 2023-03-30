@@ -19,5 +19,8 @@
     <div class="side-bar-item" onclick="window.location.href = 'units'">
       <p class="side-bar-item-text text-item" >Единицы измерения</p>
     </div>
+    <div class="side-bar-item" onclick="window.location.href = 'redactor'">
+      <p class="side-bar-item-text text-item" >Редактор магазина</p>
+    </div>
   </div>
 </div>

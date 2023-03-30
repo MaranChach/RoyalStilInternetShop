@@ -533,7 +533,7 @@ body{
 }
 
 
-.admin-orders-panel{
+.admin-menu-data-panel{
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -570,7 +570,7 @@ body{
     display: none;
 }
 
-.admin-orders-list{
+.admin-table{
     margin: 10px;
     width: 100%;
     display: flex;
@@ -578,7 +578,7 @@ body{
     flex-direction: column;
 }
 
-#order-list-header{
+#table-list-header{
     border-top: grey 1px solid;
 }
 
@@ -586,7 +586,7 @@ body{
     border-top: grey 1px solid;
 }
 
-.order-item{
+.table-item{
     width: 98%;
     height: 60px;
     border: grey solid;

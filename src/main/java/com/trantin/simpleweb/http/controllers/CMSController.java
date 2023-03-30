@@ -11,12 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin", produces = "text/html; charset=UTF-8")
-public class CRMController {
+public class CMSController {
 
 
     @Autowired
@@ -72,7 +71,12 @@ public class CRMController {
         return "admin-pages/admin-main-page";
     }
 
+    @RequestMapping("/redactor")
+    public String redactorView(Model model){
 
+
+        return "admin-pages/admin-shop-redactor";
+    }
 
     @RequestMapping("/units")
     public String unitsView(Model model){

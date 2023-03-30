@@ -1,15 +1,6 @@
 package com.trantin.simpleweb.http;
 
-import com.trantin.simpleweb.http.configuration.MyConfig;
-import com.trantin.simpleweb.http.configuration.MyWebInitializer;
-import com.trantin.simpleweb.http.controllers.CRMController;
-import com.trantin.simpleweb.http.controllers.ShopController;
-import com.trantin.simpleweb.http.dao.*;
-import com.trantin.simpleweb.http.entity.*;
-import com.trantin.simpleweb.http.services.UnitDaoService;
-import com.trantin.simpleweb.http.utils.ClassUML;
 import com.trantin.simpleweb.http.utils.Validator;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class main {
 

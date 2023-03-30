@@ -34,8 +34,8 @@
                     Наборы характеристик
                 </div>
 
-                <div class="admin-orders-list">
-                    <div class="order-list-header-half order-item" style="border-top: grey 1px solid;">
+                <div class="admin-table">
+                    <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
                         <div class="table-marker table-cell">
                             <input class="marker" type="checkbox">
                         </div>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="order-list-tab-all">
-                        <div class="order-item">
+                        <div class="table-item">
                             <div class="table-marker table-cell">
                                 <input class="marker" type="checkbox">
                             </div>
@@ -83,8 +83,8 @@
                     </div>
                 </form:form>
 
-                <div class="admin-orders-list">
-                    <div class="order-list-header-half order-item" style="border-top: grey 1px solid;">
+                <div class="admin-table">
+                    <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
                         <div class="table-marker table-cell">
                             <input class="marker" type="checkbox">
                         </div>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="order-list-tab-all">
                         <c:forEach var="parameter" items="${detailsParameters}">
-                            <div class="order-item">
+                            <div class="table-item">
                                 <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>

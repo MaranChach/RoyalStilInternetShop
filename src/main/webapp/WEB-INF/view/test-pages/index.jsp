@@ -139,7 +139,7 @@
 </div>
 
 <script charset="UTF-8" type="text/javascript">
-   <%@include file="../../sources/script/slider-script.js"%>
+   <%@include file="../../../sources/script/slider-script.js"%>
 </script>
 </body>
 </html>

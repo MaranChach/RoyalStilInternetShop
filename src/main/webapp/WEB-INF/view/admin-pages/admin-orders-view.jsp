@@ -28,7 +28,7 @@
             <div style="height: 10px">
 
             </div>
-            <div class="admin-orders-panel">
+            <div class="admin-menu-data-panel">
                 <div class="admin-orders-tabs-panel">
                     <div class="admin-orders-tab tab-all-orders">
 
@@ -47,8 +47,8 @@
                         Найдено результатов: ${orders.size()}
                     </div>
                 </div>
-                <div class="admin-orders-list">
-                    <div id="order-list-header" class="order-item">
+                <div class="admin-table">
+                    <div id="table-list-header" class="table-item">
                         <div class="table-marker table-cell">
                             <input class="marker" type="checkbox">
                         </div>
@@ -101,7 +101,7 @@
                             </div>
 
 
-                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                            <div class="table-item" onclick="window.location.href = '${orderButton}'">
                                 <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>
@@ -160,7 +160,7 @@
                             </div>
 
 
-                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                            <div class="table-item" onclick="window.location.href = '${orderButton}'">
                                 <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>
@@ -219,7 +219,7 @@
                             </div>
 
 
-                            <div class="order-item" onclick="window.location.href = '${orderButton}'">
+                            <div class="table-item" onclick="window.location.href = '${orderButton}'">
                                 <div class="table-marker table-cell">
                                     <input class="marker" type="checkbox">
                                 </div>

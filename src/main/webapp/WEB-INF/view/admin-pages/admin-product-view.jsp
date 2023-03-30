@@ -124,8 +124,8 @@
                         </div>
                     </form>
 
-                    <div class="admin-orders-list">
-                        <div id="order-list-header" class="order-item">
+                    <div class="admin-table">
+                        <div id="table-list-header" class="table-item">
                             <div class="table-marker table-cell">
                                 <input class="marker" type="checkbox">
                             </div>
@@ -146,7 +146,7 @@
                         <div class="order-list-tab-all">
                             <c:forEach var="attribute" items="${product.details.attributes}">
 
-                                <div class="order-item">
+                                <div class="table-item">
                                     <div class="table-marker table-cell">
                                         <input class="marker" type="checkbox">
                                     </div>

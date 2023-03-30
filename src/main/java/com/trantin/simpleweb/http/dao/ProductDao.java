@@ -24,6 +24,10 @@ public class ProductDao {
         return sessionFactory.getCurrentSession().createQuery("from Product").getResultList();
     }
 
+    public List<Product> getLastThree() {
+        return sessionFactory.getCurrentSession().createQuery("from Product").setMaxResults(3).getResultList();
+    }
+
 
     public Map<String, Integer> getMap() {
 
