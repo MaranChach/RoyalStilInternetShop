@@ -161,9 +161,10 @@ body{
 
 #url{
     min-height: 30px;
+    max-height: 30px;
     min-width: 200px;
-    width: 974px;
-    max-width: 974px;
+    width: 863px;
+    max-width: 863px;
 }
 
 .logo-bar{
@@ -226,14 +227,14 @@ body{
 }
 
 .orders-panel{
-    width: 20%;
-    height: 200px;
+    width: 40%;
+    height: 400px;
     float: left;
 }
 
 .orders-sources-panel{
-    width: 20%;
-    height: 200px;
+    width: 40%;
+    height: 400px;
     float: left;
 }
 
@@ -446,15 +447,24 @@ body{
 
 .product-nav-panel{
     height: 100%;
-    width: 300px;
+    width: 400px;
     background-color: white;
     display: flex;
     padding: 0 5px 0 5px;
 }
 
+.admin-product-image-bar{
+    width: 100%;
+    height: 300px;
+    text-align: center;
+}
+
 .admin-product-image{
     width: 100%;
-    height: 150px;
+    max-height: 100%;
+
+    object-fit: cover;
+    object-position: center;
 }
 
 .product-panel{
@@ -495,7 +505,7 @@ body{
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     padding: 0 5px 0 5px;
-    max-width: 974px;
+    max-width: 863px;
     min-height: 30px;
 }
 
@@ -824,9 +834,17 @@ body{
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    /*height: 100%;*/
     flex-wrap: wrap;
     align-content: center;
     padding-bottom: 350px;
+}
+
+.wrapper{
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    display: flex;
 }
 
 .shop-top-bar{
@@ -1148,6 +1166,8 @@ body{
 .shop-catalog-product-image{
     width: 95%;
     max-height: 95%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .shop-product-image{
@@ -1389,18 +1409,19 @@ body{
 
 .shop-product-content-image-bar{
     width: 50%;
-    height: 450px;
+    height: 500px;
 
     flex-direction: column;
     display: flex;
     align-items: center;
-
 }
 
 .shop-product-content-image{
     margin: 10px;
     width: 100%;
     max-height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .shop-product-content-cost-bar{

@@ -134,7 +134,7 @@
 
                                 </div>
                                 <div class="order-date-time table-cell">
-                                        ${order.date}
+                                        ${order.orderDate}
                                 </div>
                                 <div class="order-edit-button table-cell">
                                     <button></button>
@@ -193,7 +193,7 @@
 
                                 </div>
                                 <div class="order-date-time table-cell">
-                                        ${order.date}
+                                        ${order.orderDate}
                                 </div>
                                 <div class="order-edit-button table-cell">
                                     <button></button>
@@ -252,7 +252,7 @@
 
                                 </div>
                                 <div class="order-date-time table-cell">
-                                        ${order.date}
+                                        ${order.orderDate}
                                 </div>
                                 <div class="order-edit-button table-cell">
                                     <button></button>

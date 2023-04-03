@@ -1,5 +1,7 @@
 package com.trantin.simpleweb.http.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.trantin.simpleweb.http.entity.Product;
 
 import javax.persistence.*;
@@ -15,13 +17,19 @@ public class OrderCartItem {
 
     @JoinColumn(name = "product_id")
     @ManyToOne()
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Product product;
 
     @Column(name = "number")
     private double number;
 
     @JoinColumn(name = "order_cart_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private OrderCart orderCart;
 
 

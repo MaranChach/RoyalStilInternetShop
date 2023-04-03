@@ -173,8 +173,10 @@
         </div>
 
         <div class="product-nav-panel">
-            <img class="admin-product-image" src="${product.imageUrl}"
-                 onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" alt="">
+            <div class="admin-product-image-bar">
+                <img class="admin-product-image" src="${product.imageUrl}"
+                     onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" alt="">
+            </div>
         </div>
     </div>
 </div>

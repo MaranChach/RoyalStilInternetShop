@@ -1,13 +1,16 @@
 package com.trantin.simpleweb.http.controllers;
 
+import com.trantin.simpleweb.http.dao.OrderDao;
 import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Employee;
+import com.trantin.simpleweb.http.entity.Order;
 import com.trantin.simpleweb.http.entity.Product;
 import com.trantin.simpleweb.http.exceptions.NoSuchEmployeeException;
 import com.trantin.simpleweb.http.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,11 +23,20 @@ public class RESTController {
     @Autowired
     private ProductDao productDao;
 
+    @Autowired
+    private OrderDao orderDao;
+
 
     @GetMapping("/products")
     public List<Product> getProducts(){
-        return productDao.getAll();
+        return productDao.getAllSomeFields();
     }
+
+    @GetMapping("/weeklyOrders")
+    public List<Object[]> getWeeklyOrders(){
+        return orderDao.getByLastWeek();
+    }
+
 
     @GetMapping("/employees")
     public List<Employee> getAllEmlpoyees(){

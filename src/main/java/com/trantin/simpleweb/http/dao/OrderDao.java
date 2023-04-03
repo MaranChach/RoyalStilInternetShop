@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -24,7 +28,39 @@ public class OrderDao {
 
     @Transactional
     public List<Order> getAllSortedByDate() {
-        return sessionFactory.getCurrentSession().createQuery("from Order order by date desc").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order order by orderDate desc").getResultList();
+    }
+
+    @Transactional
+    public List<Object[]> getByLastWeek(){
+        LocalDate dateFrom = LocalDate.now().minusDays(7);
+
+        Query<String> query = sessionFactory.getCurrentSession().createQuery("select orderDate from Order where orderDate >= '" + Date.valueOf(dateFrom) + "'", String.class);
+
+        List<String> orders = query.getResultList();
+
+        HashMap<String, Integer> ordersNum = new HashMap<>();
+
+        for (String elem : orders) {
+            if (!ordersNum.containsKey(elem)){
+                ordersNum.put(elem, 1);
+            }
+            else{
+                ordersNum.replace(elem, ordersNum.get(elem) + 1);
+            }
+        }
+        List<Object[]> strings = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            LocalDate curDate = LocalDate.now().minusDays(i);
+
+            strings.add(new Object[]{String.valueOf(curDate.getDayOfMonth()) + "." + String.valueOf(curDate.getMonthValue()), ordersNum.getOrDefault(curDate.toString(), 0)});
+        }
+
+        System.out.println(strings);
+
+
+        return strings;
     }
 
 
@@ -40,7 +76,7 @@ public class OrderDao {
 
     @Transactional
     public List<Order> getByDate(Date date){
-        return sessionFactory.getCurrentSession().createQuery("from Order where date = " + date).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order where orderDate = " + date).getResultList();
     }
 
 
@@ -51,9 +87,9 @@ public class OrderDao {
 
 
         if (newer)
-            query = sessionFactory.getCurrentSession().createQuery("from Order where date > " + date);
+            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate > " + date);
         else
-            query = sessionFactory.getCurrentSession().createQuery("from Order where date < " + date);
+            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate < " + date);
 
         return query.getResultList();
     }

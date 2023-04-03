@@ -1,6 +1,9 @@
 package com.trantin.simpleweb.http.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,10 +29,16 @@ public class Product {
 
     @JoinColumn(name = "unit_id")
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Unit unit;
 
     @JoinColumn(name = "category_id")
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Category category;
 
     @Column(name = "description")
@@ -38,10 +47,16 @@ public class Product {
     @JoinColumn(name = "details_id")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Details details;
 
     @JoinColumn(name = "manufacturer_id")
     @ManyToOne
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Manufacturer manufacturer;
 
     @Column(name = "article")

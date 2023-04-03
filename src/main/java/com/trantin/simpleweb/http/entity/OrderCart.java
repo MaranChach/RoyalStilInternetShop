@@ -1,5 +1,8 @@
 package com.trantin.simpleweb.http.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,9 @@ public class OrderCart {
     private int id;
 
     @OneToMany(mappedBy = "orderCart", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private List<OrderCartItem> items;
 
     @Column(name = "session_id")

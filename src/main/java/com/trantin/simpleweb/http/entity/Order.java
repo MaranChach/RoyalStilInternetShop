@@ -1,5 +1,7 @@
 package com.trantin.simpleweb.http.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -22,14 +24,20 @@ public class Order {
 
     @JoinColumn(name = "order_cart")
     @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private OrderCart orderCart;
 
     @JoinColumn(name = "client_id")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Client client;
 
     @Column(name = "date")
-    private Date date;
+    private String orderDate;
 
     @Column(name = "confirmed")
     private boolean confirmed;
@@ -50,7 +58,7 @@ public class Order {
 
     public Order() {}
 
-    public Order(Client client, String date) {
+    public Order(Client client, String orderDate) {
         //LocalDate ldate = LocalDate.now();
 
         this.client = client;
@@ -58,7 +66,7 @@ public class Order {
     }
 
     public void setCurrentDate(){
-        this.date = Date.valueOf(LocalDate.now());
+        this.orderDate = Date.valueOf(LocalDate.now()).toString();
     }
 
     public double orderSum(){
@@ -82,7 +90,7 @@ public class Order {
                 "id=" + id +
                 ", orderCart=" + orderCart +
                 ", client=" + client +
-                ", date=" + date +
+                ", date=" + orderDate +
                 ", confirmed=" + confirmed +
                 ", address=" + address +
                 ", paymentMethod=" + paymentMethod +
@@ -114,12 +122,12 @@ public class Order {
         this.client = client;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getOrderDate() {
+        return Date.valueOf(this.orderDate);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setOrderDate(Date date) {
+        this.orderDate = date.toString();
     }
 
     public boolean isConfirmed() {

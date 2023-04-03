@@ -31,10 +31,13 @@ public class ShopController {
     private CategoryDao categoryDao;
 
     @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
     private OrderCartDao orderCartDao;
 
     @Autowired
-    private OrderDao orderDao;
+    private OrderCartItemDao orderCartItemDao;
 
     @Autowired
     private ClientDao clientDao;
@@ -117,6 +120,13 @@ public class ShopController {
         response.addCookie(userIdCookie);
 
         orderCartDao.saveOrderCart(orderCart);
+
+        return "redirect:/cart";
+    }
+
+    @RequestMapping("deleteFromCart")
+    private String deleteFromCart(@RequestParam("cartItemId") int cartItemId){
+        orderCartItemDao.delete(orderCartItemDao.getById(cartItemId));
 
         return "redirect:/cart";
     }

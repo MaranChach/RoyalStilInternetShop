@@ -215,7 +215,6 @@ public class CMSController {
         product.setUnit(unitDao.getById(unitId));
         product.setCategory(categoryDao.getById(categoryId));
         product.setManufacturer(manufacturerDao.getById(manufacturerId));
-        product.setDetails(new Details());
 
         product.setImageUrl(Validator.trimImageUrl(product.getImageUrl()));
 

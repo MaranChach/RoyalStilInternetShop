@@ -34,7 +34,7 @@
         <div class="order-data-panel">
             <div class="order-left-panel">
                 <div class="order-date">
-                    <input class="order-date-picker text-main-12" type="date" value="${order.date}">
+                    <input class="order-date-picker text-main-12" type="date" value="${order.orderDate}">
                 </div>
                 <div class="order-list-header text-black">
                     Содержание заказа

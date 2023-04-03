@@ -1,5 +1,8 @@
 package com.trantin.simpleweb.http.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,10 +23,16 @@ public class DetailsAttribute {
 
     @ManyToOne
     @JoinColumn(name = "unit_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Unit unit;
 
     @JoinColumn(name = "details_id")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Details details;
 
     public DetailsAttribute(){}
