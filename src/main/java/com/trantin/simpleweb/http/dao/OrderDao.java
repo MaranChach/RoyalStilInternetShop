@@ -35,18 +35,20 @@ public class OrderDao {
     public List<Object[]> getByLastWeek(){
         LocalDate dateFrom = LocalDate.now().minusDays(7);
 
-        Query<String> query = sessionFactory.getCurrentSession().createQuery("select orderDate from Order where orderDate >= '" + Date.valueOf(dateFrom) + "'", String.class);
+        Query<java.util.Date> query = sessionFactory.getCurrentSession().createQuery("select orderDate from Order where orderDate >= '" + Date.valueOf(dateFrom).toString() + "'", java.util.Date.class);
 
-        List<String> orders = query.getResultList();
+        List<java.util.Date> orders = query.getResultList();
 
         HashMap<String, Integer> ordersNum = new HashMap<>();
 
-        for (String elem : orders) {
-            if (!ordersNum.containsKey(elem)){
-                ordersNum.put(elem, 1);
+        for (java.util.Date elem : orders) {
+            System.out.println(elem);
+            if (!ordersNum.containsKey(elem.toString())){
+
+                ordersNum.put(elem.toString(), 1);
             }
             else{
-                ordersNum.replace(elem, ordersNum.get(elem) + 1);
+                ordersNum.replace(elem.toString(), ordersNum.get(elem.toString()) + 1);
             }
         }
         List<Object[]> strings = new ArrayList<>();

@@ -37,7 +37,7 @@ public class Order {
     private Client client;
 
     @Column(name = "date")
-    private String orderDate;
+    private Date orderDate;
 
     @Column(name = "confirmed")
     private boolean confirmed;
@@ -66,7 +66,7 @@ public class Order {
     }
 
     public void setCurrentDate(){
-        this.orderDate = Date.valueOf(LocalDate.now()).toString();
+        this.orderDate = Date.valueOf(LocalDate.now());
     }
 
     public double orderSum(){
@@ -123,11 +123,11 @@ public class Order {
     }
 
     public Date getOrderDate() {
-        return Date.valueOf(this.orderDate);
+        return this.orderDate;
     }
 
     public void setOrderDate(Date date) {
-        this.orderDate = date.toString();
+        this.orderDate = date;
     }
 
     public boolean isConfirmed() {
