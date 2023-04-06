@@ -45,10 +45,15 @@ public class ShopController {
     @Autowired
     private AddressDao addressDao;
 
+    @Autowired
+    private ImageDao imageDao;
+
 
     @RequestMapping("/")
     public String getMainPage(Model model){
         System.out.println(userIdCookie.getValue());
+
+        model.addAttribute("images", imageDao.getAll());
 
         model.addAttribute("categories", categoryDao.getAll());
 

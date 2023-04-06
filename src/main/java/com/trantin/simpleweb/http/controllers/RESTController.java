@@ -1,5 +1,6 @@
 package com.trantin.simpleweb.http.controllers;
 
+import com.trantin.simpleweb.http.dao.ImageDao;
 import com.trantin.simpleweb.http.dao.OrderDao;
 import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Employee;
@@ -26,6 +27,9 @@ public class RESTController {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private ImageDao imageDao;
+
 
     @GetMapping("/products")
     public List<Product> getProducts(){
@@ -37,6 +41,10 @@ public class RESTController {
         return orderDao.getByLastWeek();
     }
 
+    @GetMapping("/mainPageImagesNumber")
+    public int getMainPageImagesNumber(){
+        return imageDao.getAll().size();
+    }
 
     @GetMapping("/employees")
     public List<Employee> getAllEmlpoyees(){

@@ -41,6 +41,9 @@ public class CMSController {
     @Autowired
     private DetailsAttributeDao attributeDao;
 
+    @Autowired
+    private ImageDao imageDao;
+
     //endregion
 
     @RequestMapping(value = "/")
@@ -69,13 +72,6 @@ public class CMSController {
         model.addAttribute("details", detailsDao.getAll());
 
         return "admin-pages/admin-main-page";
-    }
-
-    @RequestMapping("/redactor")
-    public String redactorView(Model model){
-
-
-        return "admin-pages/admin-shop-redactor";
     }
 
     @RequestMapping("/units")
@@ -292,6 +288,30 @@ public class CMSController {
         System.out.println(detailsParameter);
 
         return "redirect:/admin/details";
+    }
+
+    @RequestMapping("/redactor")
+    public String redactorView(Model model){
+        model.addAttribute("newImage", new Image());
+        model.addAttribute("images", imageDao.getAll());
+
+        return "admin-pages/admin-shop-redactor";
+    }
+
+    @RequestMapping("/saveImage")
+    private String saveMainPageImage(@ModelAttribute("newImage") Image image){
+        image.setUrl(Validator.trimImageUrl(image.getUrl()));
+
+        imageDao.save(image);
+
+        return "redirect:/admin/redactor";
+    }
+
+    @RequestMapping("/deleteImage")
+    private String saveMainPageImage(@RequestParam("imageId") int imageId){
+        imageDao.delete(imageDao.getById(imageId));
+
+        return "redirect:/admin/redactor";
     }
 
     @RequestMapping(value = "/saveManufacturer")

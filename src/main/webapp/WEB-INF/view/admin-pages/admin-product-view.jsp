@@ -183,20 +183,6 @@
 
 <script type="text/javascript" charset="utf-8">
     <%@include file="/sources/script/image-script.js"%>
-
-    // function ajaxGetDetails() {
-    //
-    //     let result = {};
-    //
-    //     $.ajax({
-    //         type : "GET",
-    //         contentType : "application/json",
-    //         url : "/rest/details/"
-    //     });
-    //
-    // }
-
-
 </script>
 
 </body>
