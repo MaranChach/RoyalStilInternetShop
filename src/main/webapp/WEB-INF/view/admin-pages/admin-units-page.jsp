@@ -26,7 +26,7 @@
 
             </div>
             <div>
-                <div class="sort-panel">
+                <div class="admin-categories-panel">
 
                 </div>
 

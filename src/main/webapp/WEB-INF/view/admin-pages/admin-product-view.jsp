@@ -25,7 +25,11 @@
             <form:form modelAttribute="product" action="saveProduct">
             <div class="product-header">
                 <p class="text-header-values">Товар</p>
-                <button class="delete-button">
+
+                <c:url var="deleteButton" value="deleteProduct">
+                    <c:param name="productId" value="${product.id}"/>
+                </c:url>
+                <button class="delete-button" onclick="window.location.href = '${deleteButton}'">
                     Удалить
                 </button>
                 <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>

@@ -27,7 +27,7 @@
             };
         };
 
-        request.open("GET", "http://localhost:8080/main/api/weeklyOrders", true);
+        request.open("GET", "http://localhost:8080/main/api/weeklyOrders", false);
         request.send();
 
         google.load("visualization", "1", {packages:["corechart"]});
@@ -41,12 +41,14 @@
             jsonans.unshift(["Дата", "Заказы"]);
 
             let data = google.visualization.arrayToDataTable(jsonans);
+            // data.addColumn("string", "Дата");
+            // data.addColumn("integer", "Заказы");
             let options = {
                 title: 'Продажи за неделю',
                 is3D: true,
                 pieResidueSliceLabel: 'Остальное',
             };
-            let chart = new google.visualization.ColumnChart(document.getElementById('sales'));
+            let chart = new google.visualization.LineChart(document.getElementById('sales'));
             chart.draw(data, options);
         }
     </script>
@@ -56,12 +58,10 @@
     <div class="content">
         <%@include file="../modules/module-admin-side-panel.jsp"%>
         <div class="main-panel">
-            <div id="sales" class="orders-panel panel">
+            <div class="admin-main-page-column">
+                <div id="sales" class="orders-panel panel">
 
-            </div>
-
-            <div id="products" class="orders-sources-panel panel text-main-12">
-
+                </div>
             </div>
         </div>
     </div>

@@ -221,6 +221,14 @@ public class CMSController {
         return "redirect:/admin/products";
     }
 
+    @RequestMapping(value = "/deleteProduct")
+    public String deleteProduct(@RequestParam("productId") int id) {
+
+        productDao.delete(productDao.getById(id));
+        System.out.println(id);
+        return "1";//"redirect:/admin/products";
+    }
+
 
 
     @RequestMapping("/product/{id}")
@@ -234,6 +242,27 @@ public class CMSController {
         return "admin-pages/admin-product-view";
     }
 
+    @RequestMapping("/category")
+    public String newCategory(Model model){
+        model.addAttribute("category", new Category());
+
+        return "admin-pages/admin-category-view";
+    }
+
+    @RequestMapping("/updateCategory")
+    public String updateCategory(Model model, @RequestParam("id") int id){
+        model.addAttribute("category", categoryDao.getById(id));
+
+        return "admin-pages/admin-category-view";
+    }
+
+    @RequestMapping("/deleteCategory")
+    public String deleteCategory(Model model, @RequestParam("categoryId") int id){
+        categoryDao.delete(categoryDao.getById(id));
+        System.out.println(id);
+        System.out.println("fdsafdsaf");
+        return "1";//"admin-pages/admin-category-view";
+    }
 
 
     @RequestMapping("/orders")
@@ -327,8 +356,10 @@ public class CMSController {
     public String saveCategory(@ModelAttribute("newCategory") Category category){
         System.out.println(category);
 
+        category.setImageUrl(Validator.trimImageUrl(category.getImageUrl()));
+
         categoryDao.save(category);
 
-        return "redirect:/test/admin";
+        return "redirect:/admin/products";
     }
 }

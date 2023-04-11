@@ -98,7 +98,11 @@ public class ProductDao {
         sessionFactory.getCurrentSession().refresh(entity);
     }
 
-    public void delete(int id) {
-        sessionFactory.getCurrentSession().delete(id);
+    public void delete(Product product) {
+        sessionFactory.getCurrentSession().delete(product);
+    }
+
+    public void deleteById(int id) {
+        sessionFactory.getCurrentSession().createQuery("delete from Product where id = " + id).executeUpdate();
     }
 }

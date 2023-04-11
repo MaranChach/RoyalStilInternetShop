@@ -27,8 +27,23 @@
 
             </div>
             <div>
-                <div class="sort-panel">
+                <div class="admin-categories-panel">
+                    <div class="admin-categories-panel-header">
 
+                        <button class="input-panel-button add-button" onclick="window.location.href = 'category'">
+                            Добавить
+                        </button>
+                    </div>
+                    <div class="admin-categories-items">
+                        <c:forEach var="category" items="${categories}">
+                            <c:url var="categoryButton" value="updateCategory">
+                                <c:param name="id" value="${category.id}"/>
+                            </c:url>
+                            <div class="admin-categories-item text-main-15" onclick="window.location.href = '${categoryButton}'">
+                                <p>${category.name}</p>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
 
                 <div style="float: right">

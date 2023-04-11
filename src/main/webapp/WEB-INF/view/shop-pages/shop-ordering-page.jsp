@@ -165,9 +165,7 @@
                     </div>
                 </div>
 
-                <input type="submit" class="order-confirm-button text-main-20">
-                    Оформить заказ
-                </input>
+                <input type="submit" value="Оформить заказ" class="order-confirm-button text-main-20">
             </div>
 
             <div class="shop-ordering-cart-info">

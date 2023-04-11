@@ -29,7 +29,11 @@
                             <c:param name="categoryId" value="${category.id}"/>
                         </c:url>
                         <div onclick="window.location.href = '${categoryButton}'" class="shop-categories-button shop-radius-catalog">
+                            <div class="">
+
+                            </div>
                             <p class="text-main-15 shop-categories-button-text">${category.name}</p>
+
                         </div>
                     </c:forEach>
                 </div>
@@ -73,7 +77,12 @@
                             <c:param name="categoryId" value="${category.id}"/>
                         </c:url>
                         <div class="shop-catalog-category" onclick="window.location.href = '${categoryButton}'">
-                            <p class="text-main-15 shop-catalog-category-block-header">${category.name}</p>
+                            <div class="shop-category-item-header">
+                                <p class="text-main-15 shop-catalog-category-block-header">${category.name}</p>
+                            </div>
+                            <div class="shop-category-item-image-bar">
+                                <img class="shop-category-item-image" src="${category.imageUrl}" alt="">
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
