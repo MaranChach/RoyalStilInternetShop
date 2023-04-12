@@ -46,36 +46,7 @@
     </div>
 </div>
 
-<div class="shop-footer">
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-</div>
+<%@include file="../modules/module-shop-footer.jsp"%>
 
 <script>
     <%@include file="/sources/script/product-tabs-script.js"%>

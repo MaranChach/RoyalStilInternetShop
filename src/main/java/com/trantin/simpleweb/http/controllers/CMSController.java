@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -51,25 +53,19 @@ public class CMSController {
 
         System.out.println(session.getId());
 
-        model.addAttribute("newProduct", new Product());
-        model.addAttribute("newUnit", new Unit());
-        model.addAttribute("newManufacturer", new Manufacturer());
-        model.addAttribute("newClient", new Client());
-        model.addAttribute("newDetails", new Details());
-        model.addAttribute("newOrder", new Order());
-        model.addAttribute("newCategory", new Category());
-
-        model.addAttribute("unitsMap", unitDao.getMap());
+        /*model.addAttribute("unitsMap", unitDao.getMap());
         model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());*/
 
+        model.addAttribute("todayOrdersNumber", orderDao.
+                getByDate(Date.valueOf(LocalDate.now())).size());
+        model.addAttribute("yesterdayOrdersNumber", orderDao.
+                getByDateBetween(Date.valueOf(
+                        LocalDate.now().minusDays(1)),
+                        Date.valueOf(LocalDate.now())).size());
         model.addAttribute("products", productDao.getAll());
-        model.addAttribute("units", unitDao.getAll());
-        model.addAttribute("categories", categoryDao.getAll());
-        model.addAttribute("manufacturers", manufacturerDao.getAll());
         model.addAttribute("orders", orderDao.getAll());
         model.addAttribute("clients", clientDao.getAll());
-        model.addAttribute("details", detailsDao.getAll());
 
         return "admin-pages/admin-main-page";
     }

@@ -23,12 +23,12 @@ public class OrderDao {
 
     @Transactional
     public List<Order> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Order").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order", Order.class).getResultList();
     }
 
     @Transactional
     public List<Order> getAllSortedByDate() {
-        return sessionFactory.getCurrentSession().createQuery("from Order order by orderDate desc").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order order by orderDate desc", Order.class).getResultList();
     }
 
     @Transactional
@@ -73,27 +73,34 @@ public class OrderDao {
 
     @Transactional
     public List<Order> getByClient(Client client){
-        return sessionFactory.getCurrentSession().createQuery("from Order where client = " + client).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order where client = " + client, Order.class).getResultList();
     }
 
     @Transactional
     public List<Order> getByDate(Date date){
-        return sessionFactory.getCurrentSession().createQuery("from Order where orderDate = " + date).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order where orderDate = '" + date + "'", Order.class).getResultList();
     }
-
-
 
     @Transactional
     public List<Order> getByDate(Date date, boolean newer){
         Query query = null;
 
-
         if (newer)
-            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate > " + date);
+            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate > '" + date + "'");
         else
-            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate < " + date);
+            query = sessionFactory.getCurrentSession().createQuery("from Order where orderDate < '" + date + "'");
 
         return query.getResultList();
+    }
+
+    @Transactional
+    public List<Order> getYesterday(){
+        return sessionFactory.getCurrentSession().createQuery("from Order where orderDate = '" + Date.valueOf(LocalDate.now().minusDays(1)) + "'", Order.class).getResultList();
+    }
+
+    @Transactional
+    public List<Order> getByDateBetween(Date start, Date end){
+        return sessionFactory.getCurrentSession().createQuery("from Order where orderDate < '" + start + "' and orderDate > '" + end + "'", Order.class).getResultList();
     }
 
     @Transactional

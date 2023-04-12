@@ -1,12 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: tpant
-  Date: 3/3/2023
-  Time: 1:01 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,6 +10,7 @@
     <style>
         <%@include file="/sources/style/style.css"%>
     </style>
+
 </head>
 <body style="">
 <div class="shop-main-container">
@@ -58,7 +52,7 @@
                     </div>
                     <div class="shop-ordering-info-attributes">
                         <div class="radio-select-bar">
-                            <input name="shipmentMethod" value="pickup" class="radio-ordering" type="radio">
+                            <input checked id="pickup" name="shipmentMethod" value="pickup" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -72,7 +66,7 @@
                             </div>
                         </div>
                         <div class="radio-select-bar">
-                            <input name="shipmentMethod" value="ship" class="radio-ordering" type="radio">
+                            <input id="ship" name="shipmentMethod" value="ship" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -87,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="shop-ordering-info-bar">
+                <div class="shop-ordering-info-bar hide" id="ordering-info">
                     <div class="shop-ordering-info-bar-header text-main-20">
                         Данные о доставке
                     </div>
@@ -119,7 +113,7 @@
                     <div class="shop-ordering-info-attributes">
 
                         <div class="radio-select-bar">
-                            <input name="paymentMethod" value="cash" class="radio-ordering" type="radio">
+                            <input checked id="cash" name="paymentMethod" value="cash" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -133,7 +127,7 @@
                             </div>
                         </div>
                         <div class="radio-select-bar">
-                            <input name="paymentMethod" value="card" class="radio-ordering" type="radio">
+                            <input id="card" name="paymentMethod" value="card" class="radio-ordering" type="radio">
                             <div class="radio-select-image">
                                 <img src="" alt="">
                             </div>
@@ -230,37 +224,9 @@
         </form>
     </div>
 </div>
-
-<div class="shop-footer">
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-    <div class="shop-footer-column">
-        <div class="shop-footer-column-header text-main-15">
-            Информация
-        </div>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-        <a class="text-main-15">О магазине</a>
-    </div>
-</div>
-
+<%@include file="../modules/module-shop-footer.jsp"%>
+<script>
+    <%@include file="/sources/script/show-address-info.js"%>
+</script>
 </body>
 </html>

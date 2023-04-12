@@ -59,6 +59,52 @@
         <%@include file="../modules/module-admin-side-panel.jsp"%>
         <div class="main-panel">
             <div class="admin-main-page-column">
+                <div class="info-panel panel">
+                    <div class="info-panel-item">
+                        <div class="info-panel-item-block info-panel-item-header text-main-15">
+                            Новых заказов
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-value text-main-24">
+                            0
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-other text-main-12">
+                            штук
+                        </div>
+                    </div>
+                    <div class="info-panel-item">
+                        <div class="info-panel-item-block info-panel-item-header text-main-15">
+                            Всего товаров
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-value text-main-24">
+                            ${products.size()}
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-other text-main-12">
+                            штук
+                        </div>
+                    </div>
+                    <div class="info-panel-item">
+                        <div class="info-panel-item-block info-panel-item-header text-main-15">
+                            Заказов сегодня
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-value text-main-24">
+                            ${todayOrdersNumber}
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-other text-main-12">
+                            штук
+                        </div>
+                    </div>
+                    <div class="info-panel-item">
+                        <div class="info-panel-item-block info-panel-item-header text-main-15">
+                            Заказов вчера
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-value text-main-24">
+                            ${yesterdayOrdersNumber}
+                        </div>
+                        <div class="info-panel-item-block info-panel-item-other text-main-12">
+                            штук
+                        </div>
+                    </div>
+                </div>
                 <div id="sales" class="orders-panel panel">
 
                 </div>

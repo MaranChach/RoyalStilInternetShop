@@ -4,6 +4,7 @@ package com.trantin.simpleweb.http.controllers;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class ShopController {
@@ -181,10 +183,10 @@ public class ShopController {
                                  @RequestParam("clientName") String clientName,
                                  @RequestParam("clientSurname") String clientSurname,
                                  @RequestParam("clientPhoneNumber") String clientPhoneNumber,
-                                 @RequestParam("city") String city,
-                                 @RequestParam("street") String street,
-                                 @RequestParam("houseNumber") String houseNumber,
-                                 @RequestParam("flatNumber") int flatNumber,
+                                 @RequestParam(value = "city", defaultValue = "") String city,
+                                 @RequestParam(value = "street", defaultValue = "") String street,
+                                 @RequestParam(value = "houseNumber", defaultValue = "") String houseNumber,
+                                 @RequestParam(value = "flatNumber", defaultValue = "0") Integer flatNumber,
                                  @RequestParam("orderCartId") int orderCartId,
                                  @RequestParam("shipmentMethod") String shipmentMethod,
                                  @RequestParam("paymentMethod") String paymentMethod,
@@ -193,24 +195,24 @@ public class ShopController {
 
         Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
 
-        Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
-
         Order order = new Order();
 
         order.setOrderCart(orderCartDao.getById(orderCartId));
         order.setClient(client);
-        order.setAddress(address);
         order.setCurrentDate();
+
+        if(city != null && street != null && houseNumber != null){
+            Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
+            order.setAddress(address);
+        }
 
         if (paymentMethod.equals("cash"))
             order.setPaymentMethod(PaymentMethods.cash);
         else order.setPaymentMethod(PaymentMethods.card);
 
-        if (paymentMethod.equals("ship"))
+        if (shipmentMethod.equals("ship"))
             order.setShipmentMethod(ShipmentMethods.ship);
         else order.setShipmentMethod(ShipmentMethods.pickup);
-
-
 
         orderDao.persist(order);
 
@@ -218,13 +220,22 @@ public class ShopController {
     }
 
     @RequestMapping("/sendOrder")
-    private String saveOrder(@ModelAttribute("order") Order order, @ModelAttribute Client client,
-                             @RequestParam("orderCartId") int id){
-        System.out.println(order);
+    private String saveOrder(@RequestParam("orderCartId") int id,
+                             @RequestParam("name") String name,
+                             @RequestParam("phoneNumber") String phoneNumber,
+                             @RequestParam(value = "comment", defaultValue = "") String comment){
+        Order order = new Order();
+        Client client = new Client();
+        client.setName(name);
+        client.setPhoneNumber(phoneNumber);
+
+
 
         order.setOrderCart(orderCartDao.getById(id));
+        order.setClient(client);
         order.setCurrentDate();
 
+        clientDao.save(client);
         orderDao.persist(order);
 
         return "";

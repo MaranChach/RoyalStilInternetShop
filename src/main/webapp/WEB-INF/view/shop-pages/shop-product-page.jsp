@@ -11,154 +11,131 @@
 <head>
     <title>Title</title>
 
-<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
     <style>
         <%@include file="/sources/style/style.css"%>
     </style>
 </head>
 <body style="">
-    <div class="shop-main-container">
-        <%@include file="../modules/module-shop-top-bar.jsp"%>
+<div class="shop-main-container">
+    <%@include file="../modules/module-shop-top-bar.jsp" %>
 
-        <div style="flex-direction: column" class="shop-content">
-            <div class="shop-product-header text-product-header">
-                ${product.name}
+    <div style="flex-direction: column" class="shop-content">
+        <div class="shop-product-header text-product-header">
+            ${product.name}
+        </div>
+        <div class="shop-product-rating-bar">
+            <div class="shop-product-article text-main-15">
+                Артикул: ${product.article}
             </div>
-            <div class="shop-product-rating-bar">
-                <div class="shop-product-article text-main-15">
-                    Артикул: ${product.article}
-                </div>
-                <div class="shop-product-reviews-number text-main-15">
-                    Отзывов: 0
-                </div>
+            <div class="shop-product-reviews-number text-main-15">
+                Отзывов: 0
             </div>
-            <div class="shop-product-content">
-                <div class="shop-product-content-image-bar">
-                    <img class="shop-product-content-image" onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'" src="${product.imageUrl}" alt="">
+        </div>
+        <div class="shop-product-content">
+            <div class="shop-product-content-image-bar">
+                <img class="shop-product-content-image"
+                     onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'"
+                     src="${product.imageUrl}" alt="">
+            </div>
+            <div class="shop-product-content-cost-bar">
+                <div class="shop-product-content-number">
+                    <div class="text-main-15">
+                        Количество:
+                    </div>
+                    <input class="shop-product-number-input text-main-15" type="number">
                 </div>
-                <div class="shop-product-content-cost-bar">
-                    <div class="shop-product-content-number">
-                        <div class="text-main-15">
-                            Количество:
-                        </div>
-                        <input class="shop-product-number-input text-main-15" type="number">
+
+                <div class="shop-product-details-payment-bar">
+                    <div class="shop-product-content-cost text-product-header">
+                        ${product.cost} руб.
                     </div>
 
-                    <div class="shop-product-details-payment-bar">
-                        <div class="shop-product-content-cost text-product-header">
-                            ${product.cost} руб.
-                        </div>
+                    <c:choose>
 
-                        <c:choose>
+                        <c:when test="${product.number <= '0'}">
+                            <div style="color: red" class="shop-product-content-availability text-availability">
+                                Нет в наличии
+                            </div>
 
-                            <c:when test="${product.number <= '0'}">
-                                <div style="color: red" class="shop-product-content-availability text-availability">
-                                    Нет в наличии
-                                </div>
+                            <button onclick="window.location.href = '${addToCartButton}'"
+                                    style="background-color: gainsboro" disabled="disabled"
+                                    class="shop-product-content-buy-button text-product-buttons">
+                                Добавить
+                            </button>
+                        </c:when>
 
-                                <button onclick="window.location.href = '${addToCartButton}'" style="background-color: gainsboro" disabled="disabled" class="shop-product-content-buy-button text-product-buttons">
-                                    Добавить
-                                </button>
-                            </c:when>
+                        <c:otherwise>
+                            <div class="shop-product-content-availability text-availability">
+                                Есть в наличии
+                            </div>
 
-                            <c:otherwise>
-                                <div class="shop-product-content-availability text-availability">
-                                    Есть в наличии
-                                </div>
+                            <c:url var="addToCartButton" value="saveToCart">
+                                <c:param name="productId" value="${product.id}"/>
+                            </c:url>
 
-                                <c:url var="addToCartButton" value="saveToCart">
-                                    <c:param name="productId" value="${product.id}"/>
-                                </c:url>
+                            <button onclick="window.location.href='${addToCartButton}'"
+                                    class="shop-product-content-buy-button text-product-buttons">
+                                Добавить
+                            </button>
 
-                                <button onclick="window.location.href='${addToCartButton}'" class="shop-product-content-buy-button text-product-buttons">
-                                    Добавить
-                                </button>
+                            <div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик
+                            </div>
+                        </c:otherwise>
 
-                                <div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик</div>
-                            </c:otherwise>
+                    </c:choose>
 
-                        </c:choose>
+                </div>
+            </div>
+            <div class="shop-product-content-delivery-info-bar">
+                <div class="shop-product-content-delivery-info">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-product-tabs-bar">
+            <div class="shop-product-tab tab-desc text-header">
+                Описание
+            </div>
+            <div class="shop-product-tab tab-details text-header">
+                Характеристики
+            </div>
+            <div class="shop-product-tab tab-reviews text-header">
+                Отзывы
+            </div>
+        </div>
+
+        <div class="shop-product-tab-bar shop-product-description text-main-15">
+            ${product.description}
+        </div>
+
+        <div class="shop-product-tab-bar shop-product-details text-main-15">
+            <c:forEach var="attribute" items="${product.details.attributes}">
+                <div style="display:flex;">
+                    <div class="details-attribute-row">
+                        <div class="details-attribute-name">${attribute.parameter.name}</div>
+                        <div class="details-attribute-value">${attribute.value} ${attribute.parameter.unit.name}</div>
 
                     </div>
+
                 </div>
-                <div class="shop-product-content-delivery-info-bar">
-                    <div class="shop-product-content-delivery-info">
+            </c:forEach>
+        </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="shop-product-tabs-bar">
-                <div class="shop-product-tab tab-desc text-header">
-                    Описание
-                </div>
-                <div class="shop-product-tab tab-details text-header">
-                    Характеристики
-                </div>
-                <div class="shop-product-tab tab-reviews text-header">
-                    Отзывы
-                </div>
-            </div>
-
-            <div class="shop-product-tab-bar shop-product-description text-main-15">
-                ${product.description}
-            </div>
-
-            <div class="shop-product-tab-bar shop-product-details text-main-15">
-                <c:forEach var="attribute" items="${product.details.attributes}">
-                    <div style="display:flex;">
-                        <div class="details-attribute-row">
-                            <div class="details-attribute-name">${attribute.parameter.name}</div>
-                            <div class="details-attribute-value">${attribute.value}  ${attribute.parameter.unit.name}</div>
-
-                        </div>
-
-                    </div>
-                </c:forEach>
-            </div>
-
-            <div class="shop-product-tab-bar shop-product-reviews text-main-15">
-                <p>Отзывы Отзывы Отзывы </p>
-                <p>Отзывы Отзывы Отзывы </p>
-                <p>Отзывы Отзывы Отзывы </p>
-            </div>
+        <div class="shop-product-tab-bar shop-product-reviews text-main-15">
+            <p>Отзывы Отзывы Отзывы </p>
+            <p>Отзывы Отзывы Отзывы </p>
+            <p>Отзывы Отзывы Отзывы </p>
         </div>
     </div>
+</div>
 
-    <div class="shop-footer">
-        <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main-15">
-                Информация
-            </div>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-        </div>
-        <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main-15">
-                Информация
-            </div>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-        </div>
-        <div class="shop-footer-column">
-            <div class="shop-footer-column-header text-main-15">
-                Информация
-            </div>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-            <a class="text-main-15">О магазине</a>
-        </div>
-    </div>
+<%@include file="../modules/module-shop-footer.jsp" %>
 
-    <script>
-        <%@include file="/sources/script/product-tabs-script.js"%>
-    </script>
+<script>
+    <%@include file="/sources/script/product-tabs-script.js"%>
+</script>
 </body>
 </html>
