@@ -2,10 +2,13 @@ package com.trantin.simpleweb.http.dao;
 
 
 import com.trantin.simpleweb.http.entity.*;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,22 +24,22 @@ public class ProductDao {
 
 
     public List<Product> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Product").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Product", Product.class).getResultList();
     }
 
     public List<Product> getAllSomeFields() {
-        return sessionFactory.getCurrentSession().createQuery("select name, number from Product").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("select name, number from Product", Product.class).getResultList();
     }
 
     public List<Product> getLastThree() {
-        return sessionFactory.getCurrentSession().createQuery("from Product").setMaxResults(3).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Product", Product.class).setMaxResults(3).getResultList();
     }
 
 
     public Map<String, Integer> getMap() {
 
         List<Product> products =
-                sessionFactory.getCurrentSession().createQuery("from Product").getResultList();
+                sessionFactory.getCurrentSession().createQuery("from Product", Product.class).getResultList();
 
         Map<String, Integer> productMap = new HashMap<>();
 
@@ -69,7 +72,7 @@ public class ProductDao {
 
 
     public List<Product> getByDetail(DetailsParameter parameter, double value){
-        List<Product> products = sessionFactory.getCurrentSession().createQuery("from Product").getResultList();
+        List<Product> products = sessionFactory.getCurrentSession().createQuery("from Product", Product.class).getResultList();
 
         List<Product> result = new ArrayList<>();
 
@@ -89,6 +92,12 @@ public class ProductDao {
         return result;
     }
 
+
+    public List<Product> searchByName(String searchText){
+
+        return sessionFactory.getCurrentSession().createQuery("from Product where lower(name) like lower('%" + searchText + "%')", Product.class).getResultList();
+
+    }
 
     public void save(Product entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);

@@ -57,7 +57,7 @@
         </div>
         <div class="shop-playground">
             <div class="text-header shop-catalog-header">
-                ${curCategory.name}
+                ${curCategory}
             </div>
 
             <div class="shop-catalog-categories-bar">

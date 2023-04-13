@@ -75,10 +75,23 @@ public class ShopController {
     public String getCategoryPage(@RequestParam int categoryId , Model model){
         model.addAttribute("categories", categoryDao.getAll());
 
-        model.addAttribute("curCategory", categoryDao.getById(categoryId));
+        model.addAttribute("curCategory", categoryDao.getById(categoryId).getName());
 
         model.addAttribute("products",
                 productDao.getByCategoryId(categoryId));
+
+        return "shop-pages/shop-category-page";
+    }
+
+    @RequestMapping("/search")
+    public String search(@RequestParam("searchText") String searchText,
+                         Model model){
+
+        model.addAttribute("categories", categoryDao.getAll());
+
+        model.addAttribute("curCategory", "Результаты поиска по запросу \"" + searchText + "\"");
+
+        model.addAttribute("products", productDao.searchByName(searchText));
 
         return "shop-pages/shop-category-page";
     }
@@ -228,8 +241,6 @@ public class ShopController {
         Client client = new Client();
         client.setName(name);
         client.setPhoneNumber(phoneNumber);
-
-
 
         order.setOrderCart(orderCartDao.getById(id));
         order.setClient(client);
