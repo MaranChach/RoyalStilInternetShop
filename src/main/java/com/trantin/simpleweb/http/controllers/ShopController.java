@@ -3,6 +3,7 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.utils.EmailThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -208,6 +209,8 @@ public class ShopController {
 
         Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
 
+        clientDao.save(client);
+
         Order order = new Order();
 
         order.setOrderCart(orderCartDao.getById(orderCartId));
@@ -229,7 +232,13 @@ public class ShopController {
 
         orderDao.persist(order);
 
-        return "";
+        EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
+        Thread thread = new Thread(emailThread);
+        thread.start();
+
+        model.addAttribute("order", order);
+
+        return "shop-pages/shop-order-created-page";
     }
 
     @RequestMapping("/sendOrder")
@@ -249,16 +258,8 @@ public class ShopController {
         clientDao.save(client);
         orderDao.persist(order);
 
-        return "";
+        return "shop-pages/shop-order-created-page";
     }
-
-    @RequestMapping("saveClient")
-    private String saveClient(@ModelAttribute("client") Client client){
-        clientDao.save(client);
-
-        return "";
-    }
-
 
 
     @RequestMapping("/categoryTest")

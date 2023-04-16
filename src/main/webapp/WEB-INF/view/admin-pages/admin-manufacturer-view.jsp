@@ -21,15 +21,14 @@
 <div class="content">
     <%@include file="../modules/module-admin-side-panel.jsp"%>
     <div class="main-panel" style="display: flex; padding: 10px">
-
         <div class="product-panel">
-            <c:url var="deleteButton" value="deleteUnit">
-                <c:param name="unitId" value="${unit.id}"/>
+            <c:url var="deleteButton" value="deleteManufacturer">
+                <c:param name="manufacturerId" value="${manufacturer.id}"/>
             </c:url>
 
-            <form:form modelAttribute="unit" action="saveUnit">
+            <form:form modelAttribute="manufacturer" action="saveManufacturer">
                 <div class="product-header">
-                    <p class="text-header-values">Единица измерения</p>
+                    <p class="text-header-values">Производитель</p>
                     <button class="delete-button" onclick="window.location.href = '${deleteButton}'">
                         Удалить
                     </button>

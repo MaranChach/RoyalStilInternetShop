@@ -1,7 +1,6 @@
 package com.trantin.simpleweb.http.services;
 
 
-import com.trantin.simpleweb.http.dao.Dao;
 import com.trantin.simpleweb.http.dao.UnitDao;
 import com.trantin.simpleweb.http.entity.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,6 @@ public class UnitDaoService {
 
     @Transactional
     public void delete(int id) {
-        unitDao.delete(id);
+        unitDao.deleteById(id);
     }
 }

@@ -19,6 +19,12 @@
     <div class="side-bar-item" onclick="window.location.href = 'units'">
       <p class="side-bar-item-text text-item" >Единицы измерения</p>
     </div>
+    <div class="side-bar-item" onclick="window.location.href = 'manufacturers'">
+      <p class="side-bar-item-text text-item" >Производители</p>
+    </div>
+    <div class="side-bar-item" onclick="window.location.href = 'reports'">
+      <p class="side-bar-item-text text-item" >Отчёты</p>
+    </div>
     <div class="side-bar-item" onclick="window.location.href = 'redactor'">
       <p class="side-bar-item-text text-item" >Редактор магазина</p>
     </div>

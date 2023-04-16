@@ -1,8 +1,6 @@
 package com.trantin.simpleweb.http.dao;
 
-import com.trantin.simpleweb.http.entity.Details;
 import com.trantin.simpleweb.http.entity.Manufacturer;
-import com.trantin.simpleweb.http.entity.Product;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,8 +48,12 @@ public class ManufacturerDao {
     }
 
     @Transactional
-    public void delete(int id) {
-        sessionFactory.getCurrentSession().delete(id);
+    public void deleteById(int id) {
+        sessionFactory.getCurrentSession().createQuery("delete from Manufacturer where id = " + id).executeUpdate();
     }
 
+    @Transactional
+    public void delete(Manufacturer manufacturer) {
+        sessionFactory.getCurrentSession().delete(manufacturer);
+    }
 }

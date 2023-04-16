@@ -3,14 +3,21 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.utils.ReportUtil;
 import com.trantin.simpleweb.http.utils.Sorter;
 import com.trantin.simpleweb.http.utils.Validator;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +29,9 @@ public class CMSController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private ReportUtil reportUtil;
 
     //region DAO
     @Autowired
@@ -53,10 +63,6 @@ public class CMSController {
 
         System.out.println(session.getId());
 
-        /*model.addAttribute("unitsMap", unitDao.getMap());
-        model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());*/
-
         model.addAttribute("todayOrdersNumber", orderDao.
                 getByDate(Date.valueOf(LocalDate.now())).size());
         model.addAttribute("yesterdayOrdersNumber", orderDao.
@@ -70,6 +76,7 @@ public class CMSController {
         return "admin-pages/admin-main-page";
     }
 
+    //region Units
     @RequestMapping("/units")
     public String unitsView(Model model){
         model.addAttribute("units", unitDao.getAll());
@@ -102,10 +109,50 @@ public class CMSController {
 
     @RequestMapping("/deleteUnit")
     public String deleteUnit(@RequestParam("unitId") int id, Model model){
-        unitDao.deleteunit(unitDao.getById(id));
+        unitDao.delete(unitDao.getById(id));
 
         return "redirect:/admin/units";
     }
+    //endregion
+
+    //region Manufacturers
+    @RequestMapping("/manufacturers")
+    public String manufacturersView(Model model){
+        model.addAttribute("manufacturers", manufacturerDao.getAll());
+
+        return "admin-pages/admin-manufacrurers-page";
+    }
+
+    @RequestMapping(value = "/manufacturer")
+    public String manufacturerView(Model model){
+        model.addAttribute("manufacturer", new Manufacturer());
+
+        return "admin-pages/admin-manufacturer-view";
+    }
+
+    @RequestMapping("/updateManufacturer")
+    public String manufacturerViewById(@RequestParam("manufacturerId") int id, Model model){
+        model.addAttribute("manufacturer", manufacturerDao.getById(id));
+
+        return "admin-pages/admin-manufacturer-view";
+    }
+
+    @RequestMapping(value = "/saveManufacturer")
+    public String saveManufacturer(@ModelAttribute("manufacturer") Manufacturer manufacturer){
+        System.out.println(manufacturer);
+
+        manufacturerDao.save(manufacturer);
+
+        return "redirect:/admin/manufacturers";
+    }
+
+    @RequestMapping("/deleteManufacturer")
+    public String deleteManufacturer(@RequestParam("manufacturerId") int id, Model model){
+        manufacturerDao.delete(manufacturerDao.getById(id));
+
+        return "redirect:/admin/manufacturers";
+    }
+    //endregion
 
     @RequestMapping(value = "/products")
     public String productsView(Model model) {
@@ -222,7 +269,7 @@ public class CMSController {
 
         productDao.delete(productDao.getById(id));
         System.out.println(id);
-        return "1";//"redirect:/admin/products";
+        return "redirect:/admin/products";
     }
 
 
@@ -257,7 +304,7 @@ public class CMSController {
         categoryDao.delete(categoryDao.getById(id));
         System.out.println(id);
         System.out.println("fdsafdsaf");
-        return "1";//"admin-pages/admin-category-view";
+        return "admin-pages/admin-category-view";
     }
 
 
@@ -339,15 +386,6 @@ public class CMSController {
         return "redirect:/admin/redactor";
     }
 
-    @RequestMapping(value = "/saveManufacturer")
-    public String saveManufacturer(@ModelAttribute("newManufacturer") Manufacturer manufacturer){
-        System.out.println(manufacturer);
-
-        manufacturerDao.save(manufacturer);
-
-        return "redirect:/main/admin";
-    }
-
     @RequestMapping(value = "/saveCategory")
     public String saveCategory(@ModelAttribute("newCategory") Category category){
         System.out.println(category);
@@ -358,4 +396,57 @@ public class CMSController {
 
         return "redirect:/admin/products";
     }
+
+    @RequestMapping("/reports")
+    public String reportsPage(){
+
+
+        return "admin-pages/admin-reports-page";
+    }
+
+    @RequestMapping(value = "/ordersReport")
+    private void getOrdersReport(HttpServletResponse response,
+                                 @RequestParam("start") String start,
+                                 @RequestParam("end") String end){
+
+        LocalDate dateStart = LocalDate.parse(start);
+        LocalDate dateEnd = LocalDate.parse(end);
+
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = reportUtil.getOrdersReport(dateStart, dateEnd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            response.setHeader("Content-disposition", "attachment;filename=report " + dateStart + " - " + dateEnd + ".xls");
+            response.setContentType("application/vnd.ms-excel");
+
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /*@RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
+    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) {
+        // Прежде всего стоит проверить, если необходимо, авторизован ли пользователь и имеет достаточно прав на скачивание файла. Если нет, то выбрасываем здесь Exception
+
+        //Авторизованные пользователи смогут скачать файл
+        Path file = Paths.get(PathUtil.getUploadedFolder(), fileName);
+        if (Files.exists(file)){
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            response.setContentType("application/vnd.ms-excel");
+
+            try {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException e) {
+                LOG.info("Error writing file to output stream. Filename was '{}'" + fileName, e);
+                throw new RuntimeException("IOError writing file to output stream");
+            }
+        }
+    }*/
 }

@@ -14,7 +14,7 @@
         </form>
     <div class="shop-phone-number-bar">
         <p class="text-header">
-            8 (492) 232-27-52
+            8 (49241) 3-20-03
         </p>
     </div>
 

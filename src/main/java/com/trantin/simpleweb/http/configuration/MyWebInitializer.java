@@ -37,7 +37,4 @@ public class MyWebInitializer extends
         filter.setForceEncoding(true);
         return new Filter[]{filter};
     }
-
-
-
 }

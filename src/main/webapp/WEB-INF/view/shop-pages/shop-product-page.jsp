@@ -112,14 +112,18 @@
         </div>
 
         <div class="shop-product-tab-bar shop-product-details text-main-15">
+            <div style="display:flex;">
+                <div class="details-attribute-row">
+                    <div class="details-attribute-name">Производитель</div>
+                    <div class="details-attribute-value">${product.manufacturer.name}</div>
+                </div>
+            </div>
             <c:forEach var="attribute" items="${product.details.attributes}">
                 <div style="display:flex;">
                     <div class="details-attribute-row">
                         <div class="details-attribute-name">${attribute.parameter.name}</div>
                         <div class="details-attribute-value">${attribute.value} ${attribute.parameter.unit.name}</div>
-
                     </div>
-
                 </div>
             </c:forEach>
         </div>

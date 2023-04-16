@@ -1,7 +1,6 @@
 package com.trantin.simpleweb.http.dao;
 
 
-import com.trantin.simpleweb.http.entity.Product;
 import com.trantin.simpleweb.http.entity.Unit;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +48,12 @@ public class UnitDao {
     }
 
     @Transactional
-    public void delete(int id) {
-        sessionFactory.getCurrentSession().createQuery("delete from Unit where id = " + id);
+    public void deleteById(int id) {
+        sessionFactory.getCurrentSession().createQuery("delete from Unit where id = " + id).executeUpdate();
     }
 
     @Transactional
-    public void deleteunit(Unit unit) {
+    public void delete(Unit unit) {
         sessionFactory.getCurrentSession().delete(unit);
     }
 }

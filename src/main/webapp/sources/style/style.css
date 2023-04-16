@@ -241,8 +241,8 @@ body{
 }
 
 .orders-panel{
-    width: 40%;
-    height: 400px;
+    width: 60%;
+    height: 600px;
     float: left;
 }
 
@@ -255,7 +255,7 @@ body{
 .info-panel-item{
     height: 100%;
     width: 150px;
-    margin: 0 10px;
+    margin-left: 25px;
 }
 
 .info-panel-item-block{
@@ -897,6 +897,21 @@ body{
 
 .order-client-address{
 
+}
+
+.admin-row-button{
+    flex: auto 1;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #e8e8e8;
+    margin: 10px;
+    padding-left: 10px;
+    border: none;
+}
+
+.admin-row-button:hover{
+    background-color: #dddddd;
 }
 
 .admin-images-bar{
@@ -1821,6 +1836,15 @@ body{
     width: 100%;
     height: 100%;
     display: flex;
+}
+
+.order-created-bar{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .shop-ordering-info{

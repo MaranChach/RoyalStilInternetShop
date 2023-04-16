@@ -24,7 +24,7 @@
     <%@include file="../modules/module-admin-side-panel.jsp"%>
     <div class="main-panel">
         <div class="text-header text-header-margin">
-            Товары
+            Редактор
         </div>
         <div class="data-panel">
             <div style="height: 10px">

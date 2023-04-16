@@ -20,7 +20,7 @@
         <div class="shop-product-header text-product-header">
             Оформление заказа
         </div>
-        <form action="sendFullOrder">
+        <form action="sendFullOrder" method="post">
         <div class="shop-ordering-content">
             <div class="shop-ordering-info">
                 <div class="shop-ordering-info-bar">
