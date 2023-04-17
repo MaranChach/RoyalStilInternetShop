@@ -94,6 +94,9 @@
                         <div class="details-unit table-cell">
                             Единица измерения
                         </div>
+                        <div class="table-marker table-cell">
+                            Удалить
+                        </div>
                     </div>
                     <div class="order-list-tab-all">
                         <c:forEach var="parameter" items="${detailsParameters}">
@@ -106,6 +109,14 @@
                                 </div>
                                 <div class="details-unit table-cell">
                                         ${parameter.unit.name}
+                                </div>
+                                <div class="table-marker table-cell">
+                                    <c:url var="deleteButton" value="deleteDetailsParameter">
+                                        <c:param name="parameterId" value="${parameter.id}"/>
+                                    </c:url>
+                                    <button class="delete-button-icon" onclick="window.location.href = '${deleteButton}'">
+                                        <img style="height: 100%" src="/main/sources/images/garbage-trash-svgrepo-com.svg" alt="">
+                                    </button>
                                 </div>
                             </div>
                         </c:forEach>

@@ -52,7 +52,8 @@ public class DetailsParameterDao {
     }
 
 
-    public void delete(int id) {
-        sessionFactory.getCurrentSession().createQuery("delete from DetailsParameter where id = " + id);
+    @Transactional
+    public void delete(DetailsParameter detailsParameter) {
+        sessionFactory.getCurrentSession().delete(detailsParameter);
     }
 }

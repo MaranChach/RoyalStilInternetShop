@@ -154,28 +154,16 @@ public class CMSController {
     }
     //endregion
 
+    //region Products
+
     @RequestMapping(value = "/products")
     public String productsView(Model model) {
-
-        model.addAttribute("newProduct", new Product());
-        model.addAttribute("newUnit", new Unit());
-        model.addAttribute("newManufacturer", new Manufacturer());
-        model.addAttribute("newClient", new Client());
-        model.addAttribute("newDetails", new Details());
-        model.addAttribute("newOrder", new Order());
-        model.addAttribute("newCategory", new Category());
-
         model.addAttribute("unitsMap", unitDao.getMap());
         model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         model.addAttribute("products", productDao.getAll());
-        model.addAttribute("units", unitDao.getAll());
         model.addAttribute("categories", categoryDao.getAll());
-        model.addAttribute("manufacturers", manufacturerDao.getAll());
-        model.addAttribute("orders", orderDao.getAll());
-        model.addAttribute("clients", clientDao.getAll());
-        model.addAttribute("details", detailsDao.getAll());
 
         return "admin-pages/admin-products-view";
     }
@@ -210,41 +198,6 @@ public class CMSController {
         return "admin-pages/admin-product-view";
     }
 
-    @RequestMapping("/saveDetailsAttribute")
-    private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
-                                        @RequestParam("parameter") int parameterId,
-                                        @RequestParam("productId") int productId,
-                                        @RequestParam("value") double value,
-                                        Model model){
-        Product product = productDao.getById(productId);
-
-        DetailsAttribute attribute = new DetailsAttribute();
-
-        attribute.setParameter(parameterDao.getById(parameterId));
-        attribute.setValue(value);
-
-        if (product.getDetails() == null){
-            System.out.println("У продукта нет характеристик, создание новых");
-
-            Details details = new Details();
-            detailsDao.save(details);
-
-            System.out.println(details.getId());
-
-            product.setDetails(details);
-            productDao.save(product);
-        }
-        attribute.setDetails(product.getDetails());
-
-        System.out.println("Создание аттрибута");
-
-        attributeDao.save(attribute);
-
-        return "redirect:/admin/updateProduct?productId=" + product.getId();
-    }
-
-
-
     @RequestMapping(value = "/saveProduct")
     public String saveProduct(@ModelAttribute("newProduct") Product product,
                               @RequestParam("unit") int unitId,
@@ -271,20 +224,9 @@ public class CMSController {
         System.out.println(id);
         return "redirect:/admin/products";
     }
+    //endregion
 
-
-
-    @RequestMapping("/product/{id}")
-    public String productViewById(Model model, @PathVariable int id){
-        model.addAttribute("product", productDao.getById(id));
-
-        model.addAttribute("unitsMap", unitDao.getMap());
-        model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
-
-        return "admin-pages/admin-product-view";
-    }
-
+    //region Categories
     @RequestMapping("/category")
     public String newCategory(Model model){
         model.addAttribute("category", new Category());
@@ -302,12 +244,24 @@ public class CMSController {
     @RequestMapping("/deleteCategory")
     public String deleteCategory(Model model, @RequestParam("categoryId") int id){
         categoryDao.delete(categoryDao.getById(id));
-        System.out.println(id);
-        System.out.println("fdsafdsaf");
-        return "admin-pages/admin-category-view";
+
+        return "redirect:/admin/products";
     }
 
+    @RequestMapping(value = "/saveCategory")
+    public String saveCategory(@ModelAttribute("newCategory") Category category){
+        System.out.println(category);
 
+        category.setImageUrl(Validator.trimImageUrl(category.getImageUrl()));
+
+        categoryDao.save(category);
+
+        return "redirect:/admin/products";
+    }
+
+    //endregion
+
+    //region Orders
     @RequestMapping("/orders")
     private String ordersView(Model model){
         List<Order> orders = orderDao.getAllSortedByDate();
@@ -336,7 +290,9 @@ public class CMSController {
 
         return "redirect:/admin/orders";
     }
+    //endregion
 
+    //region Details
     @RequestMapping("/details")
     private String detailsView(Model model){
         model.addAttribute("newParameter", new DetailsParameter());
@@ -362,6 +318,48 @@ public class CMSController {
         return "redirect:/admin/details";
     }
 
+    @RequestMapping("/deleteDetailsParameter")
+    private String deleteDetailsParameter(@RequestParam("parameterId") int parameterId){
+        parameterDao.delete(parameterDao.getById(parameterId));
+
+        return "redirect:/admin/details";
+    }
+
+    @RequestMapping("/saveDetailsAttribute")
+    private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
+            @RequestParam("parameter") int parameterId,
+            @RequestParam("productId") int productId,
+            @RequestParam("value") double value,
+            Model model){
+        Product product = productDao.getById(productId);
+
+        DetailsAttribute attribute = new DetailsAttribute();
+
+        attribute.setParameter(parameterDao.getById(parameterId));
+        attribute.setValue(value);
+
+        if (product.getDetails() == null){
+            System.out.println("У продукта нет характеристик, создание новых");
+
+            Details details = new Details();
+            detailsDao.save(details);
+
+            System.out.println(details.getId());
+
+            product.setDetails(details);
+            productDao.save(product);
+        }
+        attribute.setDetails(product.getDetails());
+
+        System.out.println("Создание аттрибута");
+
+        attributeDao.save(attribute);
+
+        return "redirect:/admin/updateProduct?productId=" + product.getId();
+    }
+    //endregion
+
+    //region Redactor
     @RequestMapping("/redactor")
     public String redactorView(Model model){
         model.addAttribute("newImage", new Image());
@@ -385,18 +383,9 @@ public class CMSController {
 
         return "redirect:/admin/redactor";
     }
+    //endregion
 
-    @RequestMapping(value = "/saveCategory")
-    public String saveCategory(@ModelAttribute("newCategory") Category category){
-        System.out.println(category);
-
-        category.setImageUrl(Validator.trimImageUrl(category.getImageUrl()));
-
-        categoryDao.save(category);
-
-        return "redirect:/admin/products";
-    }
-
+    //region Reports
     @RequestMapping("/reports")
     public String reportsPage(){
 
@@ -429,24 +418,5 @@ public class CMSController {
             e.printStackTrace();
         }
     }
-
-    /*@RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
-    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) {
-        // Прежде всего стоит проверить, если необходимо, авторизован ли пользователь и имеет достаточно прав на скачивание файла. Если нет, то выбрасываем здесь Exception
-
-        //Авторизованные пользователи смогут скачать файл
-        Path file = Paths.get(PathUtil.getUploadedFolder(), fileName);
-        if (Files.exists(file)){
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-            response.setContentType("application/vnd.ms-excel");
-
-            try {
-                Files.copy(file, response.getOutputStream());
-                response.getOutputStream().flush();
-            } catch (IOException e) {
-                LOG.info("Error writing file to output stream. Filename was '{}'" + fileName, e);
-                throw new RuntimeException("IOError writing file to output stream");
-            }
-        }
-    }*/
+    //endregion
 }

@@ -26,12 +26,13 @@
                 <c:param name="manufacturerId" value="${manufacturer.id}"/>
             </c:url>
 
-            <form:form modelAttribute="manufacturer" action="saveManufacturer">
+
                 <div class="product-header">
                     <p class="text-header-values">Производитель</p>
                     <button class="delete-button" onclick="window.location.href = '${deleteButton}'">
                         Удалить
                     </button>
+                <form:form modelAttribute="manufacturer" action="saveManufacturer">
                     <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
                 </div>
                 <div>

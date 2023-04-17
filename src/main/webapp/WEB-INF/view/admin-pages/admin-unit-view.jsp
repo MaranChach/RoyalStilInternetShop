@@ -19,7 +19,7 @@
 <body>
 <%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
-    <%@include file="../modules/module-admin-side-panel.jsp"%>
+    <%@include file="../modules/module-admin-side-panel.jsp" %>
     <div class="main-panel" style="display: flex; padding: 10px">
 
         <div class="product-panel">
@@ -27,18 +27,16 @@
                 <c:param name="unitId" value="${unit.id}"/>
             </c:url>
 
-            <form:form modelAttribute="unit" action="saveUnit">
+
                 <div class="product-header">
                     <p class="text-header-values">Единица измерения</p>
                     <button class="delete-button" onclick="window.location.href = '${deleteButton}'">
                         Удалить
                     </button>
-                    <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
+                    <input type="button" onclick="document.forms[0].submit()" value="Сохранить" class="input-panel-button filter-button"
+                           style="float: right"/>
                 </div>
-                <div>
-
-                </div>
-
+            <form:form modelAttribute="unit" action="saveUnit">
                 <div class="product-data-panel">
                     <div class="product-nav-block">
                         <p class="text-header-values-group">Основное</p>

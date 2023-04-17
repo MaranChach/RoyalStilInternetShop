@@ -19,10 +19,10 @@
 <body>
 <%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
-    <%@include file="../modules/module-admin-side-panel.jsp"%>
+    <%@include file="../modules/module-admin-side-panel.jsp" %>
     <div class="main-panel" style="display: flex; padding: 10px">
         <div class="product-panel">
-            <form:form modelAttribute="category" action="saveCategory">
+
             <div class="product-header">
                 <p class="text-header-values">Товар</p>
 
@@ -32,31 +32,30 @@
                 <button class="delete-button" onclick="window.location.href = '${deleteButton}'">
                     Удалить
                 </button>
-                <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
+                <input type="button" onclick="document.forms[0].submit()" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
             </div>
+            <form:form modelAttribute="category" action="saveCategory">
+                <div class="product-data-panel">
+                    <div class="product-nav-block">
+                        <p class="text-header-values-group">Основное</p>
+                        <br>
+                        <form:hidden path="id"/>
+                        <div class="form-attribute">
+                            <p class="attribute-name text-main-14-gray">Название</p>
+                            <form:input autocomplete="off" path="name" class="attribute-value" type="text"/>
+                            <form:errors cssStyle="color: red" path="name"/>
+                        </div>
 
-            <div class="product-data-panel">
-                <div class="product-nav-block">
-                    <p class="text-header-values-group">Основное</p>
-                    <br>
-                    <form:hidden path="id"/>
-                    <div class="form-attribute">
-                        <p class="attribute-name text-main-14-gray">Название</p>
-                        <form:input autocomplete="off" path="name" class="attribute-value" type="text"/>
-                        <form:errors cssStyle="color: red" path="name"/>
-                    </div>
-
-                    <div class="form-attribute text-main-14-gray">
-                        <p class="attribute-name">Ссылка на картинку</p>
-                        <div style="flex: 1">
-                            <form:textarea type="text" autocomplete="off" path="imageUrl" class="attribute-value"
-                                           id="url"/>
+                        <div class="form-attribute text-main-14-gray">
+                            <p class="attribute-name">Ссылка на картинку</p>
+                            <div style="flex: 1">
+                                <form:textarea type="text" autocomplete="off" path="imageUrl" class="attribute-value"
+                                               id="url"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </form:form>
-            </div>
-
+            </form:form>
         </div>
 
         <div class="product-nav-panel">

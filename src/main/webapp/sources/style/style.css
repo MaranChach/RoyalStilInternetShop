@@ -510,6 +510,11 @@ body{
     background-color: darkred;
 }
 
+.delete-button-icon{
+    height: 80%;
+    border: none;
+}
+
 .center{
     display: flex;
     align-items: center;

@@ -52,7 +52,7 @@
                                 <c:url var="deleteButton" value="deleteImage">
                                     <c:param name="imageId" value="${image.id}"/>
                                 </c:url>
-                                <button style="height: 100%" onclick="window.location.href = '${deleteButton}'">
+                                <button class="delete-button-icon" onclick="window.location.href = '${deleteButton}'">
                                     <img style="height: 100%" src="/main/sources/images/garbage-trash-svgrepo-com.svg" alt="">
                                 </button>
                             </div>
