@@ -29,39 +29,7 @@
 
         </div>
         <div class="data-panel" style="display:flex; justify-content: space-around">
-            <div class="data-panel-half">
-                <div class="panel-half-header text-header text-header-margin">
-                    Наборы характеристик
-                </div>
-
-                <div class="admin-table">
-                    <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
-                        <div class="table-marker table-cell">
-                            <input class="marker" type="checkbox">
-                        </div>
-                        <div class="table-name-cell table-cell">
-                            Наименование
-                        </div>
-                        <div class="details-unit table-cell">
-                            Единица измерения
-                        </div>
-                    </div>
-                    <div class="order-list-tab-all">
-                        <div class="table-item">
-                            <div class="table-marker table-cell">
-                                <input class="marker" type="checkbox">
-                            </div>
-                            <div class="table-name-cell table-cell">
-                                Наименование
-                            </div>
-                            <div class="details-unit table-cell">
-                                Единица измерения
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="data-panel-half">
+            <div class="admin-menu-data-panel">
                 <div class="panel-half-header text-header text-header-margin">
                     Виды характеристик
                 </div>

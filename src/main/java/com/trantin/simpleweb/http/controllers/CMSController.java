@@ -3,21 +3,21 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.exceptions.LinkException;
 import com.trantin.simpleweb.http.utils.ReportUtil;
 import com.trantin.simpleweb.http.utils.Sorter;
 import com.trantin.simpleweb.http.utils.Validator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -108,7 +108,7 @@ public class CMSController {
     }
 
     @RequestMapping("/deleteUnit")
-    public String deleteUnit(@RequestParam("unitId") int id, Model model){
+    public String deleteUnit(@RequestParam("unitId") int id, Model model) throws LinkException {
         unitDao.delete(unitDao.getById(id));
 
         return "redirect:/admin/units";
@@ -221,7 +221,7 @@ public class CMSController {
     public String deleteProduct(@RequestParam("productId") int id) {
 
         productDao.delete(productDao.getById(id));
-        System.out.println(id);
+
         return "redirect:/admin/products";
     }
     //endregion
@@ -296,11 +296,8 @@ public class CMSController {
     @RequestMapping("/details")
     private String detailsView(Model model){
         model.addAttribute("newParameter", new DetailsParameter());
-
         model.addAttribute("detailsParameters", parameterDao.getAll());
-
         model.addAttribute("units", unitDao.getMap());
-
 
         return "admin-pages/admin-details-view";
     }

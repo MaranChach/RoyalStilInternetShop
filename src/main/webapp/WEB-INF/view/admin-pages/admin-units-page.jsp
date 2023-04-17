@@ -17,69 +17,69 @@
 <%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
     <%@include file="../modules/module-admin-side-panel.jsp"%>
+
     <div class="main-panel">
         <div class="text-header text-header-margin">
-            Единицы измерения
+
         </div>
-        <div class="data-panel">
-            <div class="menus-panel">
+        <div style="height: 10px; background-color: white;">
 
-            </div>
-            <div>
-                <div class="admin-categories-panel">
-
+        </div>
+        <div class="data-panel" style="display:flex; justify-content: space-around">
+            <div class="admin-menu-data-panel">
+                <div class="table-header">
+                    <p class="text-header"></p>
+                    <button onclick="window.location.href = 'unit'" class="input-panel-button add-button">Добавить единицу</button>
+                </div>
+                <div class="input-group">
+                    <button class="input-panel-button filter-button">Добавить фильтр</button>
+                    <input class="search-input border-gray">
+                    <div class="results-num-panel border-gray text">
+                        Найдено результатов:
+                    </div>
                 </div>
 
-                <div style="float: right">
-                    <div class="category-header">
 
-                    </div>
 
-                    <div class="table-panel">
-                        <div class="table-header">
-                            <p class="text-header">Единицы измерения</p>
-                            <button onclick="window.location.href = 'unit'" class="input-panel-button add-button">Добавить единицу</button>
+                <div class="admin-table">
+
+
+
+
+                        <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
+                            <div class="table-marker table-cell">
+                                <input class="marker" type="checkbox">
+                            </div>
+                            <div class="name table-cell">Наименование</div>
+                            <div class="activated table-cell">Актиность</div>
+                            <div class="list-delete-button table-cell"></div>
                         </div>
 
-                        <div class="input-group">
-                            <button class="input-panel-button filter-button">Добавить фильтр</button>
-                            <input class="search-input border-gray">
-                            <div class="results-num-panel border-gray text">
-                                Найдено результатов:
-                            </div>
-                        </div>
-                        <div class="results-panel text border-gray">
-
-
-                            <div class="results-panel-header">
-                                <div class="check-box center">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="name">Наименование</div>
-                                <div class="activated center">Актиность</div>
-                                <div class="list-delete-button center"></div>
-                            </div>
-
-
+                        <div class="order-list-tab-all">
                             <c:forEach var="unit" items="${units}">
                                 <c:url var="updateButton" value="updateUnit">
                                     <c:param name="unitId" value="${unit.id}"/>
                                 </c:url>
-                                <div class="results-panel-item border-bottom-gray" onclick="window.location.href = '${updateButton}'">
-                                    <div class="check-box center">
-                                        <input type="checkbox">
+                                <div class="table-item" onclick="window.location.href = '${updateButton}'">
+                                    <div class="table-marker table-cell">
+                                        <input class="marker" type="checkbox">
                                     </div>
-                                    <div class="name">${unit.name}</div>
-                                    <div class="activated center">a</div>
-                                    <div class="list-delete-button center"></div>
+                                    <div class="name table-cell">${unit.name}</div>
+                                    <div class="activated table-cell"></div>
+                                    <div class="list-delete-button table-cell"></div>
                                 </div>
                             </c:forEach>
                         </div>
-                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
 </body>
 </html>
