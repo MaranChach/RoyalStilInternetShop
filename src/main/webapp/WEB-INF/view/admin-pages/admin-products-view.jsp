@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div style="float: right">
+                <div style="width: 73%; float: right">
                     <div class="category-header">
 
                     </div>

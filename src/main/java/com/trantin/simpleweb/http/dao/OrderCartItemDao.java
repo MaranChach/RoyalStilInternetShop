@@ -1,6 +1,7 @@
 package com.trantin.simpleweb.http.dao;
 
 import com.trantin.simpleweb.http.entity.OrderCartItem;
+import com.trantin.simpleweb.http.entity.Product;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,11 @@ public class OrderCartItemDao {
     @Transactional
     public OrderCartItem getById(int id){
         return sessionFactory.getCurrentSession().createQuery("from OrderCartItem where id = " + id, OrderCartItem.class).getSingleResult();
+    }
+
+    @Transactional
+    public OrderCartItem getItemFromCart(int cartId, int productId){
+        return sessionFactory.getCurrentSession().createQuery("from OrderCartItem where orderCart.id = " + cartId + " and product.id = " + productId, OrderCartItem.class).getSingleResult();
     }
 
     @Transactional

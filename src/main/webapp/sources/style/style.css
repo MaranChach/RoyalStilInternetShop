@@ -316,7 +316,7 @@ body{
 .admin-categories-panel{
     float: left;
     display: flex;
-    width: 280px;
+    width: 25%;
     height: 1000px;
     background-color: #eeeeee;
     flex-direction: column;
@@ -348,15 +348,12 @@ body{
 }
 
 .category-header{
-    width: 1260px;
     height: 100px;
     background-color: #eeeeee;
 }
 
 .table-panel{
     margin-top: 20px;
-    width: 1260px;
-    height: 1000px;
     background-color: #eeeeee;
 }
 
@@ -418,7 +415,6 @@ body{
 }
 
 .results-panel{
-    width: 1228px;
     margin: 15px 15px 0 15px;
 }
 

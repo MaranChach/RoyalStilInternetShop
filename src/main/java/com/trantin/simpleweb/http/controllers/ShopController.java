@@ -112,13 +112,15 @@ public class ShopController {
 
 
     @RequestMapping("/saveToCart")
-    public String saveProductToCart(@RequestParam int productId, HttpServletResponse response){
+    public String saveProductToCart(@RequestParam("productId") int productId,
+                                    @RequestParam(name = "productNumber", defaultValue = "1") int productNumber,
+                                    @CookieValue(required = false, name = "USERID") String sessionId,
+                                    HttpServletResponse response){
+        System.out.println(productNumber);
 
-        String sessionId = userIdCookie.getValue();
-
-        //String sessionId = session.getId();
-
-        System.out.println(sessionId);
+        if (sessionId == null){
+            response.addCookie(userIdCookie);
+        }
 
         OrderCart orderCart = null;
 
@@ -134,11 +136,19 @@ public class ShopController {
             orderCart.setUid(sessionId);
         }
 
-        orderCart.addItemInCart(new OrderCartItem(productDao.getById(productId), 1));
+        OrderCartItem newItem = null;
 
-        //saving cookie and cart data
-
-        response.addCookie(userIdCookie);
+        try{
+            newItem = orderCartItemDao.getItemFromCart(orderCart.getId(), productId);
+            newItem.setNumber(newItem.getNumber() + productNumber);
+            orderCartItemDao.saveOrderCart(newItem);
+            return "redirect:/cart";
+        }
+        catch (Exception e){
+            System.out.println("Creating new item");
+            newItem = new OrderCartItem(productDao.getById(productId), productNumber);
+        }
+        orderCart.addItemInCart(newItem);
 
         orderCartDao.saveOrderCart(orderCart);
 
@@ -153,10 +163,12 @@ public class ShopController {
     }
 
     @RequestMapping("/cart")
-    private String getCartView(Model model, @CookieValue("USERID") String sessionId){
-
-        //String sessionId = session.getId();
-        System.out.println(sessionId);
+    private String getCartView(Model model,
+                               @CookieValue(required = false, name = "USERID") String sessionId,
+                               HttpServletResponse response){
+        if (sessionId == null){
+            response.addCookie(userIdCookie);
+        }
 
         model.addAttribute("client", new Client());
 

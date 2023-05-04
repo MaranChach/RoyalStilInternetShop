@@ -39,18 +39,19 @@
                      onerror="this.src = '<c:url value="/sources/images/noimage_detail.png"/>'"
                      src="${product.imageUrl}" alt="">
             </div>
-            <div class="shop-product-content-cost-bar">
+            <form action="saveToCart" method="post" class="shop-product-content-cost-bar">
                 <div class="shop-product-content-number">
                     <div class="text-main-15">
                         Количество:
                     </div>
-                    <input class="shop-product-number-input text-main-15" type="number">
+                    <input name="productNumber" class="shop-product-number-input text-main-15" type="number">
                 </div>
 
                 <div class="shop-product-details-payment-bar">
                     <div class="shop-product-content-cost text-product-header">
                         ${product.cost} руб.
                     </div>
+                    <input type="hidden" name="productId" value="${product.id}">
 
                     <c:choose>
 
@@ -58,6 +59,7 @@
                             <div style="color: red" class="shop-product-content-availability text-availability">
                                 Нет в наличии
                             </div>
+
 
                             <button onclick="window.location.href = '${addToCartButton}'"
                                     style="background-color: gainsboro" disabled="disabled"
@@ -71,14 +73,14 @@
                                 Есть в наличии
                             </div>
 
-                            <c:url var="addToCartButton" value="saveToCart">
-                                <c:param name="productId" value="${product.id}"/>
-                            </c:url>
+                            <input onclick="window.location.href='${addToCartButton}'"
+                                   class="shop-product-content-buy-button text-product-buttons"
+                                   type="submit"
+                                   value="Добавить">
 
-                            <button onclick="window.location.href='${addToCartButton}'"
-                                    class="shop-product-content-buy-button text-product-buttons">
-                                Добавить
-                            </button>
+<%--                            <c:url var="addToCartButton" value="saveToCart">--%>
+<%--                                <c:param name="productId" value="${product.id}"/>--%>
+<%--                            </c:url>--%>
 
                             <div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик
                             </div>
@@ -87,7 +89,7 @@
                     </c:choose>
 
                 </div>
-            </div>
+            </form>
             <div class="shop-product-content-delivery-info-bar">
                 <div class="shop-product-content-delivery-info">
 
