@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Единицы измерения</title>
     <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
 </head>
 <body>

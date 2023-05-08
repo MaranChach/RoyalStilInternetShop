@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Отчёты</title>
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style>
         <%@include file="/sources/style/style.css" %>
@@ -34,10 +34,13 @@
                 <div class="admin-row-button text-main-15">
                     От: <input name="start" class="order-date-picker text-main-12" type="date"> до: <input name="end" class="order-date-picker text-main-12" type="date">
                 </div>
-                <input value="Отчёт по заказам" type="submit" class="admin-row-button text-main-20" onclick="window.location.href=''">
+                <input value="Отчёт по заказам" type="submit" class="admin-row-button text-main-20">
 
 
             </form>
+            <button class="admin-row-button text-main-20" onclick="window.location.href='productsReport'">
+                Выгрузка товаров
+            </button>
         </div>
     </div>
 </div>

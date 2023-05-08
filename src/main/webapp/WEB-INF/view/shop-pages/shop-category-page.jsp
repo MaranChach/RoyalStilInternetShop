@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>${curCategory}</title>
 
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 

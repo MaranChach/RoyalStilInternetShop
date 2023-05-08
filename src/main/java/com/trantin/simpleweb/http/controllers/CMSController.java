@@ -385,8 +385,6 @@ public class CMSController {
     //region Reports
     @RequestMapping("/reports")
     public String reportsPage(){
-
-
         return "admin-pages/admin-reports-page";
     }
 
@@ -414,6 +412,31 @@ public class CMSController {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        //return "redirect:/admin/reports";
+    }
+
+    @RequestMapping(value = "/productsReport")
+    private void getOrdersReport(HttpServletResponse response){
+
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = reportUtil.getProductsTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            response.setHeader("Content-disposition", "attachment;filename=products.xls");
+            response.setContentType("application/vnd.ms-excel");
+
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // return "redirect:/admin/reports";
     }
     //endregion
 }

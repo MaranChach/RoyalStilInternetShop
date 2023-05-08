@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.exception.ConstraintViolationException;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -24,4 +25,17 @@ public class AdminAspect {
             }
         }
     }
+
+//    @Around(value = "execution (String com.trantin.simpleweb.http.controllers.*.*(..))")
+//    public String ioExceptionHandling(ProceedingJoinPoint joinPoint) throws PSQLException {
+//        try {
+//            return joinPoint.proceed().toString();
+//        } catch (Throwable e) {
+//            try {
+//                return joinPoint.proceed().toString();
+//            } catch (Throwable ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+//    }
 }

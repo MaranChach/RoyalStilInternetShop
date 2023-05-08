@@ -40,8 +40,8 @@ public class MyConfig extends WebMvcConfigurerAdapter {
         ComboPooledDataSource source = new ComboPooledDataSource();
         try {
             source.setDriverClass("org.postgresql.Driver");
-            source.setJdbcUrl("jdbc:postgresql://localhost:5432/RoyalStil?UseUnicode=true&amp;characterEncoding=utf-8");
-            source.setUser("postgres");
+            source.setJdbcUrl("jdbc:postgresql://185.154.195.151:5432/RoyalStil?UseUnicode=true&amp;characterEncoding=utf-8");
+            source.setUser("maran");
             source.setPassword("password");
             return source;
         } catch (PropertyVetoException e) {

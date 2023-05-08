@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Производители</title>
     <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
 </head>
 <body>

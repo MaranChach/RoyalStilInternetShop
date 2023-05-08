@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Рабочий стол</title>
 <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style><%@include file="/sources/style/style.css"%></style>
     <script src="https://www.google.com/jsapi"></script>

@@ -10,9 +10,6 @@ import javax.servlet.ServletException;
 public class MyWebInitializer extends
         AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private String TMP_FOLDER = "/tmp";
-    private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
-
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);

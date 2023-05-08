@@ -3,6 +3,7 @@ package com.trantin.simpleweb.http.controllers;
 
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.utils.CookieUtil;
 import com.trantin.simpleweb.http.utils.EmailThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.rmi.server.UID;
 import java.util.Optional;
 
 @Controller
@@ -115,11 +117,12 @@ public class ShopController {
     public String saveProductToCart(@RequestParam("productId") int productId,
                                     @RequestParam(name = "productNumber", defaultValue = "1") int productNumber,
                                     @CookieValue(required = false, name = "USERID") String sessionId,
+                                    HttpSession session,
                                     HttpServletResponse response){
         System.out.println(productNumber);
 
         if (sessionId == null){
-            response.addCookie(userIdCookie);
+            response.addCookie(CookieUtil.getRandomUserIdCookie());
         }
 
         OrderCart orderCart = null;
@@ -167,7 +170,7 @@ public class ShopController {
                                @CookieValue(required = false, name = "USERID") String sessionId,
                                HttpServletResponse response){
         if (sessionId == null){
-            response.addCookie(userIdCookie);
+            response.addCookie(CookieUtil.getRandomUserIdCookie());
         }
 
         model.addAttribute("client", new Client());
@@ -199,7 +202,6 @@ public class ShopController {
         model.addAttribute("orderCartId", orderCartId);
         model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
         model.addAttribute("orderSum", 0d);
-
 
         return "shop-pages/shop-ordering-page";
     }
@@ -257,7 +259,8 @@ public class ShopController {
     private String saveOrder(@RequestParam("orderCartId") int id,
                              @RequestParam("name") String name,
                              @RequestParam("phoneNumber") String phoneNumber,
-                             @RequestParam(value = "comment", defaultValue = "") String comment){
+                             @RequestParam(value = "comment", defaultValue = "") String comment,
+                             Model model){
         Order order = new Order();
         Client client = new Client();
         client.setName(name);
@@ -266,6 +269,8 @@ public class ShopController {
         order.setOrderCart(orderCartDao.getById(id));
         order.setClient(client);
         order.setCurrentDate();
+
+        model.addAttribute("order", order);
 
         clientDao.save(client);
         orderDao.persist(order);

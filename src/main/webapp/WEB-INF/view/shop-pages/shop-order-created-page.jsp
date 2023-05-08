@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Заказ создан</title>
     <style><%@include file="/sources/style/style.css"%></style>
 </head>
 <body>

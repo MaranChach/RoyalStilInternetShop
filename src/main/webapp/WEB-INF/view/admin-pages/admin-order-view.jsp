@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Заказ №${order.id}</title>
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style>
         <%@include file="/sources/style/style.css"%>

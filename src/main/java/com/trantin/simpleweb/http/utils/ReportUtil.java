@@ -1,7 +1,9 @@
 package com.trantin.simpleweb.http.utils;
 
 import com.trantin.simpleweb.http.dao.OrderDao;
+import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Order;
+import com.trantin.simpleweb.http.entity.Product;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,12 +25,14 @@ public class ReportUtil {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private ProductDao productDao;
+
     public HSSFWorkbook getOrdersReport(LocalDate start, LocalDate end) throws Exception {
 
         if(start.isAfter(end))
             throw new Exception("Некорректная дата");
 
-        OrderDao dao = new OrderDao();
 
         HSSFWorkbook workbook = new HSSFWorkbook();
 
@@ -46,6 +50,11 @@ public class ReportUtil {
         int rowNum = 0;
 
         Row row = sheet.createRow(rowNum);
+
+        row.createCell(0).setCellValue("Отчёт по продажам за " + start + " - " + end);
+
+
+        row = sheet.createRow(++rowNum);
         row.createCell(0).setCellValue("Дата");
         row.createCell(1).setCellValue("Количество заказов, штук");
         row.createCell(2).setCellValue("На сумму, руб.");
@@ -101,4 +110,51 @@ public class ReportUtil {
         return workbook;
     }
 
+    public HSSFWorkbook getProductsTable(){
+        List<Product> products = productDao.getAll();
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("Лист1");
+
+        HSSFCellStyle style = workbook.createCellStyle();
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setWrapText(true);
+
+        int rowNum = 0;
+
+        Row row = sheet.createRow(rowNum);
+        row.createCell(0).setCellValue("ID");
+        row.createCell(1).setCellValue("Артикул");
+        row.createCell(2).setCellValue("Наименование");
+        row.createCell(3).setCellValue("Количество");
+        row.createCell(4).setCellValue("Единица измерения");
+        row.createCell(5).setCellValue("Категория");
+        row.createCell(6).setCellValue("Производитель");
+        row.createCell(7).setCellValue("Цена");
+        row.createCell(8).setCellValue("Картинка");
+        row.createCell(9).setCellValue("Описание");
+
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+
+            row = sheet.createRow(++rowNum);
+            row.createCell(0).setCellValue(product.getId());
+            row.createCell(1).setCellValue(product.getArticle());
+            row.createCell(2).setCellValue(product.getName());
+            row.createCell(3).setCellValue(product.getNumber());
+            row.createCell(4).setCellValue(product.getUnit().getName());
+            row.createCell(5).setCellValue(product.getCategory().getName());
+            row.createCell(6).setCellValue(product.getManufacturer().getName());
+            row.createCell(7).setCellValue(product.getCost());
+            row.createCell(8).setCellValue(product.getImageUrl());
+            row.createCell(9).setCellValue(product.getDescription());
+        }
+
+        return workbook;
+    }
 }
