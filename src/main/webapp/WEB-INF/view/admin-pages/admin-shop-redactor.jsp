@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Редактор</title>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style><%@include file="/sources/style/style.css"%></style>
     <script type="text/javascript" charset="utf-8">

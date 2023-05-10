@@ -20,7 +20,7 @@
 
     <div class="main-panel">
         <div class="text-header text-header-margin">
-
+            Единицы измерения
         </div>
         <div style="height: 10px; background-color: white;">
 
@@ -39,13 +39,7 @@
                     </div>
                 </div>
 
-
-
                 <div class="admin-table">
-
-
-
-
                         <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
                             <div class="table-marker table-cell">
                                 <input class="marker" type="checkbox">

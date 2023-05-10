@@ -46,6 +46,17 @@ public class Order {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Address address;
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    @Column(name = "uid")
+    private String uid;
+
     @Column(name = "payment_method")
     @Enumerated(EnumType.STRING)
     @Type(type = "pgsql_enum")

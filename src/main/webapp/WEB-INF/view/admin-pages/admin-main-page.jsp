@@ -11,12 +11,10 @@
 <html>
 <head>
     <title>Рабочий стол</title>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
 <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style><%@include file="/sources/style/style.css"%></style>
     <script src="https://www.google.com/jsapi"></script>
-    <script>
-<%--        <%@include file="/sources/script/getProductsPieChart.js"%>--%>
-    </script>
     <script>
         const request = new XMLHttpRequest();
         let answer;
@@ -27,7 +25,7 @@
             };
         };
 
-        request.open("GET", "http://localhost:8080/main/api/weeklyOrders", false);
+        request.open("GET", "http://trantinweb.site/main/api/weeklyOrders", false);
         request.send();
 
         google.load("visualization", "1", {packages:["corechart"]});
@@ -35,12 +33,15 @@
         function drawChart() {
 
             let jsonans = JSON.parse(answer);
+            let jsonansrotated = new Array();
 
-            console.log(jsonans);
+            for (let i = jsonans.length - 1; i >= 0; i--) {
+                jsonansrotated.push(jsonans[i]);
+            }
 
-            jsonans.unshift(["Дата", "Заказы"]);
+            jsonansrotated.unshift(["Дата", "Заказы"]);
 
-            let data = google.visualization.arrayToDataTable(jsonans);
+            let data = google.visualization.arrayToDataTable(jsonansrotated);
             // data.addColumn("string", "Дата");
             // data.addColumn("integer", "Заказы");
             let options = {
@@ -65,7 +66,7 @@
                             Новых заказов
                         </div>
                         <div class="info-panel-item-block info-panel-item-value text-main-24">
-                            0
+                            ${newOrdersNum}
                         </div>
                         <div class="info-panel-item-block info-panel-item-other text-main-12">
                             штук

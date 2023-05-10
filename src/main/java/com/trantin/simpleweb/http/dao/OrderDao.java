@@ -23,7 +23,12 @@ public class OrderDao {
 
     @Transactional
     public List<Order> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Order", Order.class).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Order order by id desc ", Order.class).getResultList();
+    }
+
+    @Transactional
+    public int getNewOrdersNum(){
+        return sessionFactory.getCurrentSession().createQuery("SELECT id FROM Order WHERE confirmed = false").getResultList().size();
     }
 
     @Transactional
@@ -69,6 +74,11 @@ public class OrderDao {
     @Transactional
     public Order getById(int id) {
         return sessionFactory.getCurrentSession().createQuery("from Order where id = " + id, Order.class).getSingleResult();
+    }
+
+    @Transactional
+    public Order getByUid(String uid) {
+        return sessionFactory.getCurrentSession().createQuery("from Order where uid = '" + uid + "'", Order.class).getSingleResult();
     }
 
     @Transactional

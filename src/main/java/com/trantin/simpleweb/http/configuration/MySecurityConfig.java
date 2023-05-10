@@ -31,6 +31,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("EMPLOYEE")
-                .and().formLogin().permitAll();
+                .and().csrf().disable()
+                .formLogin().permitAll();
     }
 }

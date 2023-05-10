@@ -7,7 +7,7 @@ request.onreadystatechange = function (){
     };
 };
 
-request.open("GET", "http://localhost:8080/main/api/products", true);
+request.open("GET", "http://185.154.195.151:8080/main/api/products", true);
 request.send();
 
 google.load("visualization", "1", {packages:["corechart"]});

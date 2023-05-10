@@ -1,17 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: tpant
-  Date: 2/24/2023
-  Time: 12:19 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
     <title>Заказы</title>
-<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
+    <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style>
         <%@include file="/sources/style/style.css"%>
     </style>
@@ -19,7 +13,7 @@
 <body>
 <%@include file="../modules/module-admin-top-bar.jsp" %>
 <div class="content">
-    <%@include file="../modules/module-admin-side-panel.jsp"%>
+    <%@include file="../modules/module-admin-side-panel.jsp" %>
     <div class="main-panel">
         <div class="text-header text-header-margin">
             Заказы
@@ -30,14 +24,14 @@
             </div>
             <div class="admin-menu-data-panel">
                 <div class="admin-orders-tabs-panel">
-                    <div class="admin-orders-tab tab-all-orders">
-
+                    <div class="admin-orders-tab tab-all-orders text-main-15">
+                        Все
                     </div>
-                    <div class="admin-orders-tab tab-conf-orders">
-
+                    <div class="admin-orders-tab tab-not-conf-orders text-main-15">
+                        Новые
                     </div>
-                    <div class="admin-orders-tab tab-not-conf-orders">
-
+                    <div class="admin-orders-tab tab-conf-orders text-main-15">
+                        Завершённые
                     </div>
                 </div>
                 <div class="input-group" style=" margin: 20px">
@@ -124,10 +118,10 @@
 
                                 </div>
                                 <div class="order-payment-method table-cell">
-                                    ${order.paymentMethodStr}
+                                        ${order.paymentMethodStr}
                                 </div>
                                 <div class="order-shipment-method table-cell">
-                                    ${order.shipmentMethodStr}
+                                        ${order.shipmentMethodStr}
                                 </div>
 
                                 <div class="order-comment table-cell">

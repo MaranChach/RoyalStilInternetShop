@@ -4,6 +4,7 @@ package com.trantin.simpleweb.http.controllers;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.exceptions.LinkException;
+import com.trantin.simpleweb.http.utils.FileUtil;
 import com.trantin.simpleweb.http.utils.ReportUtil;
 import com.trantin.simpleweb.http.utils.Sorter;
 import com.trantin.simpleweb.http.utils.Validator;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -71,7 +74,7 @@ public class CMSController {
                         Date.valueOf(LocalDate.now())).size());
         model.addAttribute("products", productDao.getAll());
         model.addAttribute("orders", orderDao.getAll());
-        model.addAttribute("clients", clientDao.getAll());
+        model.addAttribute("newOrdersNum", orderDao.getNewOrdersNum());
 
         return "admin-pages/admin-main-page";
     }
@@ -264,7 +267,7 @@ public class CMSController {
     //region Orders
     @RequestMapping("/orders")
     private String ordersView(Model model){
-        List<Order> orders = orderDao.getAllSortedByDate();
+        List<Order> orders = orderDao.getAll();
 
         model.addAttribute("orders", orders);
         model.addAttribute("ordersConf", Sorter.getSortedByConfirmOrders(orders, true));
@@ -277,9 +280,16 @@ public class CMSController {
 
     @RequestMapping("/order")
     private String orderView(@RequestParam("orderId") int id, Model model){
-        model.addAttribute("order", orderDao.getById(id));
+        Order order = orderDao.getById(id);
+
+        model.addAttribute("order", order);
         model.addAttribute("iterator", 0);
         model.addAttribute("orderSum", 0d);
+
+        if(order.isConfirmed())
+            model.addAttribute("isDisabled", "disabled");
+        else
+            model.addAttribute("isDisabled", "");
 
         return "admin-pages/admin-order-view";
     }
@@ -287,6 +297,17 @@ public class CMSController {
     @RequestMapping("/deleteOrder")
     private String deleteOrder(@RequestParam("orderId") int id){
         orderDao.delete(orderDao.getById(id));
+
+        return "redirect:/admin/orders";
+    }
+
+    @RequestMapping("/confirmOrder")
+    private String confirmOrder(@RequestParam("orderId") int id){
+        Order order = orderDao.getById(id);
+
+        order.setConfirmed(true);
+
+        orderDao.saveOrUpdate(order);
 
         return "redirect:/admin/orders";
     }
@@ -380,6 +401,23 @@ public class CMSController {
 
         return "redirect:/admin/redactor";
     }
+
+    @RequestMapping(value = "/updateDescription")
+    private String updateDescription(){
+
+        FileUtil fileUtil = new FileUtil();
+
+        try {
+            fileUtil.setShopDesc("fdsafdsaofhdsahidagdg");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "redirect:/admin/redactor";
+    }
+
     //endregion
 
     //region Reports
@@ -439,4 +477,7 @@ public class CMSController {
         // return "redirect:/admin/reports";
     }
     //endregion
+
+
+
 }

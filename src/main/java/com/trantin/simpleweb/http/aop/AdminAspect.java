@@ -27,7 +27,7 @@ public class AdminAspect {
     }
 
 //    @Around(value = "execution (String com.trantin.simpleweb.http.controllers.*.*(..))")
-//    public String ioExceptionHandling(ProceedingJoinPoint joinPoint) throws PSQLException {
+//    public String ioExceptionHandling(ProceedingJoinPoint joinPoint) {
 //        try {
 //            return joinPoint.proceed().toString();
 //        } catch (Throwable e) {

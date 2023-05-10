@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Заказ №${order.id}</title>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
     <style>
         <%@include file="/sources/style/style.css"%>
@@ -23,18 +24,21 @@
         <div class="text-header text-header-margin">
             Заказ №${order.id}
             <div>
-                <input type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
-
                 <c:url var="deleteButton" value="deleteOrder">
                     <c:param name="orderId" value="${order.id}"/>
                 </c:url>
+                <input ${isDisabled} type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
                 <button class="delete-button" onclick="window.location.href = '${deleteButton}'">Удалить</button>
             </div>
         </div>
         <div class="order-data-panel">
             <div class="order-left-panel">
                 <div class="order-date">
+                    <c:url var="confirmButton" value="confirmOrder">
+                        <c:param name="orderId" value="${order.id}"/>
+                    </c:url>
                     <input class="order-date-picker text-main-12" type="date" value="${order.orderDate}">
+                    <button ${isDisabled} class="input-panel-button filter-button" onclick="window.location.href = '${confirmButton}'">Завершить заказ</button>
                 </div>
                 <div class="order-list-header text-black">
                     Содержание заказа

@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Производители</title>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
     <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
 </head>
 <body>
@@ -12,21 +13,16 @@
     <%@include file="../modules/module-admin-side-panel.jsp"%>
     <div class="main-panel">
         <div class="text-header text-header-margin">
-            Единицы измерения
+            Производители
         </div>
-        <div class="data-panel">
-            <div class="menus-panel">
+        <div style="height: 10px; background-color: white;">
 
-            </div>
-            <div>
-                <div style="float: right">
-                    <div class="category-header">
-
-                    </div>
-
-                    <div class="table-panel">
+        </div>
+        <div class="data-panel" style="display:flex;">
+            <div class="admin-menu-data-panel">
+                <div class="table-panel">
                         <div class="table-header">
-                            <p class="text-header">Производители</p>
+                            <p class="text-header"></p>
                             <button onclick="window.location.href = 'manufacturer'" class="input-panel-button add-button">Добавить</button>
                         </div>
 
@@ -38,8 +34,6 @@
                             </div>
                         </div>
                         <div class="results-panel text border-gray">
-
-
                             <div class="results-panel-header">
                                 <div class="check-box center">
                                     <input type="checkbox">
@@ -65,7 +59,6 @@
                             </c:forEach>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

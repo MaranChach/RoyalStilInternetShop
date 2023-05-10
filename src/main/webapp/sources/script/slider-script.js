@@ -9,7 +9,7 @@ function getImageNumber(){
         };
     };
 
-    request.open("GET", "http://localhost:8080/main/api/mainPageImagesNumber", false);
+    request.open("GET", "http://trantinweb.site/main/api/mainPageImagesNumber", false);
     request.send();
 
     console.log(answer)

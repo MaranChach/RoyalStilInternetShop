@@ -73,8 +73,12 @@ public class EmailUtil {
 
         for (OrderCartItem item : order.getOrderCart().getItems()) {
             Product product = item.getProduct();
-            emailBody += item.getNumber() + " x " + product.getName() + " " + product.getCost() + " руб.\"\n";
+            emailBody += item.getNumber() + " x " + product.getName() + " " + product.getCost() + " руб.\n";
         }
+
+        emailBody += "Сумма заказа: " + order.orderSum() + "\n\n";
+
+        emailBody += "Для уточнения деталей с вами свяжется наш менеджер";
 
         sendEmail(session, toEmail,"Заказ №" + order.getId(), emailBody);
     }
@@ -97,7 +101,7 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("trantin2003@mail.ru", "NoReply-JD"));
+            msg.setFrom(new InternetAddress("trantin2003@mail.ru", "Royal Steel"));
 
             msg.setReplyTo(InternetAddress.parse("trantin2003@mail.ru", false));
 

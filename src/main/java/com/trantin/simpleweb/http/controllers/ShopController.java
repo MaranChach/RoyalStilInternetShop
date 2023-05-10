@@ -5,6 +5,7 @@ import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.utils.CookieUtil;
 import com.trantin.simpleweb.http.utils.EmailThread;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -202,6 +203,7 @@ public class ShopController {
         model.addAttribute("orderCartId", orderCartId);
         model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
         model.addAttribute("orderSum", 0d);
+        model.addAttribute("uid", new UID());
 
         return "shop-pages/shop-ordering-page";
     }
@@ -218,41 +220,52 @@ public class ShopController {
                                  @RequestParam("orderCartId") int orderCartId,
                                  @RequestParam("shipmentMethod") String shipmentMethod,
                                  @RequestParam("paymentMethod") String paymentMethod,
+                                 @RequestParam("uid") String uid,
+                                 HttpServletResponse response,
                                  Model model){
 
+        try{
+            response.addCookie(CookieUtil.getRandomUserIdCookie());
+            Order oldOrder = orderDao.getByUid(uid);
 
-        Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
+            model.addAttribute("order", oldOrder);
 
-        clientDao.save(client);
-
-        Order order = new Order();
-
-        order.setOrderCart(orderCartDao.getById(orderCartId));
-        order.setClient(client);
-        order.setCurrentDate();
-
-        if(city != null && street != null && houseNumber != null){
-            Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
-            order.setAddress(address);
+            return "shop-pages/shop-order-created-page";
         }
+        catch (Exception e){
+            Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
 
-        if (paymentMethod.equals("cash"))
-            order.setPaymentMethod(PaymentMethods.cash);
-        else order.setPaymentMethod(PaymentMethods.card);
+            clientDao.save(client);
 
-        if (shipmentMethod.equals("ship"))
-            order.setShipmentMethod(ShipmentMethods.ship);
-        else order.setShipmentMethod(ShipmentMethods.pickup);
+            Order order = new Order();
 
-        orderDao.persist(order);
+            order.setOrderCart(orderCartDao.getById(orderCartId));
+            order.setClient(client);
+            order.setCurrentDate();
+            order.setUid(uid);
 
-        EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
-        Thread thread = new Thread(emailThread);
-        thread.start();
 
-        model.addAttribute("order", order);
+            if (paymentMethod.equals("cash"))
+                order.setPaymentMethod(PaymentMethods.cash);
+            else order.setPaymentMethod(PaymentMethods.card);
 
-        return "shop-pages/shop-order-created-page";
+            if (shipmentMethod.equals("ship")){
+                order.setShipmentMethod(ShipmentMethods.ship);
+                Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
+                order.setAddress(address);
+            }
+            else order.setShipmentMethod(ShipmentMethods.pickup);
+
+            orderDao.persist(order);
+
+            EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
+            Thread thread = new Thread(emailThread);
+            thread.start();
+
+            model.addAttribute("order", order);
+
+            return "shop-pages/shop-order-created-page";
+        }
     }
 
     @RequestMapping("/sendOrder")
