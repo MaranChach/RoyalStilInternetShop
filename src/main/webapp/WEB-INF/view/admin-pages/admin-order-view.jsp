@@ -15,6 +15,7 @@
     <style>
         <%@include file="/sources/style/style.css"%>
     </style>
+
 </head>
 <body>
 <%@include file="../modules/module-admin-top-bar.jsp" %>
@@ -28,7 +29,7 @@
                     <c:param name="orderId" value="${order.id}"/>
                 </c:url>
                 <input ${isDisabled} type="submit" value="Сохранить" class="input-panel-button filter-button" style="float: right"/>
-                <button class="delete-button" onclick="window.location.href = '${deleteButton}'">Удалить</button>
+                <button class="delete-button">Удалить</button>
             </div>
         </div>
         <div class="order-data-panel">
@@ -163,5 +164,13 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelector(".delete-button").addEventListener("click", function (){
+
+        if(confirm("Вы уверены?")){
+            window.location.href = '${deleteButton}';
+        }
+    });
+</script>
 </body>
 </html>

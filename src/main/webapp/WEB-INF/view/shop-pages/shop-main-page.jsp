@@ -69,7 +69,7 @@
                 <div class="shop-benefits-bar-item">
                     <div class="shop-benefits-bar-item-image">
                         <image class="shop-benefits-image"
-                               src="https://cdn-icons-png.flaticon.com/512/4437/4437655.png"></image>
+                               src="https://cdn-icons-png.flaticon.com/512/102/102660.png"></image>
                     </div>
                     <div class="shop-benefits-bar-item-text">
                         Акции и скидки для
@@ -79,7 +79,7 @@
                 <div class="shop-benefits-bar-item">
                     <div class="shop-benefits-bar-item-image">
                         <image class="shop-benefits-image"
-                               src="https://cdn-icons-png.flaticon.com/512/4437/4437655.png"></image>
+                               src="https://cdn-icons-png.flaticon.com/512/82/82477.png"></image>
                     </div>
                     <div class="shop-benefits-bar-item-text">
                         Качественные услуги
@@ -89,23 +89,23 @@
                 <div class="shop-benefits-bar-item">
                     <div class="shop-benefits-bar-item-image">
                         <image class="shop-benefits-image"
-                               src="https://cdn-icons-png.flaticon.com/512/4437/4437655.png"></image>
+                               src="https://cdn-icons-png.flaticon.com/512/1170/1170679.png"></image>
                     </div>
                     <div class="shop-benefits-bar-item-text">
                         Широкий ассортимент
                         товаров
                     </div>
                 </div>
-                <div class="shop-benefits-bar-item">
-                    <div class="shop-benefits-bar-item-image">
-                        <image class="shop-benefits-image"
-                               src="https://cdn-icons-png.flaticon.com/512/4437/4437655.png"></image>
-                    </div>
-                    <div class="shop-benefits-bar-item-text">
-                        Широкий ассортимент
-                        товаров
-                    </div>
-                </div>
+<%--                <div class="shop-benefits-bar-item">--%>
+<%--                    <div class="shop-benefits-bar-item-image">--%>
+<%--                        <image class="shop-benefits-image"--%>
+<%--                               src="https://cdn-icons-png.flaticon.com/512/4437/4437655.png"></image>--%>
+<%--                    </div>--%>
+<%--                    <div class="shop-benefits-bar-item-text">--%>
+<%--                        Широкий ассортимент--%>
+<%--                        товаров--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
 
             <div class="shop-new-products-bar">
@@ -165,9 +165,6 @@
                 <p>Для всех постоянных клиентов мы делаем скидки и заботимся о том, чтобы интернет-магазин Вам нравился
                     и Вы приходили в него снова и снова.</p>
                 <br>
-                <p>Наш интернет-магазин сделан для того, чтобы Вы смогли удобно, без лишних забот найти и заказать то,
-                    что Вас интересует. Мы заботимся о том, чтобы ассортимент в нашем интернет-магазине был всегда
-                    актуальным, цены доступными, сервис лучшим.</p>
             </div>
         </div>
     </div>

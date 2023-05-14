@@ -31,7 +31,7 @@ public class ReportUtil {
     public HSSFWorkbook getOrdersReport(LocalDate start, LocalDate end) throws Exception {
 
         if(start.isAfter(end))
-            throw new Exception("Некорректная дата");
+            throw new RuntimeException("Некорректная дата");
 
 
         HSSFWorkbook workbook = new HSSFWorkbook();

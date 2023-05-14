@@ -224,7 +224,14 @@ public class ShopController {
                                  HttpServletResponse response,
                                  Model model){
 
+        if(clientEmail.equals("")
+        || clientName.equals("")
+        || clientSurname.equals("")
+        || clientPhoneNumber.equals(""))
+            throw new RuntimeException("Заполните все значения");
+
         try{
+
             response.addCookie(CookieUtil.getRandomUserIdCookie());
             Order oldOrder = orderDao.getByUid(uid);
 

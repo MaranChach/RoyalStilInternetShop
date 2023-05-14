@@ -103,7 +103,9 @@ public class CMSController {
 
     @RequestMapping(value = "/saveUnit")
     public String saveUnit(@ModelAttribute("unit") Unit unit){
-        System.out.println(unit);
+        if(unit.getName().equals("")){
+            throw new RuntimeException("Заполните все значения");
+        }
 
         unitDao.save(unit);
 
@@ -203,9 +205,16 @@ public class CMSController {
 
     @RequestMapping(value = "/saveProduct")
     public String saveProduct(@ModelAttribute("newProduct") Product product,
-                              @RequestParam("unit") int unitId,
-                              @RequestParam("category") int categoryId,
-                              @RequestParam("manufacturer") int manufacturerId) {
+                              @RequestParam(value = "unit", defaultValue = "-1") int unitId,
+                              @RequestParam(value = "category", defaultValue = "-1") int categoryId,
+                              @RequestParam(value = "manufacturer", defaultValue = "-1") int manufacturerId) {
+
+        if(product.getName().equals("")
+        || unitId == -1
+        || categoryId == -1
+        || manufacturerId == -1){
+            throw new RuntimeException("Заполните все значения");
+        }
 
         product.setUnit(unitDao.getById(unitId));
         product.setCategory(categoryDao.getById(categoryId));
@@ -325,8 +334,14 @@ public class CMSController {
 
     @RequestMapping("/saveDetailsParameter")
     private String saveDetailsParameter(@ModelAttribute("newParameter") DetailsParameter detailsParameter,
-                                        @RequestParam("unit") int unitId,
+                                        @RequestParam(value = "unit", defaultValue = "-1") int unitId,
                                         Model model){
+
+        if(detailsParameter.getName().equals("")
+        || unitId == -1){
+            throw new RuntimeException("Заполните все значения");
+        }
+
         detailsParameter.setUnit(unitDao.getById(unitId));
 
         parameterDao.save(detailsParameter);
@@ -428,8 +443,12 @@ public class CMSController {
 
     @RequestMapping(value = "/ordersReport")
     private void getOrdersReport(HttpServletResponse response,
-                                 @RequestParam("start") String start,
+                                 @RequestParam(value = "start") String start,
                                  @RequestParam("end") String end){
+
+        if (start.equals("") || end.equals("")){
+            throw new RuntimeException("Выберите период");
+        }
 
         LocalDate dateStart = LocalDate.parse(start);
         LocalDate dateEnd = LocalDate.parse(end);
@@ -438,7 +457,7 @@ public class CMSController {
         try {
             workbook = reportUtil.getOrdersReport(dateStart, dateEnd);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Некорректная дата");
         }
 
         try {

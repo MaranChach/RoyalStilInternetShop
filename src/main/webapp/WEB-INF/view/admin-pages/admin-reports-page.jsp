@@ -36,12 +36,12 @@
                     От: <input name="start" class="order-date-picker text-main-12" type="date"> до: <input name="end" class="order-date-picker text-main-12" type="date">
                 </div>
                 <input value="Отчёт по заказам" type="submit" class="admin-row-button text-main-20">
-
-
             </form>
-            <button class="admin-row-button text-main-20" onclick="window.location.href='productsReport'">
-                Выгрузка товаров
-            </button>
+            <div class="admin-menu-data-panel">
+                <button class="admin-row-button text-main-20" onclick="window.location.href='productsReport'">
+                    Выгрузка товаров
+                </button>
+            </div>
         </div>
     </div>
 </div>
