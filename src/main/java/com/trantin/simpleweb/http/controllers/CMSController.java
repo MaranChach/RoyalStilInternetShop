@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -114,7 +117,12 @@ public class CMSController {
 
     @RequestMapping("/deleteUnit")
     public String deleteUnit(@RequestParam("unitId") int id, Model model) throws LinkException {
-        unitDao.delete(unitDao.getById(id));
+        try{
+            unitDao.delete(unitDao.getById(id));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RuntimeException("Невозможно удалить, на объект сохранены ссылки");
+        }
 
         return "redirect:/admin/units";
     }
@@ -153,7 +161,12 @@ public class CMSController {
 
     @RequestMapping("/deleteManufacturer")
     public String deleteManufacturer(@RequestParam("manufacturerId") int id, Model model){
-        manufacturerDao.delete(manufacturerDao.getById(id));
+        try{
+            manufacturerDao.delete(manufacturerDao.getById(id));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RuntimeException("Невозможно удалить, на объект сохранены ссылки");
+        }
 
         return "redirect:/admin/manufacturers";
     }
@@ -231,8 +244,12 @@ public class CMSController {
 
     @RequestMapping(value = "/deleteProduct")
     public String deleteProduct(@RequestParam("productId") int id) {
-
-        productDao.delete(productDao.getById(id));
+        try{
+            productDao.delete(productDao.getById(id));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RuntimeException("Невозможно удалить, на объект сохранены ссылки");
+        }
 
         return "redirect:/admin/products";
     }
@@ -255,7 +272,12 @@ public class CMSController {
 
     @RequestMapping("/deleteCategory")
     public String deleteCategory(Model model, @RequestParam("categoryId") int id){
-        categoryDao.delete(categoryDao.getById(id));
+        try{
+            categoryDao.delete(categoryDao.getById(id));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RuntimeException("Невозможно удалить, на объект сохранены ссылки");
+        }
 
         return "redirect:/admin/products";
     }
@@ -353,7 +375,12 @@ public class CMSController {
 
     @RequestMapping("/deleteDetailsParameter")
     private String deleteDetailsParameter(@RequestParam("parameterId") int parameterId){
-        parameterDao.delete(parameterDao.getById(parameterId));
+        try{
+            parameterDao.delete(parameterDao.getById(parameterId));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RuntimeException("Невозможно удалить, на объект сохранены ссылки");
+        }
 
         return "redirect:/admin/details";
     }
@@ -497,6 +524,11 @@ public class CMSController {
     }
     //endregion
 
+
+    /*@ExceptionHandler(Exception.class)
+    public void handleLinkException(Exception e){
+        throw new RuntimeException("Невозможно удалить объект, на запись сохранены ссылки");
+    }*/
 
 
 }

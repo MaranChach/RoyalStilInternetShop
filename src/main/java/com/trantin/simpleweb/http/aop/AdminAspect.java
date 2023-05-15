@@ -8,12 +8,14 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
+
 @Aspect
 @Component
 public class AdminAspect {
 
-    @Around(value = "execution (* com.trantin.simpleweb.http.dao.*.delete*(..))")
-    public void violationExceptionHandlingDeleteMethods(ProceedingJoinPoint joinPoint) throws LinkException {
+    /*@Around(value = "execution (* com.trantin.simpleweb.http.dao.*.delete*(..))")
+    public void violationExceptionHandlingDeleteMethods(ProceedingJoinPoint joinPoint) throws Exception {
         try {
             System.out.println("Попытка удаления");
             joinPoint.proceed();
@@ -21,10 +23,10 @@ public class AdminAspect {
         } catch (Throwable e) {
             System.out.println("Ошибка удаления");
             if (e.getCause() instanceof ConstraintViolationException) {
-                throw new LinkException();
+                throw new RuntimeException("Невозможно удалить объект, на запись сохранены ссылки");
             }
         }
-    }
+    }*/
 
 //    @Around(value = "execution (String com.trantin.simpleweb.http.controllers.*.*(..))")
 //    public String ioExceptionHandling(ProceedingJoinPoint joinPoint) {
