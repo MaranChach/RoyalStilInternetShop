@@ -58,9 +58,9 @@ public class ReportUtil {
         row.createCell(0).setCellValue("Дата");
         row.createCell(1).setCellValue("Количество заказов, штук");
         row.createCell(2).setCellValue("На сумму, руб.");
-        row.createCell(3).setCellValue("Количество позиций, штук");
-        row.createCell(4).setCellValue("Среднее количество позиций, штук");
-        row.createCell(5).setCellValue("Сумма заказов, руб.");
+        row.createCell(3).setCellValue("Средняя сумма заказов, руб.");
+        row.createCell(4).setCellValue("Количество позиций, штук");
+        row.createCell(5).setCellValue("Среднее количество позиций, штук");
 
         for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
             row.getCell(j).setCellStyle(style);
