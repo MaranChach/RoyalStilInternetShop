@@ -107,6 +107,12 @@ body{
     color: gray;
 }
 
+.text-error-12{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: red;
+}
+
 .text-logo{
     color: black;
     font-size: 20px;
@@ -959,7 +965,7 @@ body{
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    /*height: 100%;*/
+    flex: 1;
     flex-wrap: wrap;
     align-content: center;
     padding-bottom: 350px;
@@ -1236,6 +1242,7 @@ body{
 
 .shop-benefits-bar-item{
     width: 130px;
+    width: 130px;
     height: 100%;
     margin: 0 60px 0 60px;
 
@@ -1295,6 +1302,10 @@ body{
     flex-direction: column;
     background-color: #dddddd;
     margin-bottom: 20px;
+}
+
+.shop-product:hover{
+    box-shadow: 0 1px 3px darkgray;
 }
 
 .shop-product-info-bar{
@@ -1416,6 +1427,13 @@ body{
     flex-direction: column;
 }
 
+.shop-footer-map{
+    height: 95%;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
 .shop-footer-column-header{
     margin-top: 50px;
     margin-bottom: 10px;
@@ -1443,6 +1461,10 @@ body{
     border-radius: 3px;
     margin-bottom: 20px;
     padding: 5px;
+}
+
+.shop-catalog-category:hover{
+    box-shadow: 0 1px 3px darkgray;
 }
 
 .shop-catalog-category-block-header{
@@ -2009,3 +2031,33 @@ body{
     width: 100%;
     height: 30px;
 }
+
+.shop-login-form-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.shop-login-form{
+    width: 350px;
+    padding-top: 60px;
+}
+
+.shop-login-form-attribute{
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: #dddddd;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 20px;
+}
+
+.shop-login-form-submit{
+    margin-top: 30px;
+}
+
+.shop-login-error{
+    margin: 5px 0;
+}
+

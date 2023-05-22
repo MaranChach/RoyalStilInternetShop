@@ -8,6 +8,10 @@ import com.trantin.simpleweb.http.utils.EmailThread;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -53,6 +57,14 @@ public class ShopController {
 
     @Autowired
     private ImageDao imageDao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired AuthorityDao authorityDao;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
 
     @RequestMapping("/")
@@ -108,8 +120,17 @@ public class ShopController {
         return "shop-pages/shop-product-page";
     }
 
-    @RequestMapping("/personal-page")
+    @RequestMapping("/personalPage")
     public String getPersonalPage(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userDao.getByUsername(authentication.getName());
+
+        Client client = user.getClient();
+
+        model.addAttribute("client", client);
+        model.addAttribute("orders", client.getOrders());
+
         return "shop-pages/shop-personal-page";
     }
 
@@ -198,18 +219,30 @@ public class ShopController {
     @RequestMapping("/ordering")
     private String orderingPage(@RequestParam("orderCartId") int orderCartId,
                                 Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!authentication.isAuthenticated()){
+            model.addAttribute("client", new Client());
+        }
+        else {
+            Client client = userDao.getByUsername(authentication.getName()).getClient();
+            model.addAttribute("client", client);
+        }
+
         model.addAttribute("order", new Order());
-        model.addAttribute("client", new Client());
         model.addAttribute("orderCartId", orderCartId);
         model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
         model.addAttribute("orderSum", 0d);
         model.addAttribute("uid", new UID());
 
         return "shop-pages/shop-ordering-page";
+
     }
 
     @RequestMapping("/sendFullOrder")
-    private String sendFullOrder(@RequestParam("clientEmail") String clientEmail,
+    private String sendFullOrder(@RequestParam(value = "clientId", defaultValue = "-1") int clientId,
+                                 @RequestParam("clientEmail") String clientEmail,
                                  @RequestParam("clientName") String clientName,
                                  @RequestParam("clientSurname") String clientSurname,
                                  @RequestParam("clientPhoneNumber") String clientPhoneNumber,
@@ -240,9 +273,16 @@ public class ShopController {
             return "shop-pages/shop-order-created-page";
         }
         catch (Exception e){
-            Client client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
+            Client client = null;
 
-            clientDao.save(client);
+            if(clientId == -1){
+                client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
+
+                clientDao.save(client);
+            }
+            else {
+                client = clientDao.getById(clientId);
+            }
 
             Order order = new Order();
 
@@ -298,6 +338,50 @@ public class ShopController {
         return "shop-pages/shop-order-created-page";
     }
 
+    @RequestMapping("/register")
+    public String getRegisterPage(Model model){
+
+        model.addAttribute("client", new Client());
+
+        return "shop-pages/shop-register-form";
+    }
+
+    @RequestMapping("/registration")
+    public String registerClient(Model model,
+                                 @ModelAttribute Client client,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("passwordConfirm") String passwordConfirm){
+
+        if(password.equals("")){
+            return "redirect:/register?passwordNotProvided";
+        }
+
+        if(!password.equals(passwordConfirm)){
+            return "redirect:/register?passwordNotMatch";
+        }
+
+        clientDao.save(client);
+
+
+        User user = new User();
+        user.setUsername(client.getPhoneNumber());
+        user.setPassword("{noop}" + password);
+        user.setEnabled((byte) 1);
+        user.setClient(client)  ;
+
+        Authority authority = new Authority(user, AuthorityType.USER);
+
+        userDao.save(user);
+        authorityDao.save(authority);
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), password)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/personalPage";
+    }
 
     @RequestMapping("/categoryTest")
     public String getCategoryPage(Model model){

@@ -33,22 +33,22 @@
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Email </p>
                                 <input name="clientEmail" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text">
+                                       type="email" value="${client.email}">
                             </div>
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Имя </p>
                                 <input name="clientName" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text">
+                                       type="text" value="${client.name}">
                             </div>
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Фамилия </p>
                                 <input name="clientSurname" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text">
+                                       type="text" value="${client.surname}">
                             </div>
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
                                 <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text">
+                                       type="text" value="${client.phoneNumber}">
                             </div>
                         </div>
                     </div>

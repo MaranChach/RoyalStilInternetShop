@@ -1,6 +1,8 @@
 package com.trantin.simpleweb.http.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,7 +20,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
     }
 
     @Override
@@ -33,5 +37,16 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyRole("EMPLOYEE")
                 .and().csrf().disable()
                 .formLogin().permitAll();
+
+        http.authorizeRequests()
+                .antMatchers("/personalPage/**").hasAnyRole("USER", "EMPLOYEE")
+                .and().csrf().disable()
+                .formLogin().permitAll();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

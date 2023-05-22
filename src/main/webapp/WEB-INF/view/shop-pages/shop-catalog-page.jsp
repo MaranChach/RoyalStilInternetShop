@@ -11,7 +11,7 @@
 <head>
     <title>Каталог</title>
     <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
-    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
+<%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
     <style>
         <%@include file="/sources/style/style.css"%>

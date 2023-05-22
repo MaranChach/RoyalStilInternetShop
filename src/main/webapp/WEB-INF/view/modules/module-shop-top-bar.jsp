@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="shop-top-bar">
-    <a class="text-main-15" style="float: right;" href="personal-page">Личный кабинет</a>
+    <a class="text-main-15" style="float: right;" href="personalPage">Личный кабинет</a>
     <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
 </div>
 
