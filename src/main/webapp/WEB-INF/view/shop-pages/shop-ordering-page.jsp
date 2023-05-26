@@ -100,7 +100,7 @@
                             <div class="shop-ordering-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Улица </p>
                                 <input name="street" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text">
+                                       type="email">
                             </div>
                             <div class="shop-ordering-info-attribute-house">
                                 <div class="shop-ordering-info-attribute">

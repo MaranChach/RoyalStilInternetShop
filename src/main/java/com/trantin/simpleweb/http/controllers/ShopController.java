@@ -1,10 +1,14 @@
 package com.trantin.simpleweb.http.controllers;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
+import com.trantin.simpleweb.http.model.PaymentModel;
 import com.trantin.simpleweb.http.utils.CookieUtil;
 import com.trantin.simpleweb.http.utils.EmailThread;
+import com.trantin.simpleweb.http.utils.PaymentTest;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -222,10 +226,15 @@ public class ShopController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        //authentication.setAuthenticated(false);
+
+        System.out.println(authentication.isAuthenticated());
+
         if (!authentication.isAuthenticated()){
             model.addAttribute("client", new Client());
         }
         else {
+            System.out.println("саси");
             Client client = userDao.getByUsername(authentication.getName()).getClient();
             model.addAttribute("client", client);
         }
@@ -292,10 +301,6 @@ public class ShopController {
             order.setUid(uid);
 
 
-            if (paymentMethod.equals("cash"))
-                order.setPaymentMethod(PaymentMethods.cash);
-            else order.setPaymentMethod(PaymentMethods.card);
-
             if (shipmentMethod.equals("ship")){
                 order.setShipmentMethod(ShipmentMethods.ship);
                 Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
@@ -303,7 +308,7 @@ public class ShopController {
             }
             else order.setShipmentMethod(ShipmentMethods.pickup);
 
-            orderDao.persist(order);
+
 
             EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
             Thread thread = new Thread(emailThread);
@@ -311,7 +316,32 @@ public class ShopController {
 
             model.addAttribute("order", order);
 
-            return "shop-pages/shop-order-created-page";
+            if (paymentMethod.equals("cash")){
+                order.setPaymentMethod(PaymentMethods.cash);
+                //orderDao.saveOrUpdate(order);
+                orderDao.persist(order);
+                return "shop-pages/shop-order-created-page";
+            }
+            else {
+                order.setPaymentMethod(PaymentMethods.card);
+
+                //orderDao.saveOrUpdate(order);
+                orderDao.persist(order);
+
+                String apiResponse = PaymentTest.SendRequest(order);
+
+                ObjectMapper mapper = new ObjectMapper();
+
+                PaymentModel payment = null;
+
+                try {
+                    payment = mapper.readValue(apiResponse, PaymentModel.class);
+                } catch (JsonProcessingException ex) {
+                    ex.printStackTrace();
+                }
+
+                return "redirect:" + payment.getConfirmation().getConfirmation_url();
+            }
         }
     }
 
@@ -393,4 +423,21 @@ public class ShopController {
     public String getTestProductPage(){
         return "shop-pages/shop-product-page";
     }
+
+//    @RequestMapping("/payment")
+//    public String testPayment(){
+//        String response = PaymentTest.SendRequest();
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        PaymentModel payment = null;
+//
+//        try {
+//            payment = mapper.readValue(response, PaymentModel.class);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return "redirect:" + payment.getConfirmation().getConfirmation_url();
+//    }
 }

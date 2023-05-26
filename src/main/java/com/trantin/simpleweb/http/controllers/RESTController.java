@@ -4,6 +4,7 @@ import com.trantin.simpleweb.http.dao.ImageDao;
 import com.trantin.simpleweb.http.dao.OrderDao;
 import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Product;
+import com.trantin.simpleweb.http.utils.PaymentTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class RESTController {
     public List<Product> getProducts(){
         return productDao.getAllSomeFields();
     }
+
 
     @GetMapping("/weeklyOrders")
     public List<Object[]> getWeeklyOrders(){
