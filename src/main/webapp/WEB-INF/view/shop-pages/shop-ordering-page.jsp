@@ -23,6 +23,7 @@
         </div>
         <form action="sendFullOrder" method="post">
             <input type="hidden" name="uid" value="${uid}">
+            <input type="hidden" name="clientId" value="${client.id}">
             <div class="shop-ordering-content">
                 <div class="shop-ordering-info">
                     <div class="shop-ordering-info-bar">
@@ -30,25 +31,25 @@
                             Покупатель
                         </div>
                         <div class="shop-ordering-info-attributes">
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Email </p>
                                 <input name="clientEmail" class="shop-ordering-info-attribute-value text-main-15"
                                        type="email" value="${client.email}">
                             </div>
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Имя </p>
                                 <input name="clientName" class="shop-ordering-info-attribute-value text-main-15"
                                        type="text" value="${client.name}">
                             </div>
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Фамилия </p>
                                 <input name="clientSurname" class="shop-ordering-info-attribute-value text-main-15"
                                        type="text" value="${client.surname}">
                             </div>
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
                                 <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text" value="${client.phoneNumber}">
+                                       type="text" pattern="[0-9]{1}[0-9]{3}[0-9]{3}[0-9]{4}" value="${client.phoneNumber}">
                             </div>
                         </div>
                     </div>
@@ -93,22 +94,22 @@
                             Данные о доставке
                         </div>
                         <div class="shop-ordering-info-attributes">
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Город </p>
                                 <input name="city" class="shop-ordering-info-attribute-value text-main-15" type="text">
                             </div>
-                            <div class="shop-ordering-info-attribute">
+                            <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Улица </p>
                                 <input name="street" class="shop-ordering-info-attribute-value text-main-15"
                                        type="email">
                             </div>
                             <div class="shop-ordering-info-attribute-house">
-                                <div class="shop-ordering-info-attribute">
+                                <div class="shop-info-attribute">
                                     <p class="shop-ordering-info-attribute-header text-main-15 "> Номер дома </p>
                                     <input name="houseNumber" class="shop-ordering-info-attribute-value text-main-15"
                                            type="text">
                                 </div>
-                                <div class="shop-ordering-info-attribute">
+                                <div class="shop-info-attribute">
                                     <p class="shop-ordering-info-attribute-header text-main-15 "> Квартира </p>
                                     <input name="flatNumber" class="shop-ordering-info-attribute-value text-main-15"
                                            type="text">
@@ -166,7 +167,7 @@
                     <div class="shop-ordering-info-bar">
                         <br>
                         <div class="shop-ordering-info-bar-header text-main-15">
-                            Итоговая стоимость заказа: 2200 руб.
+                            Итоговая стоимость заказа: ${order.orderSum()} руб.
                         </div>
                     </div>
 

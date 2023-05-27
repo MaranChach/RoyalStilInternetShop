@@ -6,8 +6,8 @@
 </div>
 
 <div class="shop-main-bar">
-    <div onclick="window.location.href = '/main'" class="shop-logo-bar">
-        <img style="height: 90%;" src="/main/sources/images/logo2.png" alt="">
+    <div onclick="window.location.href = '/'" class="shop-logo-bar">
+        <img style="height: 90%;" src="<c:url value="/sources/images/logo2.png"/>" alt="">
     </div>
         <form class="shop-search-bar" action="search">
             <input name="searchText" placeholder="Поиск" type="search" class="shop-search text-item">

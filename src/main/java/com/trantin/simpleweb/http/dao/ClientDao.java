@@ -2,6 +2,7 @@ package com.trantin.simpleweb.http.dao;
 
 import com.trantin.simpleweb.http.entity.Client;
 import com.trantin.simpleweb.http.entity.Details;
+import com.trantin.simpleweb.http.entity.Order;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,23 +18,28 @@ public class ClientDao {
 
     @Transactional
     public List<Client> getByName(String name){
-        return sessionFactory.getCurrentSession().createQuery("from Client where name = " + name).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Client where name = " + name, Client.class).getResultList();
     }
 
     @Transactional
     public List<Client> getBySurname(String surname){
-        return sessionFactory.getCurrentSession().createQuery("from Client where surname = " + surname).getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Client where surname = " + surname, Client.class).getResultList();
     }
 
     @Transactional
     public List<Client> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Client").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Client", Client.class).getResultList();
     }
 
 
     @Transactional
     public Client getById(int id) {
         return sessionFactory.getCurrentSession().createQuery("from Client where id = " + id, Client.class).getSingleResult();
+    }
+
+    @Transactional
+    public List<Order> getOrders(Client client) {
+        return sessionFactory.getCurrentSession().createQuery("from Order where client.id = " + client.getId(), Order.class).getResultList();
     }
 
 

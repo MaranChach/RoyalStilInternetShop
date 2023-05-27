@@ -96,6 +96,10 @@ public class Client {
     }
 
     public List<Order> getOrders() {
-        return orders;
+        return this.orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

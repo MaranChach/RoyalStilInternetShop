@@ -25,7 +25,7 @@
             };
         };
 
-        request.open("GET", "http://trantinweb.site/main/api/weeklyOrders", false);
+        request.open("GET", "http://royal-steel.ru/api/weeklyOrders", false);
         request.send();
 
         google.load("visualization", "1", {packages:["corechart"]});

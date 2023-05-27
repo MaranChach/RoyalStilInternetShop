@@ -12,6 +12,7 @@ import com.trantin.simpleweb.http.utils.PaymentTest;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +28,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.rmi.server.UID;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -130,12 +132,24 @@ public class ShopController {
 
         User user = userDao.getByUsername(authentication.getName());
 
+        System.out.println(authentication.getName());
+
         Client client = user.getClient();
+        List<Order> orderList = client.getOrders();
+
+        System.out.println(orderList);
 
         model.addAttribute("client", client);
-        model.addAttribute("orders", client.getOrders());
+        model.addAttribute("orders", orderList);
 
         return "shop-pages/shop-personal-page";
+    }
+
+    @RequestMapping("/saveClientInfo")
+    public String saveClientInfo(@ModelAttribute Client client){
+        clientDao.save(client);
+
+        return "redirect:/personalPage";
     }
 
 
@@ -230,11 +244,12 @@ public class ShopController {
 
         System.out.println(authentication.isAuthenticated());
 
-        if (!authentication.isAuthenticated()){
+        if (!(authentication != null && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken))){
             model.addAttribute("client", new Client());
         }
         else {
-            System.out.println("саси");
+            System.out.println("Пользователь авторизован");
             Client client = userDao.getByUsername(authentication.getName()).getClient();
             model.addAttribute("client", client);
         }
@@ -282,65 +297,71 @@ public class ShopController {
             return "shop-pages/shop-order-created-page";
         }
         catch (Exception e){
-            Client client = null;
+            try {
+                Client client = null;
 
-            if(clientId == -1){
-                client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
+                if(clientId == 0){
+                    client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
 
-                clientDao.save(client);
-            }
-            else {
-                client = clientDao.getById(clientId);
-            }
+                    clientDao.save(client);
 
-            Order order = new Order();
-
-            order.setOrderCart(orderCartDao.getById(orderCartId));
-            order.setClient(client);
-            order.setCurrentDate();
-            order.setUid(uid);
-
-
-            if (shipmentMethod.equals("ship")){
-                order.setShipmentMethod(ShipmentMethods.ship);
-                Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
-                order.setAddress(address);
-            }
-            else order.setShipmentMethod(ShipmentMethods.pickup);
-
-
-
-            EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
-            Thread thread = new Thread(emailThread);
-            thread.start();
-
-            model.addAttribute("order", order);
-
-            if (paymentMethod.equals("cash")){
-                order.setPaymentMethod(PaymentMethods.cash);
-                //orderDao.saveOrUpdate(order);
-                orderDao.persist(order);
-                return "shop-pages/shop-order-created-page";
-            }
-            else {
-                order.setPaymentMethod(PaymentMethods.card);
-
-                //orderDao.saveOrUpdate(order);
-                orderDao.persist(order);
-
-                String apiResponse = PaymentTest.SendRequest(order);
-
-                ObjectMapper mapper = new ObjectMapper();
-
-                PaymentModel payment = null;
-
-                try {
-                    payment = mapper.readValue(apiResponse, PaymentModel.class);
-                } catch (JsonProcessingException ex) {
-                    ex.printStackTrace();
+                    registerClient(client, "1234", "1234");
+                }
+                else {
+                    client = clientDao.getById(clientId);
                 }
 
-                return "redirect:" + payment.getConfirmation().getConfirmation_url();
+                Order order = new Order();
+
+                order.setOrderCart(orderCartDao.getById(orderCartId));
+                order.setClient(client);
+                order.setCurrentDate();
+                order.setUid(uid);
+
+
+                if (shipmentMethod.equals("ship")){
+                    order.setShipmentMethod(ShipmentMethods.ship);
+                    Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
+                    order.setAddress(address);
+                }
+                else order.setShipmentMethod(ShipmentMethods.pickup);
+
+
+                EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
+                Thread thread = new Thread(emailThread);
+                thread.start();
+
+                model.addAttribute("order", order);
+
+                if (paymentMethod.equals("cash")){
+                    order.setPaymentMethod(PaymentMethods.cash);
+                    //orderDao.saveOrUpdate(order);
+                    orderDao.persist(order);
+                    return "shop-pages/shop-order-created-page";
+                }
+                else {
+                    order.setPaymentMethod(PaymentMethods.card);
+
+                    //orderDao.saveOrUpdate(order);
+                    orderDao.persist(order);
+
+                    String apiResponse = PaymentTest.SendRequest(order);
+
+                    ObjectMapper mapper = new ObjectMapper();
+
+                    PaymentModel payment = null;
+
+                    try {
+                        payment = mapper.readValue(apiResponse, PaymentModel.class);
+                    } catch (JsonProcessingException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    return "redirect:" + payment.getConfirmation().getConfirmation_url();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
             }
         }
     }
@@ -377,8 +398,7 @@ public class ShopController {
     }
 
     @RequestMapping("/registration")
-    public String registerClient(Model model,
-                                 @ModelAttribute Client client,
+    public String registerClient(@ModelAttribute Client client,
                                  @RequestParam("password") String password,
                                  @RequestParam("passwordConfirm") String passwordConfirm){
 

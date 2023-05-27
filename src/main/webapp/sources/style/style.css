@@ -6,7 +6,7 @@
 }
 
 body{
-    height: 100%;
+
 }
 
 .hide{
@@ -962,9 +962,10 @@ body{
 .shop-main-container{
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     flex-direction: column;
     width: 100%;
+    min-height: 100%;
     flex: 1;
     flex-wrap: wrap;
     align-content: center;
@@ -1898,7 +1899,7 @@ body{
 
 }
 
-.shop-ordering-info-attribute{
+.shop-info-attribute{
     margin-bottom: 10px;
 }
 
@@ -2059,5 +2060,10 @@ body{
 
 .shop-login-error{
     margin: 5px 0;
+}
+
+.shop-client-info{
+    width: 90%;
+    padding-left: 15px;
 }
 

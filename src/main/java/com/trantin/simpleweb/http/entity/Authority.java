@@ -1,12 +1,14 @@
 package com.trantin.simpleweb.http.entity;
 
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "authorities")
-public class Authority implements Serializable {
+public class Authority implements Serializable, GrantedAuthority {
 
     @Id
     @JoinColumn(name = "username")
@@ -34,7 +36,8 @@ public class Authority implements Serializable {
         this.username = user;
     }
 
-    public String getAuthorityStr() {
+    @Override
+    public String getAuthority() {
         return authority;
     }
 

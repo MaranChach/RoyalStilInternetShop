@@ -2,6 +2,7 @@ package com.trantin.simpleweb.http.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,6 +17,9 @@ public class User {
 
     @Column(name = "enabled")
     private byte enabled;
+
+    @OneToMany(mappedBy = "username")
+    private List<Authority> authority;
 
     @JoinColumn(name = "client_id")
     @OneToOne(fetch = FetchType.EAGER)
@@ -54,5 +58,12 @@ public class User {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+    public List<Authority> getAuthorities() {
+        return authority;
+    }
+
+    public void setItems(List<Authority> items) {
+        this.authority = items;
     }
 }

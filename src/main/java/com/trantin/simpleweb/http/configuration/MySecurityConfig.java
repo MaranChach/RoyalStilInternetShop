@@ -18,11 +18,16 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
-                .authoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
+        auth.jdbcAuthentication().dataSource(dataSource);
+//                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
+//                .authoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
+
+        //auth.userDetailsService(userDetailsService);
 
     }
 
@@ -36,13 +41,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("EMPLOYEE")
-                .and().csrf().disable()
-                .formLogin().permitAll();
-
-        http.authorizeRequests()
                 .antMatchers("/personalPage/**").hasAnyRole("USER", "EMPLOYEE")
                 .and().csrf().disable()
                 .formLogin().permitAll();
+
     }
 
     @Bean
