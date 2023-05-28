@@ -8,23 +8,20 @@ import com.trantin.simpleweb.http.utils.FileUtil;
 import com.trantin.simpleweb.http.utils.ReportUtil;
 import com.trantin.simpleweb.http.utils.Sorter;
 import com.trantin.simpleweb.http.utils.Validator;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -469,7 +466,7 @@ public class CMSController {
     }
 
     @RequestMapping(value = "/ordersReport")
-    private void getOrdersReport(HttpServletResponse response,
+    private void getOrdersReportXls(HttpServletResponse response,
                                  @RequestParam(value = "start") String start,
                                  @RequestParam("end") String end){
 
@@ -482,7 +479,7 @@ public class CMSController {
 
         HSSFWorkbook workbook = null;
         try {
-            workbook = reportUtil.getOrdersReport(dateStart, dateEnd);
+            workbook = reportUtil.getOrdersReportXls(dateStart, dateEnd);
         } catch (Exception e) {
             throw new RuntimeException("Некорректная дата");
         }
@@ -500,12 +497,45 @@ public class CMSController {
         //return "redirect:/admin/reports";
     }
 
+    @RequestMapping(value = "/ordersReportPdf")
+    private void getOrdersReportPdf(HttpServletResponse response,
+                                    @RequestParam(value = "start") String start,
+                                    @RequestParam("end") String end){
+
+        if (start.equals("") || end.equals("")){
+            throw new RuntimeException("Выберите период");
+        }
+
+        LocalDate dateStart = LocalDate.parse(start);
+        LocalDate dateEnd = LocalDate.parse(end);
+
+        PDDocument workbook = null;
+        try {
+            workbook = reportUtil.getOrdersReportPdf(dateStart, dateEnd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            response.setHeader("Content-disposition", "inline;filename=report " + dateStart + " - " + dateEnd + ".pdf");
+            response.setContentType(MediaType.APPLICATION_PDF.toString());
+
+            workbook.save(response.getOutputStream());
+            workbook.close();
+            response.getOutputStream().flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //return "redirect:/admin/reports";
+    }
+
     @RequestMapping(value = "/productsReport")
     private void getOrdersReport(HttpServletResponse response){
 
         HSSFWorkbook workbook = null;
         try {
-            workbook = reportUtil.getProductsTable();
+            workbook = reportUtil.getProductsTableXls();
         } catch (Exception e) {
             e.printStackTrace();
         }

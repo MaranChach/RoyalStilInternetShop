@@ -4,16 +4,24 @@ import com.trantin.simpleweb.http.dao.OrderDao;
 import com.trantin.simpleweb.http.dao.ProductDao;
 import com.trantin.simpleweb.http.entity.Order;
 import com.trantin.simpleweb.http.entity.Product;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.*;
+import org.apache.pdfbox.pdmodel.font.encoding.Encoding;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
+import sun.font.TrueTypeFont;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,7 +36,10 @@ public class ReportUtil {
     @Autowired
     private ProductDao productDao;
 
-    public HSSFWorkbook getOrdersReport(LocalDate start, LocalDate end) throws Exception {
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    public HSSFWorkbook getOrdersReportXls(LocalDate start, LocalDate end) throws Exception {
 
         if(start.isAfter(end))
             throw new RuntimeException("Некорректная дата");
@@ -110,7 +121,7 @@ public class ReportUtil {
         return workbook;
     }
 
-    public HSSFWorkbook getProductsTable(){
+    public HSSFWorkbook getProductsTableXls(){
         List<Product> products = productDao.getAll();
 
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -156,5 +167,131 @@ public class ReportUtil {
         }
 
         return workbook;
+    }
+
+    public PDDocument getOrdersReportPdf(LocalDate start, LocalDate end) throws IOException{
+        Resource resource = resourceLoader.getResource("classpath:times.ttf");
+
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
+
+        // Инициализация содержимого страницы
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+        // Установка шрифта и размера шрифта для заголовка
+        contentStream.setFont(PDType0Font.load(document, resource.getFile()), 12);
+
+        // Заголовок таблицы
+        String[] tableHeader = {
+                "Дата",
+                "Количество заказов, штук",
+                "На сумму, руб.",
+                "Средняя сумма заказов, руб.",
+                "Количество позиций, штук",
+                "Среднее количество позиций, штук"
+        };
+
+        // Ширина ячейки таблицы
+        float cellWidth = 100f;
+
+        // Высота ячейки таблицы
+        float cellHeight = 20f;
+
+        // Координаты начала таблицы
+        float startX = 50f;
+        float startY = 700f;
+
+        // Рисуем заголовок таблицы
+        drawTableHeader(contentStream, document, tableHeader, cellWidth, cellHeight, startX, startY, resource);
+
+        float currentY = startY - cellHeight; // Начальная координата Y для строк таблицы
+
+        // Добавляем строки в таблицу
+        for (int i = 0; i < ChronoUnit.DAYS.between(start, end.plusDays(1)); i++) {
+            LocalDate curDate = start.plusDays(i);
+
+            List<Order> orders = orderDao.getByDate(Date.valueOf(curDate));
+
+            double sum = 0;
+            int itemsNumber = 0;
+            for (Order order : orders) {
+                sum += order.orderSum();
+                itemsNumber += order.getOrderCart().getItems().size();
+            }
+
+            int ordersNumber = orders.size();
+
+            if(ordersNumber == 0)
+                ordersNumber = 1;
+
+            double avgSum = sum / ordersNumber;
+            int avgItemsNumber = itemsNumber / ordersNumber;
+
+            String[] rowData = {
+                    curDate.toString(),
+                    String.valueOf(orders.size()),
+                    String.valueOf(sum),
+                    String.valueOf(avgSum),
+                    String.valueOf(itemsNumber),
+                    String.valueOf(avgItemsNumber)
+            };
+
+            drawTableRow(contentStream, document, rowData, cellWidth, cellHeight, startX, currentY, resource);
+            currentY -= cellHeight;
+        }
+
+        // Закрываем содержимое страницы
+        contentStream.close();
+
+        return document;
+    }
+
+    private static void drawTableHeader(PDPageContentStream contentStream, PDDocument document, String[] tableHeader,
+                                        float cellWidth, float cellHeight, float startX, float startY, Resource font) throws IOException {
+        float currentX = startX;
+        float currentY = startY;
+
+        for (String header : tableHeader) {
+            // Рисуем прямоугольник ячейки
+            contentStream.setLineWidth(1f);
+            contentStream.setNonStrokingColor(220, 220, 220); // Серый цвет для фона ячейки
+            contentStream.addRect(currentX, currentY, cellWidth, cellHeight);
+            contentStream.fill();
+
+            // Нарисовать текст заголовка
+            contentStream.setFont(PDType0Font.load(document, font.getFile()), 10);
+            contentStream.setNonStrokingColor(0, 0, 0); // Черный цвет для текста
+            contentStream.beginText();
+            contentStream.newLineAtOffset(currentX + 2, currentY + 5); // Смещение текста внутри ячейки
+            contentStream.showText(header);
+            contentStream.endText();
+
+            currentX += cellWidth;
+        }
+    }
+
+    private static void drawTableRow(PDPageContentStream contentStream, PDDocument document, String[] rowData,
+                                     float cellWidth, float cellHeight, float startX, float startY, Resource font) throws IOException {
+        float currentX = startX;
+        float currentY = startY;
+
+        for (String cellData : rowData) {
+            // Рисуем прямоугольник ячейки
+            contentStream.setLineWidth(1f);
+            contentStream.setNonStrokingColor(255, 255, 255); // Белый цвет для фона ячейки
+            contentStream.addRect(currentX, currentY, cellWidth, cellHeight);
+            contentStream.fill();
+
+            // Рисуем текст ячейки
+            contentStream.setFont(PDType0Font.load(document, font.getFile()), 10);
+            contentStream.setNonStrokingColor(0, 0, 0); // Черный цвет для текста
+            contentStream.beginText();
+            contentStream.newLineAtOffset(currentX + 2, currentY + 5); // Смещение текста внутри ячейки
+            contentStream.showText(cellData);
+            contentStream.endText();
+
+            currentX += cellWidth;
+        }
     }
 }

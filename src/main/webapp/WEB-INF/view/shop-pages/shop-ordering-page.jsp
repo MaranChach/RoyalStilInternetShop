@@ -164,12 +164,12 @@
                         </div>
                     </div>
 
-                    <div class="shop-ordering-info-bar">
+                    <%--<div class="shop-ordering-info-bar">
                         <br>
                         <div class="shop-ordering-info-bar-header text-main-15">
                             Итоговая стоимость заказа: ${order.orderSum()} руб.
                         </div>
-                    </div>
+                    </div>--%>
 
                     <input type="submit" value="Оформить заказ" class="order-confirm-button text-main-20">
                 </div>

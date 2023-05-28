@@ -1,8 +1,28 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="shop-top-bar">
-    <a class="text-main-15" style="float: right;" href="personalPage">Личный кабинет</a>
-    <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
+
+    <security:authorize access="hasAnyRole('USER', 'EMPLOYEE')">
+        <a class="text-main-15" style="float: right;" href="personalPage">Личный кабинет</a>
+    </security:authorize>
+
+
+    <security:authorize access="hasRole('EMPLOYEE')">
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
+    </security:authorize>
+
+
+    <security:authorize access="!hasRole('USER') && !hasRole('EMPLOYEE')">
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="login">Войти</a>
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="register">Зарегистрироваться</a>
+    </security:authorize>
+
+    <security:authorize access="hasAnyRole('USER', 'EMPLOYEE')">
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="logout">Выйти</a>
+    </security:authorize>
+
+
 </div>
 
 <div class="shop-main-bar">

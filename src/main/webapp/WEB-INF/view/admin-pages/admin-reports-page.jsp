@@ -35,8 +35,16 @@
                 <div class="admin-row-button text-main-15">
                     От: <input name="start" class="order-date-picker text-main-12" type="date"> до: <input name="end" class="order-date-picker text-main-12" type="date">
                 </div>
-                <input value="Отчёт по заказам" type="submit" class="admin-row-button text-main-20">
+                <input value="Отчёт по заказам в Excel" type="submit" class="admin-row-button text-main-20">
             </form>
+
+            <form action="ordersReportPdf" target="_blank" method="post" class="admin-menu-data-panel">
+                <div class="admin-row-button text-main-15">
+                    От: <input name="start" class="order-date-picker text-main-12" type="date"> до: <input name="end" class="order-date-picker text-main-12" type="date">
+                </div>
+                <input value="Отчёт по заказам в PDF" type="submit" class="admin-row-button text-main-20">
+            </form>
+
             <div class="admin-menu-data-panel">
                 <button class="admin-row-button text-main-20" onclick="window.location.href='productsReport'">
                     Выгрузка товаров
