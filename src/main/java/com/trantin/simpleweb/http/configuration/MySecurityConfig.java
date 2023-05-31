@@ -42,8 +42,18 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("EMPLOYEE")
                 .antMatchers("/personalPage/**").hasAnyRole("USER", "EMPLOYEE")
-                .and().csrf().disable()
-                .formLogin().permitAll();
+                /*.antMatchers("/login").permitAll()
+                    .anyRequest().authenticated()*/
+                .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/personalPage")
+                    .permitAll()
+                .and()
+                    .logout()
+                    .permitAll()
+                .and()
+                    .csrf().disable();
 
     }
 

@@ -18,11 +18,11 @@ public class User {
     @Column(name = "enabled")
     private byte enabled;
 
-    @OneToMany(mappedBy = "username")
+    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
     private List<Authority> authority;
 
     @JoinColumn(name = "client_id")
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Client client;
 
     public String getUsername() {

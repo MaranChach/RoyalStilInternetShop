@@ -59,7 +59,15 @@
     </div>
     <div class="shop-info-bar center">
         <div class="shop-info-buttons-bar">
-
+            <div class="shop-info-bar-button text-main-14-white center">
+                О магазине
+            </div>
+            <div class="shop-info-bar-button text-main-14-white center">
+                Доставка
+            </div>
+            <div class="shop-info-bar-button text-main-14-white center">
+                Контакты
+            </div>
         </div>
     </div>
 </div>

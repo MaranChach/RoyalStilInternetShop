@@ -10,6 +10,8 @@
     <style>
         <%@include file="/sources/style/style.css"%>
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5/dist/inputmask.min.js"></script>
+
 </head>
 <body>
     <div class="shop-main-container">
@@ -19,7 +21,7 @@
             <div class="shop-login-form-container">
                 <form:form action="registration" modelAttribute="client" class="shop-login-form">
                     <form:input path="email" placeholder="Электронная почта" name="email" type="email" class="shop-login-form-attribute text-main-15-gray"/>
-                    <form:input path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray" id="phone"/>
                     <form:input path="surname" placeholder="Фамилия" name="surname" type="text" class="shop-login-form-attribute text-main-15-gray"/>
                     <form:input path="name" placeholder="Имя" name="name" type="text" class="shop-login-form-attribute text-main-15-gray"/>
                     <input name="password" placeholder="Пароль" type="password" class="shop-login-form-attribute text-main-15-gray">
@@ -43,6 +45,8 @@
     </div>
 
     <%@include file="../modules/module-shop-footer.jsp" %>
+
+    <%@include file="../modules/module-phone-input-mask.jsp" %>
 
 </body>
 </html>

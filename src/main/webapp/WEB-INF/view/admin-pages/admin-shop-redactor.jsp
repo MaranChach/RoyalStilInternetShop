@@ -65,6 +65,18 @@
 
                 </div>
             </div>
+
+            <div class="admin-menu-data-panel">
+
+                <div class="panel-half-header text-header text-header-margin">
+                    Описание магазина
+                </div>
+                <form:form cssClass="admin-description" modelAttribute="description" action="saveDescription" method="post">
+                    <input type="submit" class="input-panel-button" value="Сохранить">
+                    <form:hidden path="key"/>
+                    <form:textarea cssClass="admin-description-text text-main-14" data-postimg="null" path="value" autocomplete="off"/>
+                </form:form>
+            </div>
         </div>
     </div>
 </div>

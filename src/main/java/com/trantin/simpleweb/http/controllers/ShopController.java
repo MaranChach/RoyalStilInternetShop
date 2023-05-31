@@ -16,13 +16,11 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -67,7 +65,11 @@ public class ShopController {
     @Autowired
     private UserDao userDao;
 
-    @Autowired AuthorityDao authorityDao;
+    @Autowired
+    private AuthorityDao authorityDao;
+
+    @Autowired
+    private MetadataDao metadataDao;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -82,6 +84,8 @@ public class ShopController {
         model.addAttribute("categories", categoryDao.getAll());
 
         model.addAttribute("newProducts", productDao.getLastThree());
+
+        model.addAttribute("description", metadataDao.getByKey("description"));
 
         return "shop-pages/shop-main-page";
     }
@@ -146,8 +150,17 @@ public class ShopController {
     }
 
     @RequestMapping("/saveClientInfo")
-    public String saveClientInfo(@ModelAttribute Client client){
-        clientDao.save(client);
+    public String saveClientInfo(@ModelAttribute Client client,
+                                 @RequestParam("oldPhoneNumber") String oldPhone){
+
+        System.out.println(client.getPhoneNumber());
+        System.out.println(oldPhone);
+
+        User user = userDao.getByUsername(client.getPhoneNumber());
+
+        user.setClient(client);
+
+        userDao.save(user);
 
         return "redirect:/personalPage";
     }
@@ -337,6 +350,9 @@ public class ShopController {
                     order.setPaymentMethod(PaymentMethods.cash);
                     //orderDao.saveOrUpdate(order);
                     orderDao.persist(order);
+
+                    thread.start();
+
                     return "shop-pages/shop-order-created-page";
                 }
                 else {
@@ -356,6 +372,8 @@ public class ShopController {
                     } catch (JsonProcessingException ex) {
                         ex.printStackTrace();
                     }
+
+                    thread.start();
 
                     return "redirect:" + payment.getConfirmation().getConfirmation_url();
                 }
@@ -387,6 +405,34 @@ public class ShopController {
         orderDao.persist(order);
 
         return "shop-pages/shop-order-created-page";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "shop-pages/shop-login-form";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(@RequestParam("username") String username,
+                               @RequestParam("password") String password,
+                               @RequestParam("error") Boolean error,
+                               Model model){
+        System.out.println("fdsafsdaaaaa");
+
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            System.out.println("fdsafsd");
+            return "redirect:/personalPage";
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            System.out.println("Неудачная попытка авторизации");
+            model.addAttribute("error", "Неверный логин или пароль");
+            return "login";
+        }
     }
 
     @RequestMapping("/register")
@@ -439,25 +485,10 @@ public class ShopController {
 
         return "shop-pages/shop-category-page";
     }
-    @RequestMapping("/productTest")
-    public String getTestProductPage(){
-        return "shop-pages/shop-product-page";
-    }
 
-//    @RequestMapping("/payment")
-//    public String testPayment(){
-//        String response = PaymentTest.SendRequest();
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        PaymentModel payment = null;
-//
-//        try {
-//            payment = mapper.readValue(response, PaymentModel.class);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return "redirect:" + payment.getConfirmation().getConfirmation_url();
-//    }
+
+    @RequestMapping("/documents")
+    public String getDocumentsPage(){
+        return "shop-pages/shop-documents-page";
+    }
 }

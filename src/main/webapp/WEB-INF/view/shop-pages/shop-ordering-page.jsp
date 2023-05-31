@@ -48,8 +48,8 @@
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
-                                <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text" pattern="[0-9]{1}[0-9]{3}[0-9]{3}[0-9]{4}" value="${client.phoneNumber}">
+                                <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15" id="phone"
+                                       type="text" value="${client.phoneNumber}">
                             </div>
                         </div>
                     </div>
@@ -237,8 +237,10 @@
     </div>
 </div>
 <%@include file="../modules/module-shop-footer.jsp" %>
+<%@include file="../modules/module-phone-input-mask.jsp" %>
 <script>
     <%@include file="/sources/script/show-address-info.js"%>
 </script>
+
 </body>
 </html>

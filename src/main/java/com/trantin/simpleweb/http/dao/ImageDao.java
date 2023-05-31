@@ -42,6 +42,6 @@ public class ImageDao {
 
     @Transactional
     public void deleteById(int id) {
-        sessionFactory.getCurrentSession().createQuery("delete from Image where id = " + id);
+        sessionFactory.getCurrentSession().createQuery("delete from Image where id = " + id).executeUpdate();
     }
 }

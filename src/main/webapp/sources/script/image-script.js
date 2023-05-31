@@ -62,7 +62,7 @@ if (typeof postimage.ready === "undefined") {
         "margin-right": "5px",
         "margin-left": "5px",
     };
-    postimage.style.container = postimage.style.container || {"margin-bottom": "0.5em", "margin-top": "0.5em"};
+    postimage.style.container = postimage.style.container || {"margin-bottom": "0.5em", "margin-top": "0.5em", "min-width": "160px"};
     postimage.text = {
         "default": "Add image to post",
         "ar": "\u0623\u0636\u0641 \u0627\u0644\u0635\u0648\u0631\u0629 \u0644\u0644\u0645\u0648\u0636\u0648\u0639",

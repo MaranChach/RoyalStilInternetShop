@@ -55,6 +55,8 @@ public class CMSController {
     private DetailsParameterDao parameterDao;
     @Autowired
     private DetailsAttributeDao attributeDao;
+    @Autowired
+    private MetadataDao metadataDao;
 
     @Autowired
     private ImageDao imageDao;
@@ -422,6 +424,12 @@ public class CMSController {
         model.addAttribute("newImage", new Image());
         model.addAttribute("images", imageDao.getAll());
 
+        Metadata desc = metadataDao.getByKey("description");
+        if (desc == null){
+            metadataDao.save(new Metadata("description", ""));
+        }
+        model.addAttribute("description", metadataDao.getByKey("description"));
+
         return "admin-pages/admin-shop-redactor";
     }
 
@@ -453,6 +461,13 @@ public class CMSController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return "redirect:/admin/redactor";
+    }
+
+    @RequestMapping("/saveDescription")
+    private String saveDescription(@ModelAttribute("description") Metadata metaDesc){
+        metadataDao.save(metaDesc);
 
         return "redirect:/admin/redactor";
     }

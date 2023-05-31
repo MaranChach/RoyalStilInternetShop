@@ -77,6 +77,12 @@ body{
     color: black;
 }
 
+.text-main-14{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: black;
+}
+
 .text-main-12{
     font-family: 'Inter', sans-serif;
     font-size: 12px;
@@ -99,6 +105,19 @@ body{
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: gray;
+}
+
+.text-main-14-white{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: white;
+}
+
+.text-main-14-white-thin{
+    font-family: 'Inter', sans-serif;
+    font-weight: lighter;
+    font-size: 14px;
+    color: white;
 }
 
 .text-main-12-gray{
@@ -595,7 +614,7 @@ body{
 
 .fast-form-attribute{
     display: flex;
-    width: 40%;
+    width: 43%;
 }
 
 .fast-attribute-name{
@@ -959,12 +978,25 @@ body{
     overflow: hidden;
 }
 
+.admin-description{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px 10px 10px;
+}
+
+.admin-description-text{
+    margin-top: 10px;
+    min-height: 200px;
+    max-width: 1541px;
+}
+
 .shop-main-container{
     box-sizing: border-box;
     display: flex;
     /*justify-content: center;*/
     flex-direction: column;
-    width: 100%;
+    max-width: 1903px;
+    min-width: 1200px;
     min-height: 100%;
     flex: 1;
     flex-wrap: wrap;
@@ -1083,10 +1115,22 @@ body{
 
 .shop-info-buttons-bar{
     background-color: dodgerblue;
+    display: flex;
     border: none;
     border-radius: 3px;
     height: 50px;
     width: 100%;
+}
+
+.shop-info-bar-button{
+    background-color: dodgerblue;
+    border-radius: 3px;
+    height: 100%;
+    width: 120px;
+}
+
+.shop-info-bar-button:hover{
+    background-color: deepskyblue;
 }
 
 .shop-content{
@@ -1416,7 +1460,8 @@ body{
     background-color: #eeeeee;
     height: 240px;
     margin-top: -240px;
-
+    max-width: 1903px;
+    min-width: 1200px;
     display: flex;
     justify-content: center;
 }
@@ -1436,7 +1481,7 @@ body{
 }
 
 .shop-footer-column-header{
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 10px;
 }
 
@@ -1717,6 +1762,10 @@ body{
     border-radius: 5px;
     background-color: dodgerblue;
     margin-right: 20px;
+}
+
+.personal-button-bar:hover{
+    background-color: deepskyblue;
 }
 
 .personal-button-text{
