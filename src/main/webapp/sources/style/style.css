@@ -2085,12 +2085,14 @@ body{
 .shop-login-form-container{
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
+    padding-top: 60px;
 }
 
 .shop-login-form{
     width: 350px;
-    padding-top: 60px;
 }
 
 .shop-login-form-attribute{

@@ -14,7 +14,7 @@
 
 
     <security:authorize access="!hasRole('USER') && !hasRole('EMPLOYEE')">
-        <a class="text-main-15" style="float: right; margin-left: 10px" href="login">Войти</a>
+        <a class="text-main-15" style="float: right; margin-left: 10px" href="loginPage">Войти</a>
         <a class="text-main-15" style="float: right; margin-left: 10px" href="register">Зарегистрироваться</a>
     </security:authorize>
 

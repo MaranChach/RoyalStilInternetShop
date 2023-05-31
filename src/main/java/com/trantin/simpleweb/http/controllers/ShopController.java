@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.rmi.server.UID;
@@ -407,15 +408,16 @@ public class ShopController {
         return "shop-pages/shop-order-created-page";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginPage")
     public String getLoginPage(){
+        System.out.println("Авторизация");
+
         return "shop-pages/shop-login-form";
     }
 
     @PostMapping("/login")
     public String processLogin(@RequestParam("username") String username,
                                @RequestParam("password") String password,
-                               @RequestParam("error") Boolean error,
                                Model model){
         System.out.println("fdsafsdaaaaa");
 
@@ -431,7 +433,7 @@ public class ShopController {
             e.printStackTrace();
             System.out.println("Неудачная попытка авторизации");
             model.addAttribute("error", "Неверный логин или пароль");
-            return "login";
+            return "shop-pages/shop-login-form";
         }
     }
 

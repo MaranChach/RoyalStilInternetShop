@@ -20,10 +20,10 @@
         <div class="shop-content">
             <div class="shop-login-form-container">
                 <form:form action="registration" modelAttribute="client" class="shop-login-form">
-                    <form:input path="email" placeholder="Электронная почта" name="email" type="email" class="shop-login-form-attribute text-main-15-gray"/>
-                    <form:input path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray" id="phone"/>
-                    <form:input path="surname" placeholder="Фамилия" name="surname" type="text" class="shop-login-form-attribute text-main-15-gray"/>
-                    <form:input path="name" placeholder="Имя" name="name" type="text" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input required="true" path="email" placeholder="Электронная почта" name="email" type="email" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input required="true" path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray" id="phone"/>
+                    <form:input required="true" path="surname" placeholder="Фамилия" name="surname" type="text" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input required="true" path="name" placeholder="Имя" name="name" type="text" class="shop-login-form-attribute text-main-15-gray"/>
                     <input name="password" placeholder="Пароль" type="password" class="shop-login-form-attribute text-main-15-gray">
                     <input name="passwordConfirm" placeholder="Подтверждение пароля" type="password" class="shop-login-form-attribute text-main-15-gray">
                         <c:if test="${param.containsKey(\"passwordNotMatch\")}">
