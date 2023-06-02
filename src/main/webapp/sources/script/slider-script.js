@@ -9,7 +9,7 @@ function getImageNumber(){
         };
     };
 
-    request.open("GET", "http://trantinweb.site/main/api/mainPageImagesNumber", false);
+    request.open("GET", "http://localhost:8080/api/mainPageImagesNumber", false);
     request.send();
 
     console.log(answer)
@@ -19,11 +19,12 @@ function getImageNumber(){
     return number;
 }
 
-
+const image = document.querySelector(".slider-image");
 
 let offset = 0;
-let maxOffset = getImageNumber() * 950 - 950;
-let allLength = getImageNumber() * 950;
+let width = image.offsetWidth;
+let maxOffset = getImageNumber() * width - width;
+let allLength = getImageNumber() * width;
 
 console.log(maxOffset);
 

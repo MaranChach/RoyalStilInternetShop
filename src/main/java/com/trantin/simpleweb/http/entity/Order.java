@@ -80,7 +80,7 @@ public class Order {
         this.orderDate = Date.valueOf(LocalDate.now());
     }
 
-    public double orderSum(){
+    public double orderSum() {
         double result = 0;
 
         List<OrderCartItem> list = orderCart.getItems();

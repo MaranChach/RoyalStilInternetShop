@@ -4,22 +4,22 @@
 <div class="shop-top-bar">
 
     <security:authorize access="hasAnyRole('USER', 'EMPLOYEE')">
-        <a class="text-main-15" style="float: right;" href="personalPage">Личный кабинет</a>
+        <a class="shop-top-bar-button text-main-15"  href="personalPage">Личный кабинет</a>
     </security:authorize>
 
 
     <security:authorize access="hasRole('EMPLOYEE')">
-        <a class="text-main-15" style="float: right; margin-left: 10px" href="admin/">Администрирование</a>
+        <a class="shop-top-bar-button text-main-15"  href="admin/">Администрирование</a>
     </security:authorize>
 
 
     <security:authorize access="!hasRole('USER') && !hasRole('EMPLOYEE')">
-        <a class="text-main-15" style="float: right; margin-left: 10px" href="loginPage">Войти</a>
-        <a class="text-main-15" style="float: right; margin-left: 10px" href="register">Зарегистрироваться</a>
+        <a class="shop-top-bar-button text-main-15" href="loginPage">Войти</a>
+        <a class="shop-top-bar-button text-main-15" href="register">Зарегистрироваться</a>
     </security:authorize>
 
     <security:authorize access="hasAnyRole('USER', 'EMPLOYEE')">
-        <a class="text-main-15" style="float: right; margin-left: 10px" href="logout">Выйти</a>
+        <a class="shop-top-bar-button text-main-15" href="logout">Выйти</a>
     </security:authorize>
 
 
@@ -27,7 +27,9 @@
 
 <div class="shop-main-bar">
     <div onclick="window.location.href = '/'" class="shop-logo-bar">
-        <img style="height: 90%;" src="<c:url value="/sources/images/logo2.png"/>" alt="">
+        <div class="shop-logo-wrapper">
+            <img class="shop-logo-image" src="<c:url value="/sources/images/logo2.png"/>" alt="">
+        </div>
     </div>
         <form class="shop-search-bar" action="search">
             <input name="searchText" placeholder="Поиск" type="search" class="shop-search text-item">
@@ -42,9 +44,9 @@
         <button class="shop-nav-button">
             <img class="shop-nav-button-image" src="<c:url value="/sources/images/heart-svgrepo-com.svg"/>" alt="">
         </button>
-        <button class="shop-nav-button">
+        <%--<button class="shop-nav-button">
 
-        </button>
+        </button>--%>
         <button onclick="window.location.href = 'cart'" class="shop-nav-button">
             <img class="shop-nav-button-image" src="<c:url value="/sources/images/cart-svgrepo-com.svg"/>" alt="">
         </button>
@@ -59,13 +61,13 @@
     </div>
     <div class="shop-info-bar center">
         <div class="shop-info-buttons-bar">
-            <div class="shop-info-bar-button text-main-14-white center">
+            <div class="shop-info-bar-button text-main-14-white center" onclick="window.location.href='description'">
                 О магазине
             </div>
-            <div class="shop-info-bar-button text-main-14-white center">
+            <div class="shop-info-bar-button text-main-14-white center" onclick="window.location.href='shipmentInfo'">
                 Доставка
             </div>
-            <div class="shop-info-bar-button text-main-14-white center">
+            <div class="shop-info-bar-button text-main-14-white center" onclick="window.location.href='contactInfo'">
                 Контакты
             </div>
         </div>

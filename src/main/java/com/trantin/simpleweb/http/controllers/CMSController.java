@@ -71,9 +71,7 @@ public class CMSController {
         model.addAttribute("todayOrdersNumber", orderDao.
                 getByDate(Date.valueOf(LocalDate.now())).size());
         model.addAttribute("yesterdayOrdersNumber", orderDao.
-                getByDateBetween(Date.valueOf(
-                        LocalDate.now().minusDays(1)),
-                        Date.valueOf(LocalDate.now())).size());
+                getByDate(Date.valueOf(LocalDate.now().minusDays(1))).size());
         model.addAttribute("products", productDao.getAll());
         model.addAttribute("orders", orderDao.getAll());
         model.addAttribute("newOrdersNum", orderDao.getNewOrdersNum());
@@ -314,7 +312,12 @@ public class CMSController {
 
         model.addAttribute("order", order);
         model.addAttribute("iterator", 0);
-        model.addAttribute("orderSum", 0d);
+        model.addAttribute("orderSum", order.orderSum());
+
+        if (order.getShipmentMethod() == ShipmentMethods.ship){
+            model.addAttribute("isShipment", true);
+            model.addAttribute("orderDelivery", metadataDao.getByKey("deliveryPrice"));
+        }
 
         if(order.isConfirmed())
             model.addAttribute("isDisabled", "disabled");

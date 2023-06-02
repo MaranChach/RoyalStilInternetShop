@@ -34,22 +34,22 @@
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Email </p>
                                 <input name="clientEmail" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="email" value="${client.email}">
+                                       type="email" value="${client.email}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Имя </p>
                                 <input name="clientName" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text" value="${client.name}">
+                                       type="text" value="${client.name}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Фамилия </p>
                                 <input name="clientSurname" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="text" value="${client.surname}">
+                                       type="text" value="${client.surname}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
                                 <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15" id="phone"
-                                       type="text" value="${client.phoneNumber}">
+                                       type="text" value="${client.phoneNumber}" ${isDisabled}>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 <input checked id="pickup" name="shipmentMethod" value="pickup" class="radio-ordering"
                                        type="radio">
                                 <div class="radio-select-image">
-                                    <img src="" alt="">
+                                    <img src="<c:url value="/sources/images/self-ship.png" />" class="shop-ordering-radio-image" alt="">
                                 </div>
                                 <div class="radio-select-description">
                                     <div class="radio-select-header text-main-12 text-bold">
@@ -76,14 +76,14 @@
                             <div class="radio-select-bar">
                                 <input id="ship" name="shipmentMethod" value="ship" class="radio-ordering" type="radio">
                                 <div class="radio-select-image">
-                                    <img src="" alt="">
+                                    <img src="<c:url value="/sources/images/shipment.png" />" alt="" class="shop-ordering-radio-image">
                                 </div>
                                 <div class="radio-select-description">
                                     <div class="radio-select-header text-main-12 text-bold">
                                         Доставка
                                     </div>
                                     <div class="radio-select-value text-main-12">
-                                        200 руб.
+                                        ${deliveryPrice} руб.
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Улица </p>
                                 <input name="street" class="shop-ordering-info-attribute-value text-main-15"
-                                       type="email">
+                                       type="text">
                             </div>
                             <div class="shop-ordering-info-attribute-house">
                                 <div class="shop-info-attribute">
@@ -127,7 +127,7 @@
                                 <input checked id="cash" name="paymentMethod" value="cash" class="radio-ordering"
                                        type="radio">
                                 <div class="radio-select-image">
-                                    <img src="" alt="">
+                                    <img src="<c:url value="/sources/images/cash.png" />" alt="" class="shop-ordering-radio-image">
                                 </div>
                                 <div class="radio-select-description">
                                     <div class="radio-select-header text-main-12 text-bold">
@@ -141,7 +141,7 @@
                             <div class="radio-select-bar">
                                 <input id="card" name="paymentMethod" value="card" class="radio-ordering" type="radio">
                                 <div class="radio-select-image">
-                                    <img src="" alt="">
+                                    <img src="<c:url value="/sources/images/online.png" />" alt="" class="shop-ordering-radio-image">
                                 </div>
                                 <div class="radio-select-description">
                                     <div class="radio-select-header text-main-12 text-bold">
@@ -211,20 +211,32 @@
                                     ${orderSum} руб.
                                 </div>
                             </div>
-                            <div class="shop-ordering-cart-info-item">
-                                <div class="shop-ordering-cart-info-item-text text-main-15">
-                                    Стоимость доставки
+                            <div id="shipment" class="hide">
+                                <div class="shop-ordering-cart-info-item">
+                                    <div class="shop-ordering-cart-info-item-text text-main-15">
+                                        Стоимость доставки
+                                    </div>
+                                    <div class="shop-ordering-cart-item-cost text-main-15">
+                                        ${deliveryPrice} руб.
+                                    </div>
                                 </div>
-                                <div class="shop-ordering-cart-item-cost text-main-15">
-                                    100 руб.
+                                <div class="shop-ordering-cart-info-item">
+                                    <div class="shop-ordering-cart-info-item-text text-main-15">
+                                        Итого
+                                    </div>
+                                    <div class="shop-ordering-cart-item-cost text-main-15">
+                                        ${orderSum + deliveryPrice} руб.
+                                    </div>
                                 </div>
                             </div>
-                            <div class="shop-ordering-cart-info-item">
-                                <div class="shop-ordering-cart-info-item-text text-main-15">
-                                    Итого
-                                </div>
-                                <div class="shop-ordering-cart-item-cost text-main-15">
-                                    ${orderSum + 100} руб.
+                            <div id="selfShipment">
+                                <div class="shop-ordering-cart-info-item">
+                                    <div class="shop-ordering-cart-info-item-text text-main-15">
+                                        Итого
+                                    </div>
+                                    <div class="shop-ordering-cart-item-cost text-main-15">
+                                        ${orderSum} руб.
+                                    </div>
                                 </div>
                             </div>
                         </div>

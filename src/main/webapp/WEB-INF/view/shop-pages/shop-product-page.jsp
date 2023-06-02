@@ -29,9 +29,9 @@
             <div class="shop-product-article text-main-15">
                 Артикул: ${product.article}
             </div>
-            <div class="shop-product-reviews-number text-main-15">
+            <%--<div class="shop-product-reviews-number text-main-15">
                 Отзывов: 0
-            </div>
+            </div>--%>
         </div>
         <div class="shop-product-content">
             <div class="shop-product-content-image-bar">
@@ -104,9 +104,9 @@
             <div class="shop-product-tab tab-details text-header">
                 Характеристики
             </div>
-            <div class="shop-product-tab tab-reviews text-header">
+            <%--<div class="shop-product-tab tab-reviews text-header">
                 Отзывы
-            </div>
+            </div>--%>
         </div>
 
         <div class="shop-product-tab-bar shop-product-description text-main-15">

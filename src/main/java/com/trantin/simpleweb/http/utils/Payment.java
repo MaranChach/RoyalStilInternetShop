@@ -2,6 +2,8 @@ package com.trantin.simpleweb.http.utils;
 
 
 import com.trantin.simpleweb.http.entity.Order;
+import com.trantin.simpleweb.http.entity.ShipmentMethods;
+import org.springframework.lang.Nullable;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -10,15 +12,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.rmi.server.UID;
-import java.util.Base64;
 
-public class PaymentTest {
+public class Payment {
 
-    public static String SendRequest(Order order){
+    public static String SendRequest(Order order, double deliveryPrice){
         try {
             // Создание URL-объекта
             URL url = new URL("https://api.yookassa.ru/v3/payments");
-            String redirectURL = "https://www.localhost:8080/main";
+            String redirectURL = "https://www.royal-steel.ru";
+
+            double orderSum = order.orderSum() + deliveryPrice;
 
             String idempotenceKey = new UID().toString();
 
@@ -34,7 +37,7 @@ public class PaymentTest {
             connection.setRequestProperty("Idempotence-Key", idempotenceKey);
 
             // Создание тела запроса
-            String requestBody = "{\"amount\": {\"value\": \"" + order.orderSum() + "\", \"currency\": \"RUB\"}, " +
+            String requestBody = "{\"amount\": {\"value\": \"" + orderSum + "\", \"currency\": \"RUB\"}, " +
                     "\"capture\": true, " +
                     "\"confirmation\": {\"type\": \"redirect\", \"return_url\": \"" + redirectURL + "\"}, " +
                     "\"description\": \"Заказ №" + order.getId() + "\"}";

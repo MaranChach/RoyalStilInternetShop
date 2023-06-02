@@ -8,10 +8,9 @@ import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.model.PaymentModel;
 import com.trantin.simpleweb.http.utils.CookieUtil;
 import com.trantin.simpleweb.http.utils.EmailThread;
-import com.trantin.simpleweb.http.utils.PaymentTest;
-import org.aspectj.weaver.ast.Or;
+import com.trantin.simpleweb.http.utils.Encoder;
+import com.trantin.simpleweb.http.utils.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,12 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.rmi.server.UID;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ShopController {
@@ -266,6 +263,7 @@ public class ShopController {
             System.out.println("Пользователь авторизован");
             Client client = userDao.getByUsername(authentication.getName()).getClient();
             model.addAttribute("client", client);
+            model.addAttribute("isDisabled", "readonly");
         }
 
         model.addAttribute("order", new Order());
@@ -273,6 +271,7 @@ public class ShopController {
         model.addAttribute("orderCart", orderCartDao.getById(orderCartId));
         model.addAttribute("orderSum", 0d);
         model.addAttribute("uid", new UID());
+        model.addAttribute("deliveryPrice", metadataDao.getByKey("deliveryPrice").getValue());
 
         return "shop-pages/shop-ordering-page";
 
@@ -301,8 +300,8 @@ public class ShopController {
         || clientPhoneNumber.equals(""))
             throw new RuntimeException("Заполните все значения");
 
-        try{
 
+        try{
             response.addCookie(CookieUtil.getRandomUserIdCookie());
             Order oldOrder = orderDao.getByUid(uid);
 
@@ -343,7 +342,6 @@ public class ShopController {
 
                 EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
                 Thread thread = new Thread(emailThread);
-                thread.start();
 
                 model.addAttribute("order", order);
 
@@ -362,7 +360,12 @@ public class ShopController {
                     //orderDao.saveOrUpdate(order);
                     orderDao.persist(order);
 
-                    String apiResponse = PaymentTest.SendRequest(order);
+                    double deliveryPrice = 0;
+
+                    if(order.getShipmentMethod() == ShipmentMethods.ship)
+                        deliveryPrice += Double.parseDouble(metadataDao.getByKey("deliveryPrice").getValue());
+
+                    String apiResponse = Payment.SendRequest(order, deliveryPrice);
 
                     ObjectMapper mapper = new ObjectMapper();
 
@@ -460,10 +463,9 @@ public class ShopController {
 
         clientDao.save(client);
 
-
         User user = new User();
         user.setUsername(client.getPhoneNumber());
-        user.setPassword("{noop}" + password);
+        user.setPassword("{bcrypt}" + Encoder.encodePassword(password));
         user.setEnabled((byte) 1);
         user.setClient(client)  ;
 
@@ -492,5 +494,26 @@ public class ShopController {
     @RequestMapping("/documents")
     public String getDocumentsPage(){
         return "shop-pages/shop-documents-page";
+    }
+
+    @RequestMapping("/description")
+    public String getDescriptionPage(Model model){
+        model.addAttribute("description", metadataDao.getByKey("description").getValue());
+        return "shop-pages/shop-description-page";
+    }
+
+    @RequestMapping("/shipmentInfo")
+    public String getShipmentInfoPage(){
+        return "shop-pages/shop-shipment-info-page";
+    }
+
+    @RequestMapping("/paymentInfo")
+    public String getPaymentInfoPage(){
+        return "shop-pages/shop-payment-info-page";
+    }
+
+    @RequestMapping("/contactInfo")
+    public String getContactInfoPage(){
+        return "shop-pages/shop-contacts-page";
     }
 }

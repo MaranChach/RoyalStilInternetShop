@@ -68,9 +68,9 @@
                         </div>
 
                         <c:forEach var="orderItem" items="${order.orderCart.items}">
-                            <div style="display: none">
+                            <%--<div style="display: none">
                                 ${orderSum = orderSum + (orderItem.product.cost * orderItem.number)}
-                            </div>
+                            </div>--%>
                             <div class="order-table-item">
                                 <div class="order-list-id table-cell">
                                     ${iterator = iterator+1}
@@ -105,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="order-footer-attribute" style="height: 15px;">
+                    <%--<div class="order-footer-attribute" style="height: 15px;">
                         <div class="order-footer-attribute-name text-main-12">
                             Скидка:
                         </div>
@@ -117,15 +117,19 @@
                         <a href="" onclick="" class="order-discount order-footer-attribute-value text-main-12">
                             Добавить скидку
                         </a>
-                    </div>
-                    <div class="order-footer-attribute">
-                        <div class="order-footer-attribute-name text-main-12">
-                            Доставка:
+                    </div>--%>
+
+                    <c:if test="${isShipment}">
+                        <div class="order-footer-attribute">
+                            <div class="order-footer-attribute-name text-main-12">
+                                Доставка:
+                            </div>
+                            <div class="order-footer-attribute-value text-main-12 text-bold">
+                                100 руб.
+                            </div>
                         </div>
-                        <div class="order-footer-attribute-value text-main-12 text-bold">
-                            100 руб.
-                        </div>
-                    </div>
+                    </c:if>
+
 
                     <div class="order-footer-attribute">
                         <div class="order-footer-attribute-name text-black">
@@ -166,9 +170,8 @@
 </div>
 <script>
     document.querySelector(".delete-button").addEventListener("click", function (){
-
         if(confirm("Вы уверены?")){
-            window.location.href = '${deleteButton}';
+            window.location.href = "${deleteButton}";
         }
     });
 </script>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+
+
 *{
     padding: 0;
     margin: 0;
@@ -1020,6 +1022,11 @@ body{
     border-bottom: darkgray solid 1px;
 }
 
+.shop-top-bar-button{
+    float: right;
+    margin: 0 5px;
+}
+
 .shop-main-bar{
     height: 100px;
     display: flex;
@@ -1033,6 +1040,14 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.shop-logo-wrapper{
+
+}
+
+.shop-logo-image{
+    height: 90%;
 }
 
 .shop-search{
@@ -1083,8 +1098,8 @@ body{
 }
 
 .shop-nav-button-image{
-    height: 30px;
-    width: 30px;
+    height: 100%;
+    width: 100%;
 }
 
 .shop-navbar{
@@ -1646,11 +1661,13 @@ body{
     width: 25%;
     height: 450px;
     padding-left: 20px;
+    margin-right: 10%;
 }
 
 .shop-product-content-delivery-info-bar{
     width: 25%;
     height: 450px;
+    display: none;
 }
 
 .shop-product-content-number{
@@ -1979,6 +1996,13 @@ body{
     border-radius: 3px;
     border: #e8e8e8 1px solid;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.shop-ordering-radio-image{
+    height: 100%;
 }
 
 .radio-select-header{
@@ -2079,7 +2103,7 @@ body{
 
 .shop-ordering-cart-item-number{
     width: 100%;
-    height: 30px;
+    height: 50px;
 }
 
 .shop-login-form-container{
@@ -2092,7 +2116,7 @@ body{
 }
 
 .shop-login-form{
-    width: 350px;
+    width: 400px;
 }
 
 .shop-login-form-attribute{
@@ -2103,6 +2127,22 @@ body{
     border-radius: 3px;
     padding: 0 10px;
     margin-top: 20px;
+}
+
+.shop-login-form-checkbox-bar{
+    margin: 20px 0;
+    display: flex;
+    height: 30px;
+}
+
+.shop-login-form-checkbox{
+    width: 30px;
+    height: 100%;
+}
+
+.shop-login-form-checkbox-text{
+    height: 100%;
+    margin-left: 30px;
 }
 
 .shop-login-form-submit{
@@ -2116,5 +2156,319 @@ body{
 .shop-client-info{
     width: 90%;
     padding-left: 15px;
+}
+
+.shop-info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop-info-map{
+    width: 57%;
+}
+
+.shop-info-text{
+    width: 40%;
+}
+
+@media screen and (max-width : 1080px){
+
+    *{
+        width: 100%;
+    }
+
+
+    .shop-logo-bar{
+
+    }
+
+    .shop-logo-wrapper{
+        width: 80%;
+    }
+
+    .shop-logo-image{
+        height: 70%;
+    }
+
+    .shop-top-bar{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+        text-align: left;
+        height: 100px;
+
+    }
+
+    .shop-top-bar-button{
+        width: auto;
+    }
+
+    .shop-main-container{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        height: auto;
+    }
+
+    .shop-main-bar{
+        align-items: center;
+        display: flex;
+        width: 100%;
+
+        height: auto;
+    }
+
+    .shop-info-buttons-bar{
+        height: 70px;
+    }
+
+    .catalog-button{
+        height: 70px;
+    }
+
+    .shop-info-bar-button{
+        width: 150px;
+    }
+
+    .shop-navbar{
+        align-items: center;
+        width: 100%;
+        display: flex;
+        height: auto;
+    }
+
+    .shop-nav-button{
+        height: 50px;
+        width: 50px;
+    }
+
+    .shop-content{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .shop-categories-bar{
+        width: 100%;
+        display: none;
+    }
+
+    .shop-playground{
+        width: 100%;
+        flex-direction: column;
+    }
+
+
+
+    .shop-images-slider{
+
+    }
+
+
+    .shop-products-row{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .shop-benefits-bar{
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .shop-benefits-bar-item{
+        width: 200px;
+    }
+
+    .shop-benefits-image{
+        height: 60px;
+        width: 60px;
+    }
+
+    .shop-benefits-bar-item-text{
+        font-size: 20px;
+    }
+
+    .search-input{
+        width: 100%;
+    }
+
+    .slider-image{
+        width: 950px;
+    }
+
+    .shop-images-slider{
+        height: 500px;
+    }
+
+    .shop-slider-line{
+        height: 500px;
+    }
+
+    .shop-slider-button{
+        height: 60px;
+        width: 60px;
+    }
+
+    .shop-footer{
+        width: 100%;
+        height: 280px;
+        min-width: 100%;
+    }
+
+    .shop-footer-column{
+        width: 30%;
+    }
+
+
+    .shop-catalog-categories-bar{
+        justify-content: space-around;
+    }
+
+    .shop-product{
+        border-radius: 10px;
+        padding-top: 5px;
+        width: 40%;
+        height: 400px;
+        justify-content: space-between;
+    }
+    .shop-product-image-bar{
+        height: 250px;
+    }
+    .shop-product-buy-button{
+        width: 150px;
+        height: 50px;
+    }
+
+
+    .shop-product-header{
+        padding-left: 30px;
+    }
+
+    .shop-product-rating-bar{
+        padding-left: 30px;
+    }
+
+    .shop-product-article{
+        width: 200px;
+    }
+
+    .shop-product-content{
+        padding: 30px;
+        justify-content: space-around;
+    }
+
+    .shop-product-content-delivery-info{
+        display: none;
+    }
+
+    .shop-ordering-info-attribute-value{
+       height: 50px;
+        width: 80%;
+    }
+
+
+    .shop-ordering-content{
+        margin-left: 20px;
+    }
+
+    .shop-ordering-cart-bar{
+        width: 100%;
+    }
+
+    .shop-ordering-cart-item{
+        height: 80px;
+    }
+
+    .shop-ordering-cart-info-item{
+        height: 80px;
+    }
+
+    .radio-ordering{
+        height: 40px;
+        width: 40px;
+    }
+
+
+    .shop-login-form{
+        width: 80%;
+    }
+
+    .shop-login-form-attribute{
+        height: 80px;
+        border-radius: 10px;
+    }
+    .shop-login-form-submit{
+        border-radius: 10px;
+        height: 80px;
+        width: 250px;
+    }
+    .shop-login-form-checkbox-bar{
+        margin: 20px 0;
+        display: flex;
+        height: auto;
+    }
+
+    .shop-ordering-info{
+        width: 65%;
+    }
+
+    .radio-select-bar{
+        width: 100%;
+    }
+
+    .radio-select-description{
+        width: 100%;
+    }
+
+    .radio-select-header{
+        width: 100%;
+    }
+
+    .shop-login-form-checkbox{
+        width: 30px;
+        height: 100%;
+    }
+
+    .shop-login-form-checkbox-text{
+        height: 100%;
+        margin-left: 30px;
+    }
+
+
+    .text-main-12{
+        font-size: 20px;
+    }
+
+    .text-main-15{
+        font-size: 24px;
+    }
+    .text-main-15-gray{
+        font-size: 24px;
+    }
+
+    .text-main-14{
+        font-size: 20px;
+    }
+    .text-main-14-white{
+        font-size: 20px;
+    }
+
+    .text-product{
+        font-size: 22px;
+    }
+    .text-product-buttons{
+        font-size: 22px;
+    }
+
+    .text-header{
+        font-size: 28px;
+        margin-left: 5%;
+    }
 }
 

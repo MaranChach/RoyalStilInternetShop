@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Регистрация</title>
-<%--    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">--%>
+    <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
     <style>
@@ -20,10 +20,10 @@
         <div class="shop-content">
             <div class="shop-login-form-container">
                 <form:form action="registration" modelAttribute="client" class="shop-login-form">
-                    <form:input required="true" path="email" placeholder="Электронная почта" name="email" type="email" class="shop-login-form-attribute text-main-15-gray"/>
-                    <form:input required="true" path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray" id="phone"/>
-                    <form:input required="true" path="surname" placeholder="Фамилия" name="surname" type="text" class="shop-login-form-attribute text-main-15-gray"/>
-                    <form:input required="true" path="name" placeholder="Имя" name="name" type="text" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input autocomplete="off" required="true" path="email" placeholder="Электронная почта" name="email" type="email" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input autocomplete="off" required="true" path="phoneNumber" placeholder="Номер телефона" name="phoneNumber" type="text" class="shop-login-form-attribute text-main-15-gray" id="phone"/>
+                    <form:input autocomplete="off" required="true" path="surname" placeholder="Фамилия" name="surname" type="text" class="shop-login-form-attribute text-main-15-gray"/>
+                    <form:input autocomplete="off" required="true" path="name" placeholder="Имя" name="name" type="text" class="shop-login-form-attribute text-main-15-gray"/>
                     <input name="password" placeholder="Пароль" type="password" class="shop-login-form-attribute text-main-15-gray">
                     <input name="passwordConfirm" placeholder="Подтверждение пароля" type="password" class="shop-login-form-attribute text-main-15-gray">
                         <c:if test="${param.containsKey(\"passwordNotMatch\")}">
@@ -37,6 +37,12 @@
                             </div>
                         </c:if>
 
+                    <div class="shop-login-form-checkbox-bar">
+                        <input id="agreement" required class="shop-login-form-checkbox" type="checkbox">
+                        <p class="shop-login-form-checkbox-text text-main-15">Я прочитал и согласен с <a href="documents">пользовательским соглашением и с политикой обработки персональных данных</a></p>
+                    </div>
+
+
                     <input value="Зарегистрироваться" type="submit" class="shop-login-form-submit input-panel-button text-main-12">
 
                 </form:form>
@@ -47,6 +53,11 @@
     <%@include file="../modules/module-shop-footer.jsp" %>
 
     <%@include file="../modules/module-phone-input-mask.jsp" %>
-
+    <script>
+        const agreeCheck = document.getElementById("agreement");
+        if (agreeCheck.validity.valueMissing){
+            agreeCheck.setCustomValidity('Пожалуйста, ознакомьтесь с соглашением');
+        }
+    </script>
 </body>
 </html>

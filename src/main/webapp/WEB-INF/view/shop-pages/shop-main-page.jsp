@@ -4,11 +4,11 @@
 <head>
     <title>Главная страница</title>
     <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
-    <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
+    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">
 
-    <style>
+    <%--<style>
         <%@include file="/sources/style/style.css"%>
-    </style>
+    </style>--%>
 </head>
 <body style="">
 <div class="shop-main-container">
@@ -27,9 +27,7 @@
                     </div>
                 </c:forEach>
             </div>
-
 <%--            <%@include file="../modules/module-shop-news-bar.jsp"%>--%>
-
         </div>
         <div class="shop-playground">
 
