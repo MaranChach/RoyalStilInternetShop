@@ -45,7 +45,7 @@
                         <form:hidden path="id"/>
                         <div class="form-attribute">
                             <p class="attribute-name text-main-14-gray">Название</p>
-                            <form:input required="true" autocomplete="off" path="name" class="attribute-value" type="text"/>
+                            <form:input required="required" autocomplete="off" path="name" class="attribute-value" type="text"/>
                             <form:errors cssStyle="color: red" path="name"/>
                         </div>
 

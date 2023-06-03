@@ -33,22 +33,22 @@
                         <div class="shop-ordering-info-attributes">
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Email </p>
-                                <input name="clientEmail" class="shop-ordering-info-attribute-value text-main-15"
+                                <input required name="clientEmail" class="shop-ordering-info-attribute-value text-main-15"
                                        type="email" value="${client.email}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Имя </p>
-                                <input name="clientName" class="shop-ordering-info-attribute-value text-main-15"
+                                <input required name="clientName" class="shop-ordering-info-attribute-value text-main-15"
                                        type="text" value="${client.name}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Фамилия </p>
-                                <input name="clientSurname" class="shop-ordering-info-attribute-value text-main-15"
+                                <input required name="clientSurname" class="shop-ordering-info-attribute-value text-main-15"
                                        type="text" value="${client.surname}" ${isDisabled}>
                             </div>
                             <div class="shop-info-attribute">
                                 <p class="shop-ordering-info-attribute-header text-main-15 "> Номер телефона </p>
-                                <input name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15" id="phone"
+                                <input required name="clientPhoneNumber" class="shop-ordering-info-attribute-value text-main-15" id="phone"
                                        type="text" value="${client.phoneNumber}" ${isDisabled}>
                             </div>
                         </div>

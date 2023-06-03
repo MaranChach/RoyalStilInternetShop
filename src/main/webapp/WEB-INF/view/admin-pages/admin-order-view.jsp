@@ -39,7 +39,7 @@
                         <c:param name="orderId" value="${order.id}"/>
                     </c:url>
                     <input readonly class="order-date-picker text-main-12" type="date" value="${order.orderDate}">
-                    <button ${isDisabled} class="input-panel-button filter-button confirm-button" onclick="window.location.href = '${confirmButton}'">Завершить заказ</button>
+                    <button ${isDisabled} class="input-panel-button filter-button confirm-button" onclick="">Завершить заказ</button>
                 </div>
                 <div class="order-list-header text-black">
                     Содержание заказа

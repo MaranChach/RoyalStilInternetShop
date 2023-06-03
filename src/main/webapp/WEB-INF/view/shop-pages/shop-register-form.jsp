@@ -54,10 +54,13 @@
 
     <%@include file="../modules/module-phone-input-mask.jsp" %>
     <script>
-        const agreeCheck = document.getElementById("agreement");
-        if (agreeCheck.validity.valueMissing){
+
+        /*const agreeCheck = document.getElementById("agreement");
+
+        if(agreeCheck.value() == false){
             agreeCheck.setCustomValidity('Пожалуйста, ознакомьтесь с соглашением');
-        }
+        }*/
+
     </script>
 </body>
 </html>
