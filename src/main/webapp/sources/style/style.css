@@ -219,9 +219,9 @@ body{
     padding-top: 50px;
     background-color: #2f4050;
     float: right;
-    height: available;
     width: 300px;
-    display: table-cell;
+    display: flex;
+    flex-direction: column;
 }
 
 .side-bar-block{
@@ -338,7 +338,7 @@ body{
 
 .menus-panel{
     width: 100%;
-    height: 80px;
+    height: 20px;
 }
 
 .admin-categories-panel{
@@ -381,8 +381,9 @@ body{
 }
 
 .table-panel{
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     background-color: #eeeeee;
+    height: 100%;
 }
 
 .table-header{
@@ -1270,6 +1271,11 @@ body{
     border-radius: 20px;
     border: none;
     margin: 10px;
+}
+
+.shop-slider-button-image{
+    height: 40px;
+    width: 40px;
 }
 
 .shop-button-right{
@@ -2206,6 +2212,20 @@ body{
         width: auto;
     }
 
+    .shop-phone-number-bar{
+        width: 262px;
+    }
+
+    .shop-buttons-bar{
+        width: 120px;
+        justify-content: right;
+    }
+
+    .shop-search{
+        height: 70px;
+        margin: 0;
+    }
+
     .shop-main-container{
         align-items: center;
         display: flex;
@@ -2310,7 +2330,16 @@ body{
         height: 500px;
     }
 
+
     .shop-slider-button{
+        height: 60px;
+        width: 60px;
+        border-radius: 30px;
+        border: none;
+        margin: 10px;
+    }
+
+    .shop-slider-button-image{
         height: 60px;
         width: 60px;
     }
@@ -2469,6 +2498,10 @@ body{
     .text-header{
         font-size: 28px;
         margin-left: 5%;
+    }
+
+    .text-item{
+        font-size: 22px;
     }
 }
 

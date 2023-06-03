@@ -96,7 +96,7 @@ public class ProductDao {
     public List<Product> search(String searchText){
 
         return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE lower(name) LIKE lower('%" + searchText + "%') " +
-                "OR lower(article) LIKE lower(" + searchText + "); ", Product.class).getResultList();
+                "OR lower(article) LIKE lower('%" + searchText + "%'); ", Product.class).getResultList();
 
     }
 

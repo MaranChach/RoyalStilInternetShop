@@ -26,13 +26,13 @@
                             <button onclick="window.location.href = 'manufacturer'" class="input-panel-button add-button">Добавить</button>
                         </div>
 
-                        <div class="input-group">
+                        <%--<div class="input-group">
                             <button class="input-panel-button filter-button">Добавить фильтр</button>
                             <input class="search-input border-gray">
                             <div class="results-num-panel border-gray text">
                                 Найдено результатов:
                             </div>
-                        </div>
+                        </div>--%>
                         <div class="results-panel text border-gray">
                             <div class="results-panel-header">
                                 <div class="check-box center">

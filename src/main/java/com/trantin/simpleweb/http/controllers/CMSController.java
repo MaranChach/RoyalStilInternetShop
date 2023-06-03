@@ -183,6 +183,20 @@ public class CMSController {
         return "admin-pages/admin-products-view";
     }
 
+    @RequestMapping("/searchProduct")
+    public String search(@RequestParam("searchText") String searchText,
+                         Model model){
+
+        model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+        model.addAttribute("products", productDao.searchByName(searchText));
+        model.addAttribute("categories", categoryDao.getAll());
+
+        return "admin-pages/admin-products-view";
+    }
+
     @RequestMapping(value = "/product")
     public String productView(Model model){
         Product product = new Product();
@@ -296,6 +310,20 @@ public class CMSController {
     @RequestMapping("/orders")
     private String ordersView(Model model){
         List<Order> orders = orderDao.getAll();
+
+        model.addAttribute("orders", orders);
+        model.addAttribute("ordersConf", Sorter.getSortedByConfirmOrders(orders, true));
+        model.addAttribute("ordersNotConf", Sorter.getSortedByConfirmOrders(orders, false));
+
+        model.addAttribute("orderSum", 0d);
+
+        return "admin-pages/admin-orders-view";
+    }
+
+    @RequestMapping("/searchOrders")
+    private String searchOrders(@RequestParam("searchText") String searchText,
+                                Model model){
+        List<Order> orders = orderDao.search(searchText);
 
         model.addAttribute("orders", orders);
         model.addAttribute("ordersConf", Sorter.getSortedByConfirmOrders(orders, true));

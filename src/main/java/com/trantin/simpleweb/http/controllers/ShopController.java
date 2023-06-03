@@ -74,8 +74,13 @@ public class ShopController {
 
 
     @RequestMapping("/")
-    public String getMainPage(Model model){
+    public String getMainPage(@RequestParam(value = "orderId", defaultValue = "0") int id,
+                              Model model){
         System.out.println(userIdCookie.getValue());
+
+        if (id != 0){
+            model.addAttribute("newOrder", orderDao.getById(id));
+        }
 
         model.addAttribute("images", imageDao.getAll());
 

@@ -86,7 +86,7 @@ public class Order {
         List<OrderCartItem> list = orderCart.getItems();
 
         for (int i = 0; i < list.size(); i++) {
-            result += orderCart.getItems().get(i).getProduct().getCost();
+            result += orderCart.getItems().get(i).getProduct().getCost() * orderCart.getItems().get(i).getNumber();
         }
 
         return result;

@@ -38,8 +38,8 @@
                     <c:url var="confirmButton" value="confirmOrder">
                         <c:param name="orderId" value="${order.id}"/>
                     </c:url>
-                    <input class="order-date-picker text-main-12" type="date" value="${order.orderDate}">
-                    <button ${isDisabled} class="input-panel-button filter-button" onclick="window.location.href = '${confirmButton}'">Завершить заказ</button>
+                    <input readonly class="order-date-picker text-main-12" type="date" value="${order.orderDate}">
+                    <button ${isDisabled} class="input-panel-button filter-button confirm-button" onclick="window.location.href = '${confirmButton}'">Завершить заказ</button>
                 </div>
                 <div class="order-list-header text-black">
                     Содержание заказа
@@ -125,7 +125,7 @@
                                 Доставка:
                             </div>
                             <div class="order-footer-attribute-value text-main-12 text-bold">
-                                100 руб.
+                                ${orderDelivery.value} руб.
                             </div>
                         </div>
                     </c:if>
@@ -136,7 +136,7 @@
                             Итого:
                         </div>
                         <div class="order-footer-attribute-value text-black text-bold   ">
-                            ${orderSum + orderDelivery - orderDiscount} руб.
+                            ${orderSum + orderDelivery.value - orderDiscount} руб.
                         </div>
                     </div>
                 </div>
@@ -172,6 +172,11 @@
     document.querySelector(".delete-button").addEventListener("click", function (){
         if(confirm("Вы уверены?")){
             window.location.href = "${deleteButton}";
+        }
+    });
+    document.querySelector(".confirm-button").addEventListener("click", function (){
+        if(confirm("Вы уверены?")){
+            window.location.href = "${confirmButton}";
         }
     });
 </script>

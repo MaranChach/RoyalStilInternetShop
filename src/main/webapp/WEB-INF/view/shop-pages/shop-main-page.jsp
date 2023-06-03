@@ -33,10 +33,6 @@
 
             <div class="shop-images-slider">
                 <div class="shop-slider-line">
-                    <%--                        <img class="slider-image" src="<c:url value="/sources/images/JHCIbuoyYS8.jpg"/> " alt="">--%>
-                    <%--                        <img class="slider-image" src="<c:url value="/sources/images/Dee4fzy5waQ.jpg"/> " alt="">--%>
-                    <%--                        <img class="slider-image" src="<c:url value="/sources/images/K7HEmhzttAk.jpg"/> " alt="">--%>
-
                     <c:forEach var="image" items="${images}">
                         <img class="slider-image" src="${image.url}" alt="">
                     </c:forEach>
@@ -44,13 +40,13 @@
             </div>
             <div class="shop-slider-buttons-bar">
                 <button class="shop-slider-button shop-button-left">
-                    <img width="40px" height="40px"
+                    <img class="shop-slider-button-image"
                          src="<c:url value="/sources/images/arrow-left-circle-svgrepo-com.svg"/>">
                 </button>
 
 
                 <button class="shop-slider-button shop-button-right">
-                    <img width="40px" height="40px"
+                    <img class="shop-slider-button-image"
                          src="<c:url value="/sources/images/arrow-right-circle-svgrepo-com.svg"/>">
                 </button>
             </div>

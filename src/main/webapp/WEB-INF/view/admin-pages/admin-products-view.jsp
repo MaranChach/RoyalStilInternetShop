@@ -48,9 +48,9 @@
                 </div>
 
                 <div style="width: 73%; float: right">
-                    <div class="category-header">
+                    <%--<div class="category-header">
 
-                    </div>
+                    </div>--%>
 
                     <div class="table-panel">
                         <div class="table-header">
@@ -58,13 +58,13 @@
                             <button onclick="window.location.href = 'product'" class="input-panel-button add-button">Добавить товар</button>
                         </div>
 
-                        <div class="input-group">
-                            <button class="input-panel-button filter-button">Добавить фильтр</button>
-                            <input class="search-input border-gray">
+                        <form action="searchProduct" class="input-group">
+                            <button type="button" class="input-panel-button filter-button">Добавить фильтр</button>
+                            <input name="searchText" type="search" class="search-input border-gray">
                             <div class="results-num-panel border-gray text">
-                                Найдено результатов:
+                                Найдено результатов: ${products.size()}
                             </div>
-                        </div>
+                        </form>
                         <div class="results-panel text border-gray">
                             <div class="results-panel-header">
                                 <div class="check-box center">
@@ -76,7 +76,7 @@
                                 <div class="price center">Цена</div>
                                 <div class="count center">Количество</div>
                                 <div class="unit center">Ед. изм.</div>
-                                <div class="activated center">Актиность</div>
+                                <div class="activated center"></div>
                                 <div class="list-delete-button center"></div>
                             </div>
 
@@ -97,7 +97,7 @@
                                     <div class="price center">${product.cost}</div>
                                     <div class="count center">${product.number}</div>
                                     <div class="unit center">${product.unit.name}</div>
-                                    <div class="activated center">a</div>
+                                    <div class="activated center"></div>
                                     <div class="list-delete-button center"></div>
                                 </div>
                             </c:forEach>

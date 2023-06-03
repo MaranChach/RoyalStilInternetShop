@@ -27,6 +27,20 @@ public class OrderDao {
     }
 
     @Transactional
+    public List<Order> search(String searchText) {
+        Query<Order> query = sessionFactory.getCurrentSession().createQuery("FROM Order WHERE " +
+                "lower(client.name) LIKE lower('%"+searchText+"%') OR " +
+                "lower(client.surname) LIKE lower('%"+searchText+"%') OR " +
+                "lower(address.city.name) LIKE lower('%"+searchText+"%') " +
+                "ORDER BY id DESC", Order.class);
+
+        System.out.println(query.getQueryString());
+
+        return query.getResultList();
+    }
+
+
+    @Transactional
     public int getNewOrdersNum(){
         return sessionFactory.getCurrentSession().createQuery("SELECT id FROM Order WHERE confirmed = false").getResultList().size();
     }

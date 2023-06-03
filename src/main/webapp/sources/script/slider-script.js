@@ -1,6 +1,8 @@
 
 function getImageNumber(){
-    const request = new XMLHttpRequest();
+    const number = document.querySelectorAll(".slider-image").length;
+
+    /*const request = new XMLHttpRequest();
     let answer;
 
     request.onreadystatechange = function (){
@@ -9,12 +11,12 @@ function getImageNumber(){
         };
     };
 
-    request.open("GET", "http://localhost:8080/api/mainPageImagesNumber", false);
+    request.open("GET", "http://royal-steel.ru/api/mainPageImagesNumber", false);
     request.send();
 
     console.log(answer)
 
-    let number = JSON.parse(answer);
+    let number = JSON.parse(answer);*/
 
     return number;
 }

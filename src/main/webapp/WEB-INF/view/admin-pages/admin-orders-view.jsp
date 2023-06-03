@@ -34,13 +34,13 @@
                         Завершённые
                     </div>
                 </div>
-                <div class="input-group" style=" margin: 20px">
+                <form action="searchOrders" class="input-group" style=" margin: 20px">
                     <button class="input-panel-button filter-button">Добавить фильтр</button>
-                    <input class="search-input border-gray">
+                    <input name="searchText" type="search" class="search-input border-gray">
                     <div class="results-num-panel border-gray text">
                         Найдено результатов: ${orders.size()}
                     </div>
-                </div>
+                </form>
                 <div class="admin-table">
                     <div id="table-list-header" class="table-item">
                         <div class="table-marker table-cell">
@@ -86,13 +86,13 @@
                                 <c:param name="orderId" value="${order.id}"/>
                             </c:url>
 
-                            <div style="display: none">
+                            <%--<div style="display: none">
                                     ${orderSum = 0}
 
                                 <c:forEach var="orderItem" items="${order.orderCart.items}">
                                     ${orderSum = orderSum + orderItem.product.cost}
                                 </c:forEach>
-                            </div>
+                            </div>--%>
 
 
                             <div class="table-item" onclick="window.location.href = '${orderButton}'">
@@ -112,7 +112,7 @@
                                         ${order.address.city.name}
                                 </div>
                                 <div class="order-sum table-cell">
-                                        ${orderSum} руб.
+                                        ${order.orderSum()} руб.
                                 </div>
                                 <div class="order-payed table-cell">
 

@@ -31,13 +31,13 @@
                     <p class="text-header"></p>
                     <button onclick="window.location.href = 'unit'" class="input-panel-button add-button">Добавить единицу</button>
                 </div>
-                <div class="input-group">
+                <%--<div class="input-group">
                     <button class="input-panel-button filter-button">Добавить фильтр</button>
                     <input class="search-input border-gray">
                     <div class="results-num-panel border-gray text">
                         Найдено результатов:
                     </div>
-                </div>
+                </div>--%>
 
                 <div class="admin-table">
                         <div class="order-list-header-half table-item" style="border-top: grey 1px solid;">
@@ -45,7 +45,7 @@
                                 <input class="marker" type="checkbox">
                             </div>
                             <div class="name table-cell">Наименование</div>
-                            <div class="activated table-cell">Актиность</div>
+                            <div class="activated table-cell"></div>
                             <div class="list-delete-button table-cell"></div>
                         </div>
 
