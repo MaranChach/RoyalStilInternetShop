@@ -23,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.rmi.server.UID;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -99,5 +102,14 @@ public class MyConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/sources/**").addResourceLocations("/sources/");
+    }
+
+    @Bean(name = "dbconnection")
+    public Connection getConnection(){
+        try {
+            return DriverManager.getConnection("jdbc:postgresql://185.154.195.151:5432/RoyalStil?user=maran&password=password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

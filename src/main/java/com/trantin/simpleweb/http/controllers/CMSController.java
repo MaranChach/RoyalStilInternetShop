@@ -598,6 +598,29 @@ public class CMSController {
 
         // return "redirect:/admin/reports";
     }
+
+    @RequestMapping(value = "/tables")
+    private void getTablesData(HttpServletResponse response){
+
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = reportUtil.getTables();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            response.setHeader("Content-disposition", "attachment;filename=tables.xls");
+            response.setContentType("application/vnd.ms-excel");
+
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // return "redirect:/admin/reports";
+    }
     //endregion
 
 
