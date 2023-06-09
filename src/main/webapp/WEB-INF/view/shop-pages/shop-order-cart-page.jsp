@@ -21,13 +21,12 @@
 </head>
 <body>
 
-<div class="page-shadow">
-
-</div>
 
 <div class="shop-main-container">
     <%@include file="../modules/module-shop-top-bar.jsp" %>
+    <div class="page-shadow">
 
+    </div>
     <div style="flex-direction: column" class="shop-content">
         <div class="shop-product-header text-product-header">
             Корзина

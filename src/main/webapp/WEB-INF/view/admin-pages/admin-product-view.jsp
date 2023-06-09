@@ -37,7 +37,7 @@
             </div>
 
             <div class="product-data-panel">
-                <form:form modelAttribute="product" action="saveProduct">
+                <form:form id="form" modelAttribute="product" action="saveProduct">
                     <div class="product-nav-block">
 
                         <p class="text-header-values-group">Основное</p>
@@ -45,7 +45,7 @@
                         <form:hidden path="id"/>
                         <div class="form-attribute">
                             <p class="attribute-name text-main-14-gray">Название</p>
-                            <form:input required="required" autocomplete="off" path="name" class="attribute-value" type="text"/>
+                            <form:input required="a" autocomplete="off" path="name" class="attribute-value" type="text"/>
                             <form:errors cssStyle="color: red" path="name"/>
                         </div>
 
@@ -69,7 +69,9 @@
                             <form:select path="unit" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.unit.id}"
                                              label="${product.unit.name}"></form:option>
-                                <form:options items="${unitsMap}"></form:options>
+                                <form:option cssStyle="background-color: rgba(255,0,14,0.82)" value=""
+                                             label="Нет"></form:option>
+                                <form:options items="${unitsMap}" itemValue="id" itemLabel="name"></form:options>
                             </form:select>
                         </div>
 
@@ -78,7 +80,9 @@
                             <form:select path="category" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.category.id}"
                                              label="${product.category.name}"></form:option>
-                                <form:options items="${categoriesMap}"></form:options>
+                                <form:option cssStyle="background-color: rgba(255,0,14,0.82)" value=""
+                                             label="Нет"></form:option>
+                                <form:options items="${categoriesMap}" itemValue="id" itemLabel="name"></form:options>
                             </form:select>
                         </div>
 
@@ -87,7 +91,9 @@
                             <form:select path="manufacturer" class="attribute-value">
                                 <form:option cssStyle="background-color: grey" value="${product.manufacturer.id}"
                                              label="${product.manufacturer.name}"></form:option>
-                                <form:options items="${manufacturersMap}"></form:options>
+                                <form:option cssStyle="background-color: rgba(255,0,14,0.82)" value=""
+                                             label="Нет"></form:option>
+                                <form:options items="${manufacturersMap}" itemValue="id" itemLabel="name"></form:options>
                             </form:select>
                         </div>
 

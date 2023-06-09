@@ -22,6 +22,12 @@ public class ClientDao {
     }
 
     @Transactional
+    public boolean isExistsByPhoneNumber(String phoneNumber){
+        return sessionFactory.getCurrentSession().createQuery
+                ("FROM Client WHERE phoneNumber LIKE '" + phoneNumber + "'").getResultList().size() != 0;
+    }
+
+    @Transactional
     public List<Client> getBySurname(String surname){
         return sessionFactory.getCurrentSession().createQuery("from Client where surname = " + surname, Client.class).getResultList();
     }

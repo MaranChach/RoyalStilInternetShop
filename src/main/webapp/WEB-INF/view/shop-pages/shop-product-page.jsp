@@ -82,8 +82,8 @@
 <%--                                <c:param name="productId" value="${product.id}"/>--%>
 <%--                            </c:url>--%>
 
-                            <div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик
-                            </div>
+                            <%--<div class="shop-product-content-oneclick-buy-button text-product-buy">Купить в один клик
+                            </div>--%>
                         </c:otherwise>
 
                     </c:choose>

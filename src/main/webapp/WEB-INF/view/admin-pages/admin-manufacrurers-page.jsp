@@ -39,7 +39,7 @@
                                     <input type="checkbox">
                                 </div>
                                 <div class="name">Наименование</div>
-                                <div class="activated center">Актиность</div>
+                                <%--<div class="activated center">Актиность</div>--%>
                                 <div class="list-delete-button center"></div>
                             </div>
 
@@ -53,7 +53,7 @@
                                         <input type="checkbox">
                                     </div>
                                     <div class="name">${manufacturer.name}</div>
-                                    <div class="activated center">a</div>
+                                    <%--<div class="activated center">a</div>--%>
                                     <div class="list-delete-button center"></div>
                                 </div>
                             </c:forEach>

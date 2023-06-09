@@ -19,7 +19,7 @@ public class Payment {
         try {
             // Создание URL-объекта
             URL url = new URL("https://api.yookassa.ru/v3/payments");
-            String redirectURL = "royal-steel.ru?orderId=" + order.getId();
+            String redirectURL = "http://royal-steel.ru/personalPage";
 
             double orderSum = order.orderSum() + deliveryPrice;
 

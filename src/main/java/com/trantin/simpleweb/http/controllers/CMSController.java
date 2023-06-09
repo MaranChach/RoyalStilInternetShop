@@ -15,10 +15,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Date;
@@ -203,9 +205,12 @@ public class CMSController {
 
         model.addAttribute("product", product);
 
-        model.addAttribute("unitsMap", unitDao.getMap());
-        model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+        model.addAttribute("unitsMap", unitDao.getAll());
+        //model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getAll());
+        //model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getAll());
+        //model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
@@ -217,9 +222,12 @@ public class CMSController {
     public String productViewById(@RequestParam("productId") int id, Model model){
         model.addAttribute("product", productDao.getById(id));
 
-        model.addAttribute("unitsMap", unitDao.getMap());
-        model.addAttribute("categoriesMap", categoryDao.getMap());
-        model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+        model.addAttribute("unitsMap", unitDao.getAll());
+        //model.addAttribute("unitsMap", unitDao.getMap());
+        model.addAttribute("categoriesMap", categoryDao.getAll());
+        //model.addAttribute("categoriesMap", categoryDao.getMap());
+        model.addAttribute("manufacturersMap", manufacturerDao.getAll());
+        //model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
@@ -231,18 +239,37 @@ public class CMSController {
     public String saveProduct(@ModelAttribute("newProduct") Product product,
                               @RequestParam(value = "unit", defaultValue = "-1") int unitId,
                               @RequestParam(value = "category", defaultValue = "-1") int categoryId,
-                              @RequestParam(value = "manufacturer", defaultValue = "-1") int manufacturerId) {
+                              @RequestParam(value = "manufacturer", defaultValue = "-1") int manufacturerId,
+                              Model model) {
 
-        if(product.getName().equals("")
-        || unitId == -1
-        || categoryId == -1
-        || manufacturerId == -1){
+        /*if (bindingResult.hasErrors()){
+            model.addAttribute("product", product);
+
+            model.addAttribute("unitsMap", unitDao.getMap());
+            model.addAttribute("categoriesMap", categoryDao.getMap());
+            model.addAttribute("manufacturersMap", manufacturerDao.getMap());
+
+            model.addAttribute("attribute", new DetailsAttribute());
+            model.addAttribute("detailsMap", parameterDao.getMap());
+
+            return "admin-pages/admin-product-view";
+        }*/
+        if(product.getName().equals("")){
             throw new RuntimeException("Заполните все значения");
         }
 
-        product.setUnit(unitDao.getById(unitId));
-        product.setCategory(categoryDao.getById(categoryId));
-        product.setManufacturer(manufacturerDao.getById(manufacturerId));
+        if (unitId != -1)
+            product.setUnit(unitDao.getById(unitId));
+        else
+            product.setUnit(null);
+        if (categoryId != -1)
+            product.setCategory(categoryDao.getById(categoryId));
+        else
+            product.setCategory(null);
+        if (manufacturerId != -1)
+            product.setManufacturer(manufacturerDao.getById(manufacturerId));
+        else
+            product.setManufacturer(null);
 
         product.setImageUrl(Validator.trimImageUrl(product.getImageUrl()));
 

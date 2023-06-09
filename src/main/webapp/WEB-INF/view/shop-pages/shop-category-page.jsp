@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${curCategory}</title>
+    <title>${curCategory.name}</title>
     <link rel="icon" href="<c:url value="/sources/images/logo-mini.png"/>">
     <%--    <link rel="stylesheet" href="<c:url value="/sources/style/style.css" />">--%>
 
@@ -57,7 +57,28 @@
         </div>
         <div class="shop-playground">
             <div class="text-header shop-catalog-header">
-                ${curCategory}
+                <div>
+                    ${curCategory.name}
+                </div>
+
+                <form action="category" class="text-main-15 shop-catalog-sorter-bar">
+
+                    Сортировка
+
+                    <input name="categoryId" type="hidden" value="${curCategory.id}">
+
+                    <select id="sortSelect" onchange="document.forms[1].submit()" class="shop-sort-select text-main-12" name="sortType">
+                        <option label="" value="none">
+                            Нет
+                        </option>
+                        <option label="" value="costAsc">
+                            По возрастанию цены
+                        </option>
+                        <option label="" value="costDesc">
+                            По убыванию цены
+                        </option>
+                    </select>
+                </form>
             </div>
 
             <div class="shop-catalog-categories-bar">
@@ -90,9 +111,9 @@
                                         class="shop-product-buy-button text-product-buttons">
                                     В корзину
                                 </button>
-                                <button class="shop-product-buy-button text-product-buttons">
+                                <%--<button class="shop-product-buy-button text-product-buttons">
                                     Купить
-                                </button>
+                                </button>--%>
                             </div>
                         </div>
                     </div>
@@ -103,6 +124,8 @@
 </div>
 
 <%@include file="../modules/module-shop-footer.jsp" %>
+
+<script src="<c:url value="/sources/script/sortTypeScript.js" />"></script>
 
 
 </body>

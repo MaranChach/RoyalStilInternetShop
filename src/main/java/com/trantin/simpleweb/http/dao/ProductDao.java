@@ -51,6 +51,14 @@ public class ProductDao {
     }
 
 
+    public List<Product> getSortedByCost(int categoryId, boolean isAsc) {
+        String str = "ASC";
+        if (!isAsc)
+            str = "DESC";
+
+        return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE category.id = " + categoryId + " ORDER BY cost " + str, Product.class).getResultList();
+    }
+
 
     public Product getById(int id) {
         return sessionFactory.getCurrentSession().createQuery("from Product where id = " + id, Product.class).getSingleResult();

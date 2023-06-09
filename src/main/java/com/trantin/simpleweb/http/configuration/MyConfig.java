@@ -2,11 +2,13 @@ package com.trantin.simpleweb.http.configuration;
 
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.trantin.simpleweb.http.utils.EmailUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Filter;
 import org.springframework.context.annotation.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
+
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -112,4 +114,16 @@ public class MyConfig extends WebMvcConfigurerAdapter {
             throw new RuntimeException(e);
         }
     }
+
+    /*@Bean
+    public JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.yandex.ru");
+        mailSender.setPort(465);
+        mailSender.setUsername(EmailUtil.fromEmail);
+        mailSender.setPassword("jbwqxgemdbpqskwk");
+        mailSender.getJavaMailProperties().setProperty("mail.smtp.auth", "true");
+        mailSender.getJavaMailProperties().setProperty("mail.smtp.starttls.enable", "true");
+        return mailSender;
+    }*/
 }

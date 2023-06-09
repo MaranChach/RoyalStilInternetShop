@@ -36,6 +36,11 @@
                                 Заполните пароль
                             </div>
                         </c:if>
+                        <c:if test="${param.containsKey(\"phoneUsed\")}">
+                            <div class="text-error-12 shop-login-error">
+                                Номер телефона занят
+                            </div>
+                        </c:if>
 
                     <div class="shop-login-form-checkbox-bar">
                         <input id="agreement" required class="shop-login-form-checkbox" type="checkbox">

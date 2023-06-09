@@ -130,9 +130,9 @@
                                             class="shop-product-buy-button text-product-buttons">
                                         В корзину
                                     </button>
-                                    <button class="shop-product-buy-button text-product-buttons">
+                                    <%--<button class="shop-product-buy-button text-product-buttons">
                                         Купить
-                                    </button>
+                                    </button>--%>
                                 </div>
                             </div>
                         </div>

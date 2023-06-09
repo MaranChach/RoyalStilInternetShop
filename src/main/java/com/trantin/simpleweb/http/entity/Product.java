@@ -3,6 +3,8 @@ package com.trantin.simpleweb.http.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.trantin.simpleweb.http.dao.UnitDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -45,7 +47,7 @@ public class Product {
     private String description;
 
     @JoinColumn(name = "details_id")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
             fetch = FetchType.EAGER)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,

@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trantin.simpleweb.http.dao.*;
 import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.model.PaymentModel;
-import com.trantin.simpleweb.http.utils.CookieUtil;
-import com.trantin.simpleweb.http.utils.EmailThread;
-import com.trantin.simpleweb.http.utils.Encoder;
-import com.trantin.simpleweb.http.utils.Payment;
+import com.trantin.simpleweb.http.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.security.util.Password;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +28,9 @@ import java.util.List;
 @Controller
 public class ShopController {
 
-    @Autowired
-    private Cookie userIdCookie;
 
+
+    //region DAO
     @Autowired
     private HttpSession session;
 
@@ -68,20 +66,13 @@ public class ShopController {
 
     @Autowired
     private MetadataDao metadataDao;
+    //endregion
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @RequestMapping("/")
-    public String getMainPage(@RequestParam(value = "orderId", defaultValue = "0") int id,
-                              Model model){
-        System.out.println(userIdCookie.getValue());
-
-        if (id != 0){
-            model.addAttribute("newOrder", orderDao.getById(id));
-        }
-
+    public String getMainPage(Model model){
         model.addAttribute("images", imageDao.getAll());
 
         model.addAttribute("categories", categoryDao.getAll());
@@ -101,13 +92,31 @@ public class ShopController {
     }
 
     @RequestMapping("/category")
-    public String getCategoryPage(@RequestParam int categoryId , Model model){
+    public String getCategoryPage(@RequestParam("categoryId") int categoryId,
+                                  @RequestParam(value = "sortType", defaultValue = "none") String sortType,
+                                  Model model){
+        switch (sortType){
+            case "none" : {
+                model.addAttribute("products",
+                        productDao.getByCategoryId(categoryId));
+                break;
+            }
+            case "costAsc" : {
+                model.addAttribute("products",
+                        productDao.getSortedByCost(categoryId, true));
+                break;
+            }
+            case "costDesc" : {
+                model.addAttribute("products",
+                        productDao.getSortedByCost(categoryId, false));
+                break;
+            }
+        }
+
         model.addAttribute("categories", categoryDao.getAll());
 
-        model.addAttribute("curCategory", categoryDao.getById(categoryId).getName());
+        model.addAttribute("curCategory", categoryDao.getById(categoryId));
 
-        model.addAttribute("products",
-                productDao.getByCategoryId(categoryId));
 
         return "shop-pages/shop-category-page";
     }
@@ -319,11 +328,19 @@ public class ShopController {
                 Client client = null;
 
                 if(clientId == 0){
+
+                    if (clientDao.isExistsByPhoneNumber(clientPhoneNumber)){
+                        model.addAttribute("error", "Данный номер телефона уже используется");
+                        return "shop-pages/shop-login-form";
+                    }
+
                     client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
 
-                    clientDao.save(client);
+                    //clientDao.save(client);
 
-                    registerClient(client, "1234", "1234");
+                    String password = PasswordUtil.generatePassword(8);
+
+                    registerClient(client, password, password);
                 }
                 else {
                     client = clientDao.getById(clientId);
@@ -465,6 +482,9 @@ public class ShopController {
         if(!password.equals(passwordConfirm)){
             return "redirect:/register?passwordNotMatch";
         }
+        if(clientDao.isExistsByPhoneNumber(client.getPhoneNumber())){
+            return "redirect:/register?phoneUsed";
+        }
 
         clientDao.save(client);
 
@@ -472,7 +492,7 @@ public class ShopController {
         user.setUsername(client.getPhoneNumber());
         user.setPassword("{bcrypt}" + Encoder.encodePassword(password));
         user.setEnabled((byte) 1);
-        user.setClient(client)  ;
+        user.setClient(client);
 
         Authority authority = new Authority(user, AuthorityType.USER);
 
@@ -485,16 +505,12 @@ public class ShopController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        EmailThread emailThread = new EmailThread(client.getEmail(), client, user, password);
+        Thread thread = new Thread(emailThread);
+        thread.start();
+
         return "redirect:/personalPage";
     }
-
-    @RequestMapping("/categoryTest")
-    public String getCategoryPage(Model model){
-        model.addAttribute("products", productDao.getAll());
-
-        return "shop-pages/shop-category-page";
-    }
-
 
     @RequestMapping("/documents")
     public String getDocumentsPage(){
@@ -520,5 +536,10 @@ public class ShopController {
     @RequestMapping("/contactInfo")
     public String getContactInfoPage(){
         return "shop-pages/shop-contacts-page";
+    }
+
+    @RequestMapping("/testMail")
+    public void sendTestMail(){
+        EmailUtil.sendOrderInfo("trantin2003@mail.ru", orderDao.getById(135));
     }
 }

@@ -17,8 +17,12 @@ body{
 
 .page-shadow{
     position: absolute;
-    height: 100%;
-    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+   /* height: 100%;
+    width: 100%;*/
     background-color: #adadad;
     opacity: 50%;
     display: none;
@@ -187,7 +191,6 @@ body{
 
 .content{
     display: flex;
-    height: 100%;
 }
 
 .top-bar{
@@ -222,6 +225,7 @@ body{
     width: 300px;
     display: flex;
     flex-direction: column;
+    height: auto;
 }
 
 .side-bar-block{
@@ -1509,16 +1513,21 @@ body{
 .shop-catalog-header{
     margin-top: 10px;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
+}
+
+.shop-catalog-sorter-bar{
+    width: 40%;
 }
 
 .shop-catalog-categories-bar{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
+    gap: 47px;
 }
 
 .shop-catalog-category{
@@ -2112,6 +2121,13 @@ body{
     height: 50px;
 }
 
+.shop-sort-select{
+    height: 100%;
+    width: 60%;
+    width: 60%;
+    float: right;
+}
+
 .shop-login-form-container{
     display: flex;
     justify-content: center;
@@ -2352,6 +2368,22 @@ body{
 
     .shop-footer-column{
         width: 30%;
+    }
+
+    .shop-catalog-sorter-bar{
+        width: 80%;
+    }
+
+    .shop-sort-select{
+        width: 40%;
+    }
+
+    .shop-catalog-header{
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 20px;
     }
 
 

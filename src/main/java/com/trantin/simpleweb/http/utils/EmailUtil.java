@@ -1,8 +1,9 @@
 package com.trantin.simpleweb.http.utils;
 
-import com.trantin.simpleweb.http.entity.Order;
-import com.trantin.simpleweb.http.entity.OrderCartItem;
-import com.trantin.simpleweb.http.entity.Product;
+import com.trantin.simpleweb.http.entity.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -19,18 +20,12 @@ import javax.mail.internet.MimeMultipart;
 
 public class EmailUtil {
 
-    public static void createEmail(String toEmail){
-        final String fromEmail = "trantin2003@mail.ru"; //requires valid gmail id
-        final String password = "79KAWJSim67Lht9m43Fj"; // correct password for gmail id
+    private static final String fromEmail = "trantin2003@mail.ru";
+    private final static String password = "79KAWJSim67Lht9m43Fj"; // correct password for gmail id
+    private static final String username = "maran";
 
+    public static void sendAccountInfo(String toEmail, Client client, User user, String decryptedPassword){
         System.out.println("SSLEmail Start");
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.mail.ru"); //SMTP Host
-        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
-        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
-        props.put("mail.smtp.port", "465"); //SMTP Port
 
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
@@ -38,24 +33,23 @@ public class EmailUtil {
                 return new PasswordAuthentication(fromEmail, password);
             }
         };
-
-        Session session = Session.getDefaultInstance(props, auth);
+        Session session = Session.getDefaultInstance(getProps(), auth);
         System.out.println("Session created");
-        sendEmail(session, toEmail,"Подтверждение регистрации", "fdasfd");
+
+        String emailBody = "";
+
+        emailBody += "Здравсвуйте, " + client.getName() + ", для Вас создан новый аккаунт \n\n";
+        emailBody += "Данные аккаунта: \n\n";
+
+        emailBody += "Логин: " + user.getUsername() + "\n";
+        emailBody += "Пароль: " + decryptedPassword + "\n\n";
+
+
+        sendEmail(session, toEmail,"Аккаунт создан", emailBody);
     }
 
     public static void sendOrderInfo(String toEmail, Order order){
-        final String fromEmail = "trantin2003@mail.ru"; //requires valid gmail id
-        final String password = "79KAWJSim67Lht9m43Fj"; // correct password for gmail id
-
         System.out.println("SSLEmail Start");
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.mail.ru"); //SMTP Host
-        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
-        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
-        props.put("mail.smtp.port", "465"); //SMTP Port
 
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
@@ -63,7 +57,7 @@ public class EmailUtil {
                 return new PasswordAuthentication(fromEmail, password);
             }
         };
-        Session session = Session.getDefaultInstance(props, auth);
+        Session session = Session.getDefaultInstance(getProps(), auth);
         System.out.println("Session created");
 
         String emailBody = "";
@@ -83,15 +77,6 @@ public class EmailUtil {
         sendEmail(session, toEmail,"Заказ №" + order.getId(), emailBody);
     }
 
-
-
-    /**
-     * Utility method to send simple HTML email
-     * @param session
-     * @param toEmail
-     * @param subject
-     * @param body
-     */
     private static void sendEmail(Session session, String toEmail, String subject, String body){
         try
         {
@@ -101,9 +86,9 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("trantin2003@mail.ru", "Royal Steel"));
+            msg.setFrom(new InternetAddress(fromEmail, "Royal Steel"));
 
-            msg.setReplyTo(InternetAddress.parse("trantin2003@mail.ru", false));
+            msg.setReplyTo(InternetAddress.parse(fromEmail, false));
 
             msg.setSubject(subject, "UTF-8");
 
@@ -120,5 +105,17 @@ public class EmailUtil {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static Properties getProps(){
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.mail.ru"); //SMTP Host
+        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
+        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
+        props.put("mail.smtp.port", "465"); //SMTP Port
+
+        return props;
     }
 }
