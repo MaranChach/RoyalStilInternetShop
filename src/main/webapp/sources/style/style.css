@@ -1924,6 +1924,10 @@ body{
     flex: 1;
 }
 
+.cart-item-name:hover{
+    color: gray;
+}
+
 .cart-item-cost{
     width: 170px;
 }
@@ -1960,7 +1964,11 @@ body{
     width: 70%;
 }
 
-
+.shop-order-cart-change-button{
+    /*border: black 1px solid;
+    border-radius: 3px;*/
+    margin: 8px;
+}
 
 .shop-ordering-info-bar{
     width: 90%;

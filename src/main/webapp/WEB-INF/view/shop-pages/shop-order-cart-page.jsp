@@ -64,17 +64,28 @@
                         <c:url var="deleteButton" value="deleteFromCart">
                             <c:param name="cartItemId" value="${item.id}"/>
                         </c:url>
+                        <c:url var="productButton" value="product">
+                            <c:param name="productId" value="${item.product.id}"/>
+                        </c:url>
                         <div class="shop-cart-bar-item">
-                            <div class="shop-cart-item-cell cart-item-name text-black">
+                            <div class="shop-cart-item-cell cart-item-name text-black" onclick="window.location.href='${productButton}'">
                                     ${item.product.name}
                             </div>
                             <div class="shop-cart-item-cell cart-item-cost text-black">
                                     ${item.product.cost}
                             </div>
                             <div class="shop-cart-item-cell cart-item-number text-black">
-                                    ${item.number}
+                                <c:url var="productButton" value="product">
+                                    <c:param name="productId" value="${item.product.id}"/>
+                                </c:url>
+                                <c:url var="productButton" value="product">
+                                    <c:param name="productId" value="${item.product.id}"/>
+                                </c:url>
+                                <img onclick="incrementItem(${item.id})" class="shop-order-cart-change-button plus" height="25px" src="<c:url value="/sources/images/plus-button.png"/>">
+                                    <div id="itemCount" class="text-black">${item.number}</div>
+                                <img onclick="decrementItem(${item.id})" class="shop-order-cart-change-button minus" height="25px" src="<c:url value="/sources/images/minus-button.png"/>">
                             </div>
-                            <div class="shop-cart-item-cell cart-item-final-cost text-black">
+                            <div id="itemSum" class="shop-cart-item-cell cart-item-final-cost text-black">
                                     ${item.number * item.product.cost}
                             </div>
                             <div class="shop-cart-item-cell cart-item-delete text-black">
@@ -155,6 +166,58 @@
 
 <script>
     <%@include file="/sources/script/open-order-dialog-script.js"%>
+</script>
+
+<script>
+
+    document.querySelector(".plus").addEventListener("click", function (e){
+
+    });
+
+
+    const countBar = document.getElementById("itemCount");
+    const sumBar = document.getElementById("itemSum");
+    const url = new URL(window.location).host;
+    function incrementItem (id){
+        const request = new XMLHttpRequest();
+        let answer;
+
+        request.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                answer = this.responseText;
+                let count = JSON.parse(answer);
+                countBar.textContent = count[0];
+                sumBar.textContent = count[1];
+            };
+        };
+
+        request.open("POST", "http://" + url + "/incrementItem?itemCartId=" + id, false);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+    }
+
+    function decrementItem (id){
+        const request = new XMLHttpRequest();
+        let answer;
+
+        request.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+                answer = this.responseText;
+                let count = JSON.parse(answer);
+                if (count == -1){
+                    countBar.textContent = "0";
+                    sumBar.textContent = "0";
+                    return;
+                }
+                countBar.textContent = count[0];
+                sumBar.textContent = count[1]
+            };
+        };
+
+        request.open("POST", "http://" + url + "/decrementItem?itemCartId=" + id, false);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+    }
 </script>
 </body>
 </html>

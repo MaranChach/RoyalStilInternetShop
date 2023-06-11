@@ -8,6 +8,7 @@ import com.trantin.simpleweb.http.entity.*;
 import com.trantin.simpleweb.http.model.PaymentModel;
 import com.trantin.simpleweb.http.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +72,8 @@ public class ShopController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+    //Главная страница
     @RequestMapping("/")
     public String getMainPage(Model model){
         model.addAttribute("images", imageDao.getAll());
@@ -84,6 +87,8 @@ public class ShopController {
         return "shop-pages/shop-main-page";
     }
 
+
+    //Список категорий
     @RequestMapping("/catalog")
     public String getCatalogPage(Model model){
         model.addAttribute("categories", categoryDao.getAll());
@@ -91,10 +96,12 @@ public class ShopController {
         return "shop-pages/shop-catalog-page";
     }
 
+    //Товары из категории
     @RequestMapping("/category")
     public String getCategoryPage(@RequestParam("categoryId") int categoryId,
                                   @RequestParam(value = "sortType", defaultValue = "none") String sortType,
                                   Model model){
+        //Проверка выбранной сортировки
         switch (sortType){
             case "none" : {
                 model.addAttribute("products",
@@ -121,6 +128,7 @@ public class ShopController {
         return "shop-pages/shop-category-page";
     }
 
+    //Список товаров по результатам поиска
     @RequestMapping("/search")
     public String search(@RequestParam("searchText") String searchText,
                          Model model){
@@ -134,26 +142,24 @@ public class ShopController {
         return "shop-pages/shop-category-page";
     }
 
+    //Страница товара
     @RequestMapping("/product")
-    public String getProductPage(@RequestParam int productId,
+    public String getProductPage(@RequestParam("productId") int productId,
                                  Model model){
         model.addAttribute("product", productDao.getById(productId));
 
         return "shop-pages/shop-product-page";
     }
 
+    //Личный кабинет пользователя
     @RequestMapping("/personalPage")
     public String getPersonalPage(Model model){
+        //Получение аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         User user = userDao.getByUsername(authentication.getName());
-
-        System.out.println(authentication.getName());
 
         Client client = user.getClient();
         List<Order> orderList = client.getOrders();
-
-        System.out.println(orderList);
 
         model.addAttribute("client", client);
         model.addAttribute("orders", orderList);
@@ -161,37 +167,34 @@ public class ShopController {
         return "shop-pages/shop-personal-page";
     }
 
+
+    //Сохранение личных данных клиента
     @RequestMapping("/saveClientInfo")
     public String saveClientInfo(@ModelAttribute Client client,
                                  @RequestParam("oldPhoneNumber") String oldPhone){
 
-        System.out.println(client.getPhoneNumber());
-        System.out.println(oldPhone);
-
         User user = userDao.getByUsername(client.getPhoneNumber());
-
         user.setClient(client);
-
         userDao.save(user);
 
         return "redirect:/personalPage";
     }
 
 
+    //Сохранение товара в корзину
     @RequestMapping("/saveToCart")
     public String saveProductToCart(@RequestParam("productId") int productId,
                                     @RequestParam(name = "productNumber", defaultValue = "1") int productNumber,
                                     @CookieValue(required = false, name = "USERID") String sessionId,
                                     HttpSession session,
                                     HttpServletResponse response){
-        System.out.println(productNumber);
-
+        //Проверка ID сессии
         if (sessionId == null){
-            response.addCookie(CookieUtil.getRandomUserIdCookie());
+            response.addCookie(CookieUtil.getRandomUserIdCookie()); //Сгенерировать ID, если его нет
         }
-
         OrderCart orderCart = null;
 
+        //Поиск корзины
         try{
             orderCart = orderCartDao.getBySessionId(sessionId);
         }
@@ -199,13 +202,13 @@ public class ShopController {
             System.out.println("Creating new cart");
         }
 
+        //Если корзины нет, создаётся новая
         if(orderCart == null){
             orderCart = new OrderCart();
             orderCart.setUid(sessionId);
         }
-
         OrderCartItem newItem = null;
-
+        //Поиск элемента в корзине
         try{
             newItem = orderCartItemDao.getItemFromCart(orderCart.getId(), productId);
             newItem.setNumber(newItem.getNumber() + productNumber);
@@ -213,16 +216,19 @@ public class ShopController {
             return "redirect:/cart";
         }
         catch (Exception e){
+            //Если не найден добавляем новый
             System.out.println("Creating new item");
             newItem = new OrderCartItem(productDao.getById(productId), productNumber);
         }
         orderCart.addItemInCart(newItem);
 
+        //Сохранение корзины
         orderCartDao.saveOrderCart(orderCart);
 
         return "redirect:/cart";
     }
 
+    //Удаление элемента из корзины
     @RequestMapping("deleteFromCart")
     private String deleteFromCart(@RequestParam("cartItemId") int cartItemId){
         orderCartItemDao.delete(orderCartItemDao.getById(cartItemId));
@@ -230,10 +236,12 @@ public class ShopController {
         return "redirect:/cart";
     }
 
+    //Открытие корзины
     @RequestMapping("/cart")
     private String getCartView(Model model,
                                @CookieValue(required = false, name = "USERID") String sessionId,
                                HttpServletResponse response){
+        //Если нет ID сессии, сгенерировать и сохранить в cookie
         if (sessionId == null){
             response.addCookie(CookieUtil.getRandomUserIdCookie());
         }
@@ -259,20 +267,57 @@ public class ShopController {
         return "shop-pages/shop-order-cart-page";
     }
 
+
+    //Увеличение числа товаров в корзине
+    @PostMapping("/incrementItem")
+    @ResponseBody
+    private ResponseEntity<?> incrementItem(@RequestParam("itemCartId") int itemCartId,
+                                         Model model) {
+        OrderCartItem item = orderCartItemDao.getById(itemCartId);
+        item.setNumber(item.getNumber() + 1);
+        orderCartItemDao.saveOrderCart(item);
+
+        return ResponseEntity.ok(new Double[]{item.getNumber(), item.getNumber() * item.getProduct().getCost()});
+    }
+
+
+    //Уменьшение числа товаров в корзине
+    @PostMapping("/decrementItem")
+    @ResponseBody
+    private ResponseEntity<?> decrementItem(@RequestParam("itemCartId") int itemCartId,
+                                Model model) {
+        OrderCartItem item = orderCartItemDao.getById(itemCartId);
+        if (item.getNumber() <= 1){
+            orderCartItemDao.delete(item);
+            return ResponseEntity.ok("-1");
+        }
+        else {
+            item.setNumber(item.getNumber() - 1);
+        }
+
+        orderCartItemDao.saveOrderCart(item);
+
+        return ResponseEntity.ok(new Double[]{item.getNumber(), item.getNumber() * item.getProduct().getCost()});
+    }
+
+
+    //Страница оформления заказа
     @RequestMapping("/ordering")
     private String orderingPage(@RequestParam("orderCartId") int orderCartId,
                                 Model model){
-
+        //Получение аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         //authentication.setAuthenticated(false);
 
         System.out.println(authentication.isAuthenticated());
 
+        //Если не авторизован, форма пустая
         if (!(authentication != null && authentication.isAuthenticated()
                 && !(authentication instanceof AnonymousAuthenticationToken))){
             model.addAttribute("client", new Client());
         }
+        //Если авторизован, форма заполняется
         else {
             System.out.println("Пользователь авторизован");
             Client client = userDao.getByUsername(authentication.getName()).getClient();
@@ -291,6 +336,7 @@ public class ShopController {
 
     }
 
+    //Отправка заказа
     @RequestMapping("/sendFullOrder")
     private String sendFullOrder(@RequestParam(value = "clientId", defaultValue = "-1") int clientId,
                                  @RequestParam("clientEmail") String clientEmail,
@@ -307,14 +353,14 @@ public class ShopController {
                                  @RequestParam("uid") String uid,
                                  HttpServletResponse response,
                                  Model model){
-
+        //Проверка заполнения
         if(clientEmail.equals("")
         || clientName.equals("")
         || clientSurname.equals("")
         || clientPhoneNumber.equals(""))
             throw new RuntimeException("Заполните все значения");
 
-
+        //Если заказ существует, не сохранять
         try{
             response.addCookie(CookieUtil.getRandomUserIdCookie());
             Order oldOrder = orderDao.getByUid(uid);
@@ -323,20 +369,21 @@ public class ShopController {
 
             return "shop-pages/shop-order-created-page";
         }
+        //Если не существует, создаём
         catch (Exception e){
             try {
                 Client client = null;
 
+                //Если клиент не создан, регистрируем
                 if(clientId == 0){
 
+                    //Если номер занят, отправка на форму авторизации
                     if (clientDao.isExistsByPhoneNumber(clientPhoneNumber)){
                         model.addAttribute("error", "Данный номер телефона уже используется");
                         return "shop-pages/shop-login-form";
                     }
 
                     client = new Client(clientName, clientSurname, clientPhoneNumber, clientEmail);
-
-                    //clientDao.save(client);
 
                     String password = PasswordUtil.generatePassword(8);
 
@@ -354,6 +401,7 @@ public class ShopController {
                 order.setUid(uid);
 
 
+                //заполнение адреса доставки
                 if (shipmentMethod.equals("ship")){
                     order.setShipmentMethod(ShipmentMethods.ship);
                     Address address = new Address(new City(city), new Street(street), houseNumber, flatNumber);
@@ -361,12 +409,13 @@ public class ShopController {
                 }
                 else order.setShipmentMethod(ShipmentMethods.pickup);
 
-
+                //отправка письма
                 EmailThread emailThread = new EmailThread(order.getClient().getEmail(), order);
                 Thread thread = new Thread(emailThread);
 
                 model.addAttribute("order", order);
 
+                //проверка способа оплаты
                 if (paymentMethod.equals("cash")){
                     order.setPaymentMethod(PaymentMethods.cash);
                     //orderDao.saveOrUpdate(order);
@@ -376,6 +425,7 @@ public class ShopController {
 
                     return "shop-pages/shop-order-created-page";
                 }
+                //если оплата онлайн, открытие страницы оплаты
                 else {
                     order.setPaymentMethod(PaymentMethods.card);
 
@@ -410,6 +460,7 @@ public class ShopController {
         }
     }
 
+    //отправка быстрого заказа
     @RequestMapping("/sendOrder")
     private String saveOrder(@RequestParam("orderCartId") int id,
                              @RequestParam("name") String name,
@@ -433,6 +484,7 @@ public class ShopController {
         return "shop-pages/shop-order-created-page";
     }
 
+    //форма авторизации
     @GetMapping("/loginPage")
     public String getLoginPage(){
         System.out.println("Авторизация");
@@ -440,12 +492,11 @@ public class ShopController {
         return "shop-pages/shop-login-form";
     }
 
+    //авторизация
     @PostMapping("/login")
     public String processLogin(@RequestParam("username") String username,
                                @RequestParam("password") String password,
                                Model model){
-        System.out.println("fdsafsdaaaaa");
-
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password));
@@ -462,6 +513,7 @@ public class ShopController {
         }
     }
 
+    //страница регистрации
     @RequestMapping("/register")
     public String getRegisterPage(Model model){
 
@@ -470,41 +522,44 @@ public class ShopController {
         return "shop-pages/shop-register-form";
     }
 
+    //регистрация
     @RequestMapping("/registration")
     public String registerClient(@ModelAttribute Client client,
                                  @RequestParam("password") String password,
                                  @RequestParam("passwordConfirm") String passwordConfirm){
 
+        //проверка пароля
         if(password.equals("")){
             return "redirect:/register?passwordNotProvided";
         }
-
         if(!password.equals(passwordConfirm)){
             return "redirect:/register?passwordNotMatch";
         }
+        //занят ли номер
         if(clientDao.isExistsByPhoneNumber(client.getPhoneNumber())){
             return "redirect:/register?phoneUsed";
         }
 
+        //сохранение клиента
         clientDao.save(client);
 
+        //сохранение пользователя
         User user = new User();
         user.setUsername(client.getPhoneNumber());
         user.setPassword("{bcrypt}" + Encoder.encodePassword(password));
         user.setEnabled((byte) 1);
         user.setClient(client);
-
         Authority authority = new Authority(user, AuthorityType.USER);
-
         userDao.save(user);
         authorityDao.save(authority);
 
+        //аутентификация
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), password)
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        //отправка письма
         EmailThread emailThread = new EmailThread(client.getEmail(), client, user, password);
         Thread thread = new Thread(emailThread);
         thread.start();
@@ -512,6 +567,7 @@ public class ShopController {
         return "redirect:/personalPage";
     }
 
+    //страницы с информацией
     @RequestMapping("/documents")
     public String getDocumentsPage(){
         return "shop-pages/shop-documents-page";
@@ -536,10 +592,5 @@ public class ShopController {
     @RequestMapping("/contactInfo")
     public String getContactInfoPage(){
         return "shop-pages/shop-contacts-page";
-    }
-
-    @RequestMapping("/testMail")
-    public void sendTestMail(){
-        EmailUtil.sendOrderInfo("trantin2003@mail.ru", orderDao.getById(135));
     }
 }

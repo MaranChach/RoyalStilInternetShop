@@ -65,6 +65,8 @@ public class CMSController {
 
     //endregion
 
+
+    //главная страница
     @RequestMapping(value = "/")
     public String mainView(Model model) {
 
@@ -82,6 +84,7 @@ public class CMSController {
     }
 
     //region Units
+    //страница единиц измерения
     @RequestMapping("/units")
     public String unitsView(Model model){
         model.addAttribute("units", unitDao.getAll());
@@ -89,6 +92,7 @@ public class CMSController {
         return "admin-pages/admin-units-page";
     }
 
+    //страница единицы измерения
     @RequestMapping("/unit")
     public String unitView(Model model){
         model.addAttribute("unit", new Unit());
@@ -103,6 +107,7 @@ public class CMSController {
         return "admin-pages/admin-unit-view";
     }
 
+    //сохранение единицы
     @RequestMapping(value = "/saveUnit")
     public String saveUnit(@ModelAttribute("unit") Unit unit){
         if(unit.getName().equals("")){
@@ -114,6 +119,7 @@ public class CMSController {
         return "redirect:/admin/units";
     }
 
+    //удаление единицы
     @RequestMapping("/deleteUnit")
     public String deleteUnit(@RequestParam("unitId") int id, Model model) throws LinkException {
         try{
@@ -128,6 +134,7 @@ public class CMSController {
     //endregion
 
     //region Manufacturers
+    //страница производителей
     @RequestMapping("/manufacturers")
     public String manufacturersView(Model model){
         model.addAttribute("manufacturers", manufacturerDao.getAll());
@@ -135,6 +142,7 @@ public class CMSController {
         return "admin-pages/admin-manufacrurers-page";
     }
 
+    //страница производителя
     @RequestMapping(value = "/manufacturer")
     public String manufacturerView(Model model){
         model.addAttribute("manufacturer", new Manufacturer());
@@ -149,17 +157,17 @@ public class CMSController {
         return "admin-pages/admin-manufacturer-view";
     }
 
+    //сохранение производителя
     @RequestMapping(value = "/saveManufacturer")
     public String saveManufacturer(@ModelAttribute("manufacturer") Manufacturer manufacturer){
-        System.out.println(manufacturer);
-
         manufacturerDao.save(manufacturer);
 
         return "redirect:/admin/manufacturers";
     }
-
+    //удаление производителя
     @RequestMapping("/deleteManufacturer")
     public String deleteManufacturer(@RequestParam("manufacturerId") int id, Model model){
+        //проверка на ссылки
         try{
             manufacturerDao.delete(manufacturerDao.getById(id));
         }
@@ -172,7 +180,7 @@ public class CMSController {
     //endregion
 
     //region Products
-
+    //список товаров
     @RequestMapping(value = "/products")
     public String productsView(Model model) {
         model.addAttribute("unitsMap", unitDao.getMap());
@@ -184,7 +192,7 @@ public class CMSController {
 
         return "admin-pages/admin-products-view";
     }
-
+    //поиск товаров
     @RequestMapping("/searchProduct")
     public String search(@RequestParam("searchText") String searchText,
                          Model model){
@@ -198,7 +206,7 @@ public class CMSController {
 
         return "admin-pages/admin-products-view";
     }
-
+    //форма товара
     @RequestMapping(value = "/product")
     public String productView(Model model){
         Product product = new Product();
@@ -206,28 +214,22 @@ public class CMSController {
         model.addAttribute("product", product);
 
         model.addAttribute("unitsMap", unitDao.getAll());
-        //model.addAttribute("unitsMap", unitDao.getMap());
         model.addAttribute("categoriesMap", categoryDao.getAll());
-        //model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getAll());
-        //model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
 
         return "admin-pages/admin-product-view";
     }
-
+    //сохранение товара
     @RequestMapping("/updateProduct")
     public String productViewById(@RequestParam("productId") int id, Model model){
         model.addAttribute("product", productDao.getById(id));
 
         model.addAttribute("unitsMap", unitDao.getAll());
-        //model.addAttribute("unitsMap", unitDao.getMap());
         model.addAttribute("categoriesMap", categoryDao.getAll());
-        //model.addAttribute("categoriesMap", categoryDao.getMap());
         model.addAttribute("manufacturersMap", manufacturerDao.getAll());
-        //model.addAttribute("manufacturersMap", manufacturerDao.getMap());
 
         model.addAttribute("attribute", new DetailsAttribute());
         model.addAttribute("detailsMap", parameterDao.getMap());
@@ -235,6 +237,7 @@ public class CMSController {
         return "admin-pages/admin-product-view";
     }
 
+    //сохранение товара
     @RequestMapping(value = "/saveProduct")
     public String saveProduct(@ModelAttribute("newProduct") Product product,
                               @RequestParam(value = "unit", defaultValue = "-1") int unitId,
@@ -242,22 +245,11 @@ public class CMSController {
                               @RequestParam(value = "manufacturer", defaultValue = "-1") int manufacturerId,
                               Model model) {
 
-        /*if (bindingResult.hasErrors()){
-            model.addAttribute("product", product);
-
-            model.addAttribute("unitsMap", unitDao.getMap());
-            model.addAttribute("categoriesMap", categoryDao.getMap());
-            model.addAttribute("manufacturersMap", manufacturerDao.getMap());
-
-            model.addAttribute("attribute", new DetailsAttribute());
-            model.addAttribute("detailsMap", parameterDao.getMap());
-
-            return "admin-pages/admin-product-view";
-        }*/
+        //проверка заполнения
         if(product.getName().equals("")){
             throw new RuntimeException("Заполните все значения");
         }
-
+        //проверка заполнения
         if (unitId != -1)
             product.setUnit(unitDao.getById(unitId));
         else
@@ -271,15 +263,14 @@ public class CMSController {
         else
             product.setManufacturer(null);
 
+        //валидация картинки
         product.setImageUrl(Validator.trimImageUrl(product.getImageUrl()));
-
-        System.out.println(product);
-
         productDao.save(product);
 
         return "redirect:/admin/products";
     }
 
+    //удаление товара
     @RequestMapping(value = "/deleteProduct")
     public String deleteProduct(@RequestParam("productId") int id) {
         try{
@@ -294,6 +285,7 @@ public class CMSController {
     //endregion
 
     //region Categories
+    //страница категории
     @RequestMapping("/category")
     public String newCategory(Model model){
         model.addAttribute("category", new Category());
@@ -301,13 +293,14 @@ public class CMSController {
         return "admin-pages/admin-category-view";
     }
 
+    //сохранение категории
     @RequestMapping("/updateCategory")
     public String updateCategory(Model model, @RequestParam("id") int id){
         model.addAttribute("category", categoryDao.getById(id));
 
         return "admin-pages/admin-category-view";
     }
-
+    //удаление категории
     @RequestMapping("/deleteCategory")
     public String deleteCategory(Model model, @RequestParam("categoryId") int id){
         try{
@@ -320,10 +313,9 @@ public class CMSController {
         return "redirect:/admin/products";
     }
 
+    //сохранение категории
     @RequestMapping(value = "/saveCategory")
     public String saveCategory(@ModelAttribute("newCategory") Category category){
-        System.out.println(category);
-
         category.setImageUrl(Validator.trimImageUrl(category.getImageUrl()));
 
         categoryDao.save(category);
@@ -361,6 +353,7 @@ public class CMSController {
         return "admin-pages/admin-orders-view";
     }
 
+    //страница заказа
     @RequestMapping("/order")
     private String orderView(@RequestParam("orderId") int id, Model model){
         Order order = orderDao.getById(id);
@@ -382,6 +375,7 @@ public class CMSController {
         return "admin-pages/admin-order-view";
     }
 
+    //удаление заказа
     @RequestMapping("/deleteOrder")
     private String deleteOrder(@RequestParam("orderId") int id){
         orderDao.delete(orderDao.getById(id));
@@ -389,6 +383,7 @@ public class CMSController {
         return "redirect:/admin/orders";
     }
 
+    //завершение заказа
     @RequestMapping("/confirmOrder")
     private String confirmOrder(@RequestParam("orderId") int id){
         Order order = orderDao.getById(id);
@@ -402,6 +397,7 @@ public class CMSController {
     //endregion
 
     //region Details
+    //виды характеристик
     @RequestMapping("/details")
     private String detailsView(Model model){
         model.addAttribute("newParameter", new DetailsParameter());
@@ -411,6 +407,7 @@ public class CMSController {
         return "admin-pages/admin-details-view";
     }
 
+    //сохранение
     @RequestMapping("/saveDetailsParameter")
     private String saveDetailsParameter(@ModelAttribute("newParameter") DetailsParameter detailsParameter,
                                         @RequestParam(value = "unit", defaultValue = "-1") int unitId,
@@ -430,6 +427,7 @@ public class CMSController {
         return "redirect:/admin/details";
     }
 
+    //удаление
     @RequestMapping("/deleteDetailsParameter")
     private String deleteDetailsParameter(@RequestParam("parameterId") int parameterId){
         try{
@@ -442,6 +440,7 @@ public class CMSController {
         return "redirect:/admin/details";
     }
 
+    //сохранение
     @RequestMapping("/saveDetailsAttribute")
     private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
             @RequestParam("parameter") int parameterId,
@@ -477,6 +476,7 @@ public class CMSController {
     //endregion
 
     //region Redactor
+    //редактор главной страницы
     @RequestMapping("/redactor")
     public String redactorView(Model model){
         model.addAttribute("newImage", new Image());
@@ -491,6 +491,7 @@ public class CMSController {
         return "admin-pages/admin-shop-redactor";
     }
 
+    //сохранение баннера
     @RequestMapping("/saveImage")
     private String saveMainPageImage(@ModelAttribute("newImage") Image image){
         image.setUrl(Validator.trimImageUrl(image.getUrl()));
@@ -500,6 +501,7 @@ public class CMSController {
         return "redirect:/admin/redactor";
     }
 
+    //удаление баннера
     @RequestMapping("/deleteImage")
     private String saveMainPageImage(@RequestParam("imageId") int imageId){
         imageDao.delete(imageDao.getById(imageId));
@@ -507,6 +509,7 @@ public class CMSController {
         return "redirect:/admin/redactor";
     }
 
+    //сохранение описания
     @RequestMapping(value = "/updateDescription")
     private String updateDescription(){
 
@@ -522,7 +525,7 @@ public class CMSController {
 
         return "redirect:/admin/redactor";
     }
-
+    //сохранение описания
     @RequestMapping("/saveDescription")
     private String saveDescription(@ModelAttribute("description") Metadata metaDesc){
         metadataDao.save(metaDesc);
@@ -533,16 +536,19 @@ public class CMSController {
     //endregion
 
     //region Reports
+    //отчёты
     @RequestMapping("/reports")
     public String reportsPage(){
         return "admin-pages/admin-reports-page";
     }
 
+    //отчёт о заказах
     @RequestMapping(value = "/ordersReport")
     private void getOrdersReportXls(HttpServletResponse response,
                                  @RequestParam(value = "start") String start,
                                  @RequestParam("end") String end){
 
+        //проверка заполнения
         if (start.equals("") || end.equals("")){
             throw new RuntimeException("Выберите период");
         }
@@ -645,16 +651,5 @@ public class CMSController {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        // return "redirect:/admin/reports";
     }
-    //endregion
-
-
-    /*@ExceptionHandler(Exception.class)
-    public void handleLinkException(Exception e){
-        throw new RuntimeException("Невозможно удалить объект, на запись сохранены ссылки");
-    }*/
-
-
 }
