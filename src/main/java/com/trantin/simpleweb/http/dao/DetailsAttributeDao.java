@@ -33,7 +33,8 @@ public class DetailsAttributeDao {
     }
 
 
+    @Transactional
     public void delete(int id) {
-        sessionFactory.getCurrentSession().delete(id);
+        sessionFactory.getCurrentSession().delete(getById(id));
     }
 }

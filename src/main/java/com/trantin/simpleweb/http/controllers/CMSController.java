@@ -440,7 +440,7 @@ public class CMSController {
         return "redirect:/admin/details";
     }
 
-    //сохранение
+    //сохранение для товара
     @RequestMapping("/saveDetailsAttribute")
     private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
             @RequestParam("parameter") int parameterId,
@@ -472,6 +472,25 @@ public class CMSController {
         attributeDao.save(attribute);
 
         return "redirect:/admin/updateProduct?productId=" + product.getId();
+    }
+
+    @RequestMapping("/deleteDetailsAttribute")
+    private String saveDetailsAttribute(/*@ModelAttribute("attribute") DetailsAttribute attribute,*/
+            @RequestParam("attributeId") int attributeId,
+            @RequestParam("productId") int productId,
+            Model model){
+
+        DetailsAttribute attr = attributeDao.getById(attributeId);
+        attr.setDetails(null);
+        attributeDao.save(attr);
+        attributeDao.delete(attr.getId());
+
+        /*Details details = productDao.getById(productId).getDetails();
+        details.getAttributes().remove(attributeDao.getById(attributeId));
+
+        detailsDao.save(details);*/
+
+        return "redirect:/admin/updateProduct?productId=" + productId;
     }
     //endregion
 

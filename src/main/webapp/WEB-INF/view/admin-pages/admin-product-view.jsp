@@ -174,7 +174,14 @@
                                     </div>
 
                                     <div class="order-delete-button table-cell">
-                                        <button></button>
+                                        <c:url var="attrDeleteButton" value="deleteDetailsAttribute">
+                                            <c:param name="productId" value="${product.id}"/>
+                                            <c:param name="attributeId" value="${attribute.id}"/>
+                                        </c:url>
+                                        <button onclick="window.location.href='${attrDeleteButton}'">
+                                            <img class="cart-delete-icon"
+                                                 src="<c:url value="/sources/images/garbage-trash-svgrepo-com.svg"/>" alt="">
+                                        </button>
                                     </div>
                                 </div>
                             </c:forEach>

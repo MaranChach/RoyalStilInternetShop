@@ -15,7 +15,7 @@ public class DetailsAttribute {
     private int id;
 
     @JoinColumn(name = "parameter_id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     private DetailsParameter parameter;
 
     @Column(name = "value")
@@ -29,7 +29,7 @@ public class DetailsAttribute {
     private Unit unit;
 
     @JoinColumn(name = "details_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
@@ -41,7 +41,6 @@ public class DetailsAttribute {
         this.parameter = name;
         this.value = value;
         this.unit = unit;
-        this.details = details;
     }
 
     @Override
