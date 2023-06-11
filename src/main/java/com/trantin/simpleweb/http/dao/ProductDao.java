@@ -59,6 +59,15 @@ public class ProductDao {
         return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE category.id = " + categoryId + " ORDER BY cost " + str, Product.class).getResultList();
     }
 
+    public List<Product> searchSortedByCost(String searchText, boolean isAsc) {
+        String str = "ASC";
+        if (!isAsc)
+            str = "DESC";
+
+        return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE lower(name) LIKE lower('%" + searchText + "%')" +
+                "OR lower(article) LIKE lower('%" + searchText + "%') ORDER BY cost " + str, Product.class).getResultList();
+    }
+
 
     public Product getById(int id) {
         return sessionFactory.getCurrentSession().createQuery("from Product where id = " + id, Product.class).getSingleResult();
@@ -104,7 +113,7 @@ public class ProductDao {
     public List<Product> search(String searchText){
 
         return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE lower(name) LIKE lower('%" + searchText + "%') " +
-                "OR lower(article) LIKE lower('%" + searchText + "%'); ", Product.class).getResultList();
+                "OR lower(article) LIKE lower('%" + searchText + "%') ", Product.class).getResultList();
 
     }
 

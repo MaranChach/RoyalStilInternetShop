@@ -31,7 +31,7 @@
             <img class="shop-logo-image" src="<c:url value="/sources/images/logo2.png"/>" alt="">
         </div>
     </div>
-        <form class="shop-search-bar" action="search">
+        <form class="shop-search-bar" action="category">
             <input name="searchText" placeholder="Поиск" type="search" class="shop-search text-item">
         </form>
     <div class="shop-phone-number-bar">

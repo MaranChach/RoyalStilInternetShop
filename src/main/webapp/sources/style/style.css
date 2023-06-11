@@ -1522,12 +1522,20 @@ body{
     width: 40%;
 }
 
-.shop-catalog-categories-bar{
+.shop-catalog-products-bar{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     /*justify-content: space-between;*/
     gap: 47px;
+}
+
+.shop-catalog-categories-bar{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    gap: 10px;
 }
 
 .shop-catalog-category{
@@ -2396,6 +2404,10 @@ body{
 
 
     .shop-catalog-categories-bar{
+        justify-content: space-around;
+    }
+
+    .shop-catalog-products-bar{
         justify-content: space-around;
     }
 

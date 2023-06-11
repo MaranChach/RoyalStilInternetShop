@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: tpant
-  Date: 3/3/2023
-  Time: 1:01 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -66,6 +59,7 @@
                     Сортировка
 
                     <input name="categoryId" type="hidden" value="${curCategory.id}">
+                    <input name="searchText" type="hidden" value="${searchText}">
 
                     <select id="sortSelect" onchange="document.forms[1].submit()" class="shop-sort-select text-main-12" name="sortType">
                         <option label="" value="none">
@@ -81,7 +75,7 @@
                 </form>
             </div>
 
-            <div class="shop-catalog-categories-bar">
+            <div class="shop-catalog-products-bar">
                 <c:forEach var="product" items="${products}">
                     <c:url var="productButton" value="product">
                         <c:param name="productId" value="${product.id}"/>

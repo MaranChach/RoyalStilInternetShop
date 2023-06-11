@@ -81,11 +81,11 @@
                                 <c:url var="productButton" value="product">
                                     <c:param name="productId" value="${item.product.id}"/>
                                 </c:url>
-                                <img onclick="incrementItem(${item.id})" class="shop-order-cart-change-button plus" height="25px" src="<c:url value="/sources/images/plus-button.png"/>">
-                                    <div id="itemCount" class="text-black">${item.number}</div>
-                                <img onclick="decrementItem(${item.id})" class="shop-order-cart-change-button minus" height="25px" src="<c:url value="/sources/images/minus-button.png"/>">
+                                <img onclick="" itemid="${item.id}" class="shop-order-cart-change-button plus" height="25px" src="<c:url value="/sources/images/plus-button.png"/>">
+                                    <div id="itemCount${item.id}" class="text-black">${item.number}</div>
+                                <img onclick="" itemid="${item.id}" class="shop-order-cart-change-button minus" height="25px" src="<c:url value="/sources/images/minus-button.png"/>">
                             </div>
-                            <div id="itemSum" class="shop-cart-item-cell cart-item-final-cost text-black">
+                            <div id="itemSum${item.id}" class="shop-cart-item-cell cart-item-final-cost text-black">
                                     ${item.number * item.product.cost}
                             </div>
                             <div class="shop-cart-item-cell cart-item-delete text-black">
@@ -170,15 +170,66 @@
 
 <script>
 
-    document.querySelector(".plus").addEventListener("click", function (e){
+    document.querySelectorAll(".plus").forEach((plus) => {
+        plus.addEventListener("click", function (e){
+            const id = e.target.getAttribute("itemid");
+            const countBar = document.getElementById("itemCount" + id);
+            const sumBar = document.getElementById("itemSum" + id);
+            const url = new URL(window.location).host;
 
+            const request = new XMLHttpRequest();
+            let answer;
+
+            request.onreadystatechange = function (){
+                if(this.readyState == 4 && this.status == 200){
+                    answer = this.responseText;
+                    let count = JSON.parse(answer);
+                    countBar.textContent = count[0];
+                    sumBar.textContent = count[1];
+                };
+            };
+
+            request.open("POST", "http://" + url + "/incrementItem?itemCartId=" + id, false);
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.send();
+        });
+    });
+
+    document.querySelectorAll(".minus").forEach((minus) => {
+        minus.addEventListener("click", function (e){
+            const id = e.target.getAttribute("itemid");
+            const countBar = document.getElementById("itemCount" + id);
+            const sumBar = document.getElementById("itemSum" + id);
+            const url = new URL(window.location).host;
+
+            const request = new XMLHttpRequest();
+            let answer;
+
+            request.onreadystatechange = function (){
+                if(this.readyState == 4 && this.status == 200){
+                    answer = this.responseText;
+                    let count = JSON.parse(answer);
+                    if (count == -1){
+                        countBar.textContent = "0";
+                        sumBar.textContent = "0";
+                        return;
+                    }
+                    countBar.textContent = count[0];
+                    sumBar.textContent = count[1]
+                };
+            };
+
+            request.open("POST", "http://" + url + "/decrementItem?itemCartId=" + id, false);
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.send();
+        });
     });
 
 
-    const countBar = document.getElementById("itemCount");
-    const sumBar = document.getElementById("itemSum");
-    const url = new URL(window.location).host;
-    function incrementItem (id){
+
+
+
+    /*function incrementItem (id){
         const request = new XMLHttpRequest();
         let answer;
 
@@ -217,7 +268,7 @@
         request.open("POST", "http://" + url + "/decrementItem?itemCartId=" + id, false);
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.send();
-    }
+    }*/
 </script>
 </body>
 </html>

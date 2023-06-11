@@ -98,32 +98,56 @@ public class ShopController {
 
     //Товары из категории
     @RequestMapping("/category")
-    public String getCategoryPage(@RequestParam("categoryId") int categoryId,
+    public String getCategoryPage(@RequestParam(value = "categoryId", defaultValue = "0") int categoryId,
+                                  @RequestParam(value = "searchText", defaultValue = "") String searchText,
                                   @RequestParam(value = "sortType", defaultValue = "none") String sortType,
                                   Model model){
-        //Проверка выбранной сортировки
-        switch (sortType){
-            case "none" : {
-                model.addAttribute("products",
-                        productDao.getByCategoryId(categoryId));
-                break;
+
+        if(categoryId != 0 && searchText.isEmpty()){
+            model.addAttribute("curCategory", categoryDao.getById(categoryId));
+            //Проверка выбранной сортировки
+            switch (sortType){
+                case "none" : {
+                    model.addAttribute("products",
+                            productDao.getByCategoryId(categoryId));
+                    break;
+                }
+                case "costAsc" : {
+                    model.addAttribute("products",
+                            productDao.getSortedByCost(categoryId, true));
+                    break;
+                }
+                case "costDesc" : {
+                    model.addAttribute("products",
+                            productDao.getSortedByCost(categoryId, false));
+                    break;
+                }
             }
-            case "costAsc" : {
-                model.addAttribute("products",
-                        productDao.getSortedByCost(categoryId, true));
-                break;
-            }
-            case "costDesc" : {
-                model.addAttribute("products",
-                        productDao.getSortedByCost(categoryId, false));
-                break;
+        }
+        else {
+            //Проверка выбранной сортировки
+            model.addAttribute("curCategory", new Category("Результаты поиска по запросу \"" + searchText + "\""));
+            switch (sortType){
+                case "none" : {
+                    model.addAttribute("products",
+                            productDao.search(searchText));
+                    break;
+                }
+                case "costAsc" : {
+                    model.addAttribute("products",
+                            productDao.searchSortedByCost(searchText, true));
+                    break;
+                }
+                case "costDesc" : {
+                    model.addAttribute("products",
+                            productDao.searchSortedByCost(searchText, false));
+                    break;
+                }
             }
         }
 
+        model.addAttribute("searchText", searchText);
         model.addAttribute("categories", categoryDao.getAll());
-
-        model.addAttribute("curCategory", categoryDao.getById(categoryId));
-
 
         return "shop-pages/shop-category-page";
     }
@@ -131,13 +155,29 @@ public class ShopController {
     //Список товаров по результатам поиска
     @RequestMapping("/search")
     public String search(@RequestParam("searchText") String searchText,
+                         @RequestParam(value = "sortType", defaultValue = "none") String sortType,
                          Model model){
 
         model.addAttribute("categories", categoryDao.getAll());
+        model.addAttribute("curCategory", new Category("Результаты поиска по запросу \"" + searchText + "\""));
 
-        model.addAttribute("curCategory", "Результаты поиска по запросу \"" + searchText + "\"");
-
-        model.addAttribute("products", productDao.searchByName(searchText));
+        switch (sortType){
+            case "none" : {
+                model.addAttribute("products",
+                        productDao.search(searchText));
+                break;
+            }
+            case "costAsc" : {
+                model.addAttribute("products",
+                        productDao.searchSortedByCost(searchText, true));
+                break;
+            }
+            case "costDesc" : {
+                model.addAttribute("products",
+                        productDao.searchSortedByCost(searchText, false));
+                break;
+            }
+        }
 
         return "shop-pages/shop-category-page";
     }
