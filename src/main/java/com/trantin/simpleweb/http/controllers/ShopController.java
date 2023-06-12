@@ -633,4 +633,9 @@ public class ShopController {
     public String getContactInfoPage(){
         return "shop-pages/shop-contacts-page";
     }
+
+    @RequestMapping("/testEmail")
+    public void testEmail(){
+        EmailUtil.sendOrderInfo("maran_chan@mail.ru", orderDao.getById(162));
+    }
 }

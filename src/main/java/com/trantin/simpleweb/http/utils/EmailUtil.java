@@ -21,7 +21,9 @@ import javax.mail.internet.MimeMultipart;
 public class EmailUtil {
 
     private static final String fromEmail = "trantin2003@mail.ru";
-    private final static String password = "79KAWJSim67Lht9m43Fj"; // correct password for gmail id
+    private final static String passwordOld = "sdXCmwa83MpUwCjfiHHD"; // correct password for gmail id
+
+    private final static String password = "qwerty";
     private static final String username = "maran";
 
     public static void sendAccountInfo(String toEmail, Client client, User user, String decryptedPassword){
@@ -30,10 +32,10 @@ public class EmailUtil {
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, password);
+                return new PasswordAuthentication(username, password);
             }
         };
-        Session session = Session.getDefaultInstance(getProps(), auth);
+        Session session = Session.getDefaultInstance(getPropsLocal(), auth);
         System.out.println("Session created");
 
         String emailBody = "";
@@ -54,10 +56,10 @@ public class EmailUtil {
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, password);
+                return new PasswordAuthentication(username, password);
             }
         };
-        Session session = Session.getDefaultInstance(getProps(), auth);
+        Session session = Session.getDefaultInstance(getPropsLocal(), auth);
         System.out.println("Session created");
 
         String emailBody = "";
@@ -115,6 +117,15 @@ public class EmailUtil {
                 "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
         props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
         props.put("mail.smtp.port", "465"); //SMTP Port
+
+        return props;
+    }
+
+    private static Properties getPropsLocal(){
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "localhost"); //SMTP Host
+        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
+        props.put("mail.smtp.port", "25"); //SMTP Port
 
         return props;
     }
