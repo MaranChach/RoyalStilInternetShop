@@ -89,9 +89,9 @@ public class Order {
             result += orderCart.getItems().get(i).getProduct().getCost() * orderCart.getItems().get(i).getNumber();
         }
 
-        String formatted = String.format("%.2f", result);
+        //String formatted = String.format("%.2f", result);
 
-        return Double.parseDouble(formatted);
+        return result;//Double.parseDouble(formatted);
     }
 
 

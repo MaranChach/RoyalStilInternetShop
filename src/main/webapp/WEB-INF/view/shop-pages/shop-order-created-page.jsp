@@ -13,7 +13,7 @@
         Информация отправлена на электронную почту
         <br>
         <br>
-        <a href="/">На главную</a>
+        <a style="text-align: center" href="/">На главную</a>
     </div>
 </body>
 </html>

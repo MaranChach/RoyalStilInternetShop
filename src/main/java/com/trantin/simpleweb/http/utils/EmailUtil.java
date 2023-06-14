@@ -20,11 +20,15 @@ import javax.mail.internet.MimeMultipart;
 
 public class EmailUtil {
 
-    private static final String fromEmail = "trantin2003@mail.ru";
+    private static final String fromEmailOld = "trantin2003@mail.ru";
+
+    private static final String fromEmail = "postmaster@dmosk.ru";
     private final static String passwordOld = "sdXCmwa83MpUwCjfiHHD"; // correct password for gmail id
 
     private final static String password = "qwerty";
     private static final String username = "maran";
+
+    private static final String usernameOld = "trantin2003@mail.ru";
 
     public static void sendAccountInfo(String toEmail, Client client, User user, String decryptedPassword){
         System.out.println("SSLEmail Start");

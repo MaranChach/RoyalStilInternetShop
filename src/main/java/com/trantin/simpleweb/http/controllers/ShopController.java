@@ -635,7 +635,13 @@ public class ShopController {
     }
 
     @RequestMapping("/testEmail")
-    public void testEmail(){
-        EmailUtil.sendOrderInfo("maran_chan@mail.ru", orderDao.getById(162));
+    public void testEmail(@RequestParam(value = "email", defaultValue = "maran_chan@vk.com") String email){
+        EmailUtil.sendOrderInfo(email, orderDao.getById(170));
+    }
+
+    @RequestMapping("/ordercreated")
+    public String  testordercreated(Model model){
+        model.addAttribute("order", orderDao.getById(170));
+        return "shop-pages/shop-order-created-page";
     }
 }
