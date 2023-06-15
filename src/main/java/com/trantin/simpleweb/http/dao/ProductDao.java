@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -66,6 +67,53 @@ public class ProductDao {
 
         return sessionFactory.getCurrentSession().createQuery("FROM Product WHERE lower(name) LIKE lower('%" + searchText + "%')" +
                 "OR lower(article) LIKE lower('%" + searchText + "%') ORDER BY cost " + str, Product.class).getResultList();
+    }
+
+    public List<Product> getByFilters(String searchText, int categoryId, int manufacturerId, String sortType){
+        String searchStr = "";
+        String cateroryFilterStr = "";
+        String manufacturerFilterStr = "";
+        String sortStr = "";
+
+        String whereStr = "";
+        boolean manyParams = false;
+
+        if(!searchText.isEmpty()){
+            whereStr = " WHERE ";
+            manyParams = true;
+            searchStr = " (lower(name) LIKE lower('%" + searchText + "%')" +
+                    " OR lower(article) LIKE lower('%" + searchText + "%')) ";
+        }
+        if(categoryId != 0){
+            whereStr = " WHERE ";
+            cateroryFilterStr = " category.id = " + categoryId + " ";
+            if (manyParams){
+                cateroryFilterStr = " AND " + cateroryFilterStr;
+            }
+            manyParams = true;
+        }
+        if(manufacturerId != -1){
+            whereStr = " WHERE ";
+            manufacturerFilterStr = " manufacturer.id = " + manufacturerId + " ";
+            if (manyParams){
+                manufacturerFilterStr = " AND " + manufacturerFilterStr;
+            }
+            manyParams = true;
+        }
+        if(!sortType.equals("none")){
+            if(sortType.equals("costAsc")){
+                sortStr = " ORDER BY cost ASC ";
+            }
+            else if(sortType.equals("costDesc")){
+                sortStr = " ORDER BY cost DESC ";
+            }
+        }
+
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Product " + whereStr + cateroryFilterStr + searchStr + manufacturerFilterStr + sortStr, Product.class);
+
+        System.out.println("FROM Product " + whereStr + cateroryFilterStr + searchStr + manufacturerFilterStr + sortStr);
+
+        return query.getResultList();
     }
 
 

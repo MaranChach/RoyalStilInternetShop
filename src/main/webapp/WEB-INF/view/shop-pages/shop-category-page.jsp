@@ -33,19 +33,39 @@
                     Фильтры
                 </div>
 
-                <div class="shop-categories-filters">
-
+                <form class="shop-categories-filters">
+                    <input type="hidden" name="categoryId" value="${curCategory.id}">
+                    <input type="hidden" name="sortType" value="${sortType}">
+                    <input type="hidden" name="searchText" value="${searchText}">
                     <div class="shop-filters">
-
+                        <div class="shop-filter">
+                            <div class="text-main-15 shop-filter-header">
+                                Производитель
+                            </div>
+                            <div class="shop-filter-value">
+                                <select class="filter-select attribute-value" name="manufacturerId">
+                                    <c:if test="${!empty curManufacturer}">
+                                        <option style="background-color: gainsboro" value="${curManufacturer.id}">
+                                            ${curManufacturer.name}
+                                        </option>
+                                    </c:if>
+                                    <c:forEach var="manufacturer" items="${manufacturers}">
+                                        <option value="${manufacturer.id}" label="">
+                                                ${manufacturer.name}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
 
                     <div class="shop-filters-buttons-bar">
-                        <button class="shop-filter-button shop-filter-apply">Применить</button>
+                        <input type="submit" value="Применить" class="shop-filter-button shop-filter-apply"></input>
 
                         <button class="shop-filter-button shop-filter-clear">Сбросить</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="shop-playground">
@@ -60,8 +80,9 @@
 
                     <input name="categoryId" type="hidden" value="${curCategory.id}">
                     <input name="searchText" type="hidden" value="${searchText}">
+                    <input name="manufacturerId" type="hidden" value="${curManufacturer.id}">
 
-                    <select id="sortSelect" onchange="document.forms[1].submit()" class="shop-sort-select text-main-12" name="sortType">
+                    <select id="sortSelect" onchange="document.forms[2].submit()" class="shop-sort-select text-main-12" name="sortType">
                         <option label="" value="none">
                             Нет
                         </option>

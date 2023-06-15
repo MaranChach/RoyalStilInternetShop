@@ -67,6 +67,9 @@ public class ShopController {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private ManufacturerDao manufacturerDao;
     //endregion
 
     @Autowired
@@ -101,9 +104,10 @@ public class ShopController {
     public String getCategoryPage(@RequestParam(value = "categoryId", defaultValue = "0") int categoryId,
                                   @RequestParam(value = "searchText", defaultValue = "") String searchText,
                                   @RequestParam(value = "sortType", defaultValue = "none") String sortType,
+                                  @RequestParam(value = "manufacturerId", defaultValue = "-1") int manufacturerId,
                                   Model model){
 
-        if(categoryId != 0 && searchText.isEmpty()){
+        /*if(categoryId != 0 && searchText.isEmpty()){
             model.addAttribute("curCategory", categoryDao.getById(categoryId));
             //Проверка выбранной сортировки
             switch (sortType){
@@ -144,10 +148,24 @@ public class ShopController {
                     break;
                 }
             }
+        }*/
+
+        if (!searchText.isEmpty()){
+            model.addAttribute("curCategory", new Category("Результаты поиска по запросу \"" + searchText + "\""));
+        }
+        if (categoryId != 0){
+            model.addAttribute("curCategory", categoryDao.getById(categoryId));
+        }
+        if (manufacturerId != -1){
+            model.addAttribute("curManufacturer", manufacturerDao.getById(manufacturerId));
         }
 
+        model.addAttribute("products", productDao.getByFilters(searchText, categoryId, manufacturerId, sortType));
+
         model.addAttribute("searchText", searchText);
+        model.addAttribute("sortType", sortType);
         model.addAttribute("categories", categoryDao.getAll());
+        model.addAttribute("manufacturers", manufacturerDao.getAll());
 
         return "shop-pages/shop-category-page";
     }

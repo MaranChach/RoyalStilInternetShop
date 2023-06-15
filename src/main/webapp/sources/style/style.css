@@ -1594,6 +1594,28 @@ body{
     height: 400px;
 }
 
+.shop-filter{
+    height: 80px;
+    width: 100%;
+    border-bottom: gainsboro 1px solid;
+}
+
+.shop-filter-header{
+    width: 100%;
+    height: 20px;
+    padding: 10px;
+}
+
+.shop-filter-value{
+    width: 100%;
+    height: 40px;
+}
+
+.filter-select{
+    width: 80%;
+    margin-left: 10px;
+}
+
 .shop-filter-button{
     width: 90px;
     height: 40px;
@@ -2378,7 +2400,7 @@ body{
 
     .shop-footer{
         width: 100%;
-        height: 280px;
+        height: 340px;
         min-width: 100%;
     }
 
@@ -2388,10 +2410,12 @@ body{
 
     .shop-catalog-sorter-bar{
         width: 80%;
+        margin-left: 20px;
     }
 
     .shop-sort-select{
         width: 40%;
+        margin-right: 30px;
     }
 
     .shop-catalog-header{
